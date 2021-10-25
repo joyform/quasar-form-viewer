@@ -1,13 +1,13 @@
-# Quasar App Extension qgrid
+# Quasar App Extension tyformviewer
 
 > Add a short description of your App Extension. What does it do? How is it beneficial? Why would someone want to use it?
 
-[![npm](https://img.shields.io/npm/v/quasar-app-extension-qgrid.svg?label=quasar-app-extension-qgrid)](https://www.npmjs.com/package/quasar-app-extension-qgrid)
-[![npm](https://img.shields.io/npm/dt/quasar-app-extension-qgrid.svg)](https://www.npmjs.com/package/quasar-app-extension-qgrid)
+[![npm](https://img.shields.io/npm/v/quasar-app-extension-tyformviewer.svg?label=quasar-app-extension-tyformviewer)](https://www.npmjs.com/package/quasar-app-extension-tyformviewer)
+[![npm](https://img.shields.io/npm/dt/quasar-app-extension-tyformviewer.svg)](https://www.npmjs.com/package/quasar-app-extension-tyformviewer)
 
 # Install
 ```bash
-quasar ext add qgrid
+quasar ext add tyformviewer
 ```
 Quasar CLI will retrieve it from NPM and install the extension.
 
@@ -17,7 +17,7 @@ Quasar CLI will retrieve it from NPM and install the extension.
 
 # Uninstall
 ```bash
-quasar ext remove qgrid
+quasar ext remove tyformviewer
 ```
 
 # Info

@@ -40,6 +40,7 @@ const builds = [
       },
       output: {
         file: pathResolve('../dist/index.esm.js'),
+        inlineDynamicImports: true,
         format: 'es'
       }
     },
@@ -55,6 +56,7 @@ const builds = [
       },
       output: {
         file: pathResolve('../dist/index.common.js'),
+        inlineDynamicImports: true,
         format: 'cjs'
       }
     },
@@ -69,8 +71,9 @@ const builds = [
         input: pathResolve('../src/index.umd.js')
       },
       output: {
-        name: 'QGrid',
+        name: 'TyFormViewer',
         file: pathResolve('../dist/index.umd.js'),
+        inlineDynamicImports: true,
         format: 'umd'
       }
     },
@@ -118,7 +121,7 @@ function addAssets (builds, type, injectName) {
           output: {
             file: addExtension(pathResolve(`../dist/${type}/${file}`), 'umd'),
             format: 'umd',
-            name: `QGrid.${injectName}.${name}`
+            name: `TyFormViewer.${injectName}.${name}`
           }
         },
         build: {

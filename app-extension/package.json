@@ -1,8 +1,8 @@
 {
-  "name": "quasar-app-extension-qgrid",
-  "version": "1.0.0-alpha.1",
+  "name": "quasar-app-extension-tyformviewer",
+  "version": "0.1.8",
   "description": "A Quasar App Extension",
-  "author": "pratikpatelpp802@gmail.com",
+  "author": "dan@typefully.io",
   "license": "MIT",
   "main": "src/index.js",
   "repository": {
@@ -12,7 +12,7 @@
   "bugs": "",
   "homepage": "",
   "dependencies": {
-    "quasar-ui-qgrid": "^1.0.0-alpha.3"
+    "quasar-ui-tyformviewer": "^0.1.7"
   },
   "engines": {
     "node": ">= 8.9.0",

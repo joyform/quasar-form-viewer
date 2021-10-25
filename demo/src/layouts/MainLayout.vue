@@ -13,7 +13,7 @@
 
         <div v-if="$q.screen.width > 500">
           <span style="font-size: 20px;">
-            QGrid &nbsp;
+            TyFormViewer &nbsp;
           </span>
         </div>
 
@@ -34,7 +34,7 @@
     >
       <q-list>
         <q-expansion-item dense style="font-size: 12px;"
-                          label="All about QGrid"
+                          label="All about TyFormViewer"
                           header-class="text-primary" :expanded-icon="biCaretUp" :expand-icon="biCaretDown"
                           expand-icon-class="text-primary')"
         >
@@ -42,7 +42,7 @@
             <q-list>
               <q-item class="text-primary q-ml-md" :active-class="$route.path=='/'?'bg-grey-3':''" to="/" dense clickable>
                 <q-item-section>
-                  What is QGrid
+                  What is TyFormViewer
                 </q-item-section>
               </q-item>
             </q-list>
@@ -54,44 +54,9 @@
                           expand-icon-class="text-primary')"
         >
           <q-card class="bg-transparent">
-            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qgrid-basic'?'bg-grey-3':''" to="/example-qgrid-basic" dense clickable>
+            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-tyformviewer-basic'?'bg-grey-3':''" to="/example-tyformviewer-basic" dense clickable>
               <q-item-section>
-                QGrid Basic
-              </q-item-section>
-            </q-item>
-            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qgrid-column-filter'?'bg-grey-3':''" to="/example-qgrid-column-filter" dense clickable>
-              <q-item-section>
-                QGrid Column Filter
-              </q-item-section>
-            </q-item>
-            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qgrid-header-filter'?'bg-grey-3':''" to="/example-qgrid-header-filter" dense clickable>
-              <q-item-section>
-                QGrid Header Filter
-              </q-item-section>
-            </q-item>
-            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qgrid-custom-column'?'bg-grey-3':''" to="/example-qgrid-custom-column" dense clickable>
-              <q-item-section>
-                QGrid Custom Column
-              </q-item-section>
-            </q-item>
-            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qgrid-draggable-rows'?'bg-grey-3':''" to="/example-qgrid-draggable-rows" dense clickable>
-              <q-item-section>
-                QGrid Draggable Rows
-              </q-item-section>
-            </q-item>
-            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qgrid-slot-demo'?'bg-grey-3':''" to="/example-qgrid-slot-demo" dense clickable>
-              <q-item-section>
-                QGrid Slot Demo
-              </q-item-section>
-            </q-item>
-            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qgrid-select-column-filter'?'bg-grey-3':''" to="/example-qgrid-select-column-filter" dense clickable>
-              <q-item-section>
-                QGrid Select Column Filter
-              </q-item-section>
-            </q-item>
-            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qgrid-grouping'?'bg-grey-3':''" to="/example-qgrid-grouping" dense clickable>
-              <q-item-section>
-                QGrid Grouping Example
+                TyFormViewer Basic
               </q-item-section>
             </q-item>
           </q-card>
@@ -146,7 +111,7 @@
 
     <q-footer elevated class="glass" style="background-color: #77a2e1">
       <q-toolbar>
-        <div class="full-width text-center">This documentation site for QGrid is a work in progress. If you see something missing or inaccurate, please create a PR on the <markdown-link to="https://github.com/pratik227/quasar-qgrid/tree/next" style="color: white;">GitHub repo</markdown-link>.</div>
+        <div class="full-width text-center">This documentation site for TyFormViewer is a work in progress. If you see something missing or inaccurate, please create a PR on the <markdown-link to="https://github.com/typefullyio/quasar-app-extension-form-viewer/tree/next" style="color: white;">GitHub repo</markdown-link>.</div>
       </q-toolbar>
     </q-footer>
 

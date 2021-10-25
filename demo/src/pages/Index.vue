@@ -23,7 +23,7 @@
       </q-markdown>
 
       <json-api-viewer
-        title="QGrid API"
+        title="TyFormViewer API"
         :json="json"
         starting-tab="General"
         no-menu
@@ -38,7 +38,7 @@
 import {defineComponent, ref, defineAsyncComponent} from 'vue';
 import {useRoute} from 'vue-router'
 import MarkdownLink from "components/MarkdownLink";
-import markdown from '../markdown/qgrid.md'
+import markdown from '../markdown/tyformviewer.md'
 
 import {
   mdiCharity
@@ -262,22 +262,22 @@ const json = {
 }
 import md from "markdown-it";
 
-let mds_data = "# QGrid\n" +
+let mds_data = "# TyFormViewer\n" +
   "\n" +
-  "QGrid is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction).  It allows you to filter data for each column, Drag and Drop Rows and also allows you to filter data using header filters. \n" +
+  "TyFormViewer is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction).  It allows you to filter data for each column, Drag and Drop Rows and also allows you to filter data using header filters. \n" +
   "## Install\n" +
   "\n" +
   "To add this App Extension to your Quasar application, run the following (in your Quasar app folder):\n" +
   "\n" +
   "```bash\n" +
-  "quasar ext add qgrid\n" +
+  "quasar ext add tyformviewer\n" +
   "```\n" +
   "\n" +
   "# Uninstall\n" +
   "To remove this App Extension from your Quasar application, run the following (in your Quasar app folder):\n" +
   "\n" +
   "```\n" +
-  "quasar ext remove qgrid\n" +
+  "quasar ext remove tyformviewer\n" +
   "```\n" +
   "\n" +
   "\n" +
@@ -354,32 +354,19 @@ let mds_data = "# QGrid\n" +
   "\n" +
   "# Source\n" +
   "\n" +
-  "can be found [here](https://github.com/pratik227/quasar-qgrid).\n" +
+  "can be found [here](https://github.com/typefullyio/quasar-app-extension-form-viewer).\n" +
   "\n" +
   "# Docs\n" +
   "\n" +
-  "can be found [here](https://next-quasar-qgrid.netlify.app/).\n" +
+  "can be found [here]().\n" +
   "\n" +
   "# Examples\n" +
   "\n" +
-  "can be found [here](https://next-quasar-qgrid.netlify.app/).\n" +
+  "can be found [here]().\n" +
   "\n" +
   "# Demo (source) Project.\n" +
   "\n" +
-  "can be found [here](https://github.com/pratik227/quasar-qgrid/tree/next/demo).\n" +
-  "\n" +
-  "\n" +
-  "# Support\n" +
-  "\n" +
-  "If this helped you in any way, you can contribute to the package's long term survival by supporting me:\n" +
-  "\n" +
-  "### [💜 Support my open-source work on GitHub](https://github.com/sponsors/pratik227)\n" +
-  "\n" +
-  "Be sure to check out my sponsor page.\n" +
-  "\n" +
-  "(GitHub currently **doubles your support**! So if you support me with $10/mo, I will get $20 instead! They're alchemists 😉)\n" +
-  "\n" +
-  "Thank you so much!!!\n"
+  "can be found [here]().\n"
 
 export default defineComponent({
   name: 'PageIndex',
@@ -400,7 +387,7 @@ export default defineComponent({
       columns,
       data,
       path,
-      title: 'What is QGrid',
+      title: 'What is TyFormViewer',
       year,
       json,
       md_data: '',

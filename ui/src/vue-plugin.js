@@ -1,15 +1,15 @@
-import QGrid from './components/QGrid.vue'
+import TyFormViewer from './components/TyFormViewer.vue'
 
 import pkg from '../package.json'
 const { version } = pkg
 
 function install (app) {
-  app.component(QGrid.name, QGrid)
+  app.component(TyFormViewer.name, TyFormViewer)
 }
 
 export {
   version,
-  QGrid,
+  TyFormViewer,
 
   install
 }

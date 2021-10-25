@@ -11,7 +11,7 @@
         />
 
         <q-toolbar-title>
-          quasar-ui-qgrid v{{ version }}
+          quasar-ui-tyformviewer v{{ version }}
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>

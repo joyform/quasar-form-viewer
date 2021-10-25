@@ -1,11 +1,11 @@
-# Component QGrid
+# Component TyFormViewer
 
-[![npm](https://img.shields.io/npm/v/quasar-ui-qgrid.svg?label=quasar-ui-qgrid)](https://www.npmjs.com/package/quasar-ui-qgrid)
-[![npm](https://img.shields.io/npm/dt/quasar-ui-qgrid.svg)](https://www.npmjs.com/package/quasar-ui-qgrid)
+[![npm](https://img.shields.io/npm/v/quasar-ui-tyformviewer.svg?label=quasar-ui-tyformviewer)](https://www.npmjs.com/package/quasar-ui-tyformviewer)
+[![npm](https://img.shields.io/npm/dt/quasar-ui-tyformviewer.svg)](https://www.npmjs.com/package/quasar-ui-tyformviewer)
 
 **Compatible with Quasar UI v2 and Vue 3**.
 
-# Component QGrid
+# Component TyFormViewer
 > Short description of the component
 
 
@@ -21,7 +21,7 @@ Create and register a boot file:
 
 ```js
 import Vue from 'vue'
-import Plugin from 'quasar-ui-qgrid'
+import Plugin from 'quasar-ui-tyformviewer'
 
 Vue.use(Plugin)
 ```
@@ -30,11 +30,11 @@ Vue.use(Plugin)
 
 ```html
 <script>
-import { Component as QGrid } from 'quasar-ui-qgrid'
+import { Component as TyFormViewer } from 'quasar-ui-tyformviewer'
 
 export default {
   components: {
-    QGrid
+    TyFormViewer
   }
 }
 </script>
@@ -44,7 +44,7 @@ export default {
 
 ```js
 import Vue from 'vue'
-import Plugin from 'quasar-ui-qgrid'
+import Plugin from 'quasar-ui-tyformviewer'
 
 Vue.use(Plugin)
 ```
@@ -53,11 +53,11 @@ Vue.use(Plugin)
 
 ```html
 <script>
-import { Component as QGrid } from 'quasar-ui-qgrid'
+import { Component as TyFormViewer } from 'quasar-ui-tyformviewer'
 
 export default {
   components: {
-    QGrid
+    TyFormViewer
   }
 }
 </script>
@@ -65,14 +65,14 @@ export default {
 
 ## UMD variant
 
-Exports `window.QGrid`.
+Exports `window.TyFormViewer`.
 
 Add the following tag(s) after the Quasar ones:
 
 ```html
 <body>
   <!-- at end of body, AFTER Quasar script(s): -->
-  <script src="https://cdn.jsdelivr.net/npm/quasar-ui-qgrid/dist/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar-ui-tyformviewer/dist/index.umd.min.js"></script>
 </body>
 ```
 

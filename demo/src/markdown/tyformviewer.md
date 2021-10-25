@@ -1,19 +1,19 @@
-# QGrid
+# TyFormViewer
 
-QGrid is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction).  It allows you to filter data for each column, Drag and Drop Rows and also allows you to filter data using header filters. 
+TyFormViewer is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction).  It allows you to filter data for each column, Drag and Drop Rows and also allows you to filter data using header filters. 
 ## Install
 
 To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
 
 ```bash
-quasar ext add qgrid
+quasar ext add tyformviewer
 ```
 
 # Uninstall
 To remove this App Extension from your Quasar application, run the following (in your Quasar app folder):
 
 ```
-quasar ext remove qgrid
+quasar ext remove tyformviewer
 ```
 
 
@@ -90,29 +90,16 @@ quasar ext remove qgrid
 
 # Source
 
-can be found [here](https://github.com/pratik227/quasar-qgrid).
+can be found [here](https://github.com/typefullyio/quasar-app-extension-form-viewer).
 
 # Docs
 
-can be found [here](https://quasar-qgrid.netlify.com).
+can be found [here]().
 
 # Examples
 
-can be found [here](https://quasar-qgrid.netlify.com/examples).
+can be found [here]().
 
 # Demo (source) Project.
 
-can be found [here](https://github.com/pratik227/quasar-qgrid/tree/master/demo).
-
-
-# Support
-
-If this helped you in any way, you can contribute to the package's long term survival by supporting me:
-
-### [💜 Support my open-source work on GitHub](https://github.com/sponsors/pratik227)
-
-Be sure to check out my sponsor page.
-
-(GitHub currently **doubles your support**! So if you support me with $10/mo, I will get $20 instead! They're alchemists 😉)
-
-Thank you so much!!!
+can be found [here]().

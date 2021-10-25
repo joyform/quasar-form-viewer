@@ -1,12 +1,13 @@
 {
-  "name": "quasar-ui-qgrid",
-  "version": "1.0.0-alpha.3",
-  "author": "pratikpatelpp802@gmail.com",
-  "description": "QGrid",
+  "name": "quasar-ui-tyformviewer",
+  "version": "0.1.8",
+  "author": "dan@typefully.io",
+  "description": "Form Viewer generator based on JSON config for typefully.io",
   "license": "MIT",
   "module": "dist/index.esm.js",
   "main": "dist/index.common.js",
   "scripts": {
+    "deploy": "npm run build && npm version patch && npm publish && cd ../app-extension && npm version patch && npm publish",
     "dev": "cd dev && yarn dev && cd ..",
     "dev:umd": "yarn build && node build/script.open-umd.js",
     "dev:ssr": "cd dev && yarn 'dev:ssr' && cd ..",

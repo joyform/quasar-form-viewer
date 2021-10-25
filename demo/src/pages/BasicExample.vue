@@ -9,7 +9,7 @@
       </div>
 
       <example-viewer
-        title="QGrid Basic"
+        title="TyFormViewer Basic"
         file="Basic"
       />
 
@@ -28,7 +28,7 @@ export default defineComponent({
   name: "BasicExample",
   setup(){
     return{
-      title:'QGrid Basic',
+      title:'TyFormViewer Basic',
       year,
       openLink(href) {
         window.open(href)
