@@ -1,48 +1,44 @@
 <template>
   <div class="flex flex-center" :style="pageStyle" style="padding-bottom:60px;">
     <q-form
-      :action="formSchema.form.actionUrl"
+      :action="reactiveFormSchema.form.actionUrl"
       method="post"
     >
       <div class="col" :style="wrapperStyle">
-        <h1 class="text-h4" v-if="page.header">{{page.header}}</h1>
-        <p class="text-subtitle2" v-if="page.subHeader">{{page.subHeader}}</p>
         <q-card
-          v-for="(section, sectionIdx) in page.sections"
-          :key="''+sectionIdx"
-          :flat="formSchema.theme.card.flat"
-          :square="formSchema.theme.card.square"
-          :bordered="formSchema.theme.card.bordered"
+          :flat="reactiveFormSchema.theme.card.flat"
+          :square="reactiveFormSchema.theme.card.square"
+          :bordered="reactiveFormSchema.theme.card.bordered"
           :style="cardStyle"
           class="q-my-lg"
         >
           <q-parallax
-            v-if="section.cover && section.cover.parallax"
-            :src="section.cover.backgroundImage"
-            :height="section.cover.height || 180"
+            v-if="page.cover && page.cover.parallax"
+            :src="page.cover.backgroundImage"
+            :height="page.cover.height || 180"
           >
             <div
               class="absolute-bottom q-pa-sm text-white"
               style="background-color: #00000088"
-              v-if="section.cover.header || section.cover.subHeader"
+              v-if="page.cover.header || page.cover.subHeader"
             >
-              <div class="text-h6" v-if="section.cover.header">{{ section.cover.header }}</div>
-              <div class="text-subtitle2" v-if="section.cover.subHeader">{{ section.cover.subHeader }}</div>
+              <div class="text-h6" v-if="page.cover.header">{{ page.cover.header }}</div>
+              <div class="text-subtitle2" v-if="page.cover.subHeader">{{ page.cover.subHeader }}</div>
             </div>
           </q-parallax>
           <q-img
-            v-if="section.cover && !section.cover.parallax && section.cover.backgroundImage"
-            :height="section.cover.height"
-            :src="section.cover.backgroundImage"
+            v-if="page.cover && !page.cover.parallax && page.cover.backgroundImage"
+            :height="page.cover.height"
+            :src="page.cover.backgroundImage"
           >
-            <div class="absolute-bottom" v-if="section.cover.header || section.cover.subHeader">
+            <div class="absolute-bottom" v-if="page.cover.header || page.cover.subHeader">
               <div class="text-h6">Our Changing Planet</div>
               <div class="text-subtitle2">by John Doe</div>
             </div>
           </q-img>
           <q-card-section>
             <block
-              v-for = "(block, idx) in section.blocks"
+              v-for = "(block, idx) in page.blocks"
               :key = "block.name || block.type + idx"
               :block-schema = "block"
             >
@@ -73,7 +69,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed, provide } from 'vue';
+import { defineComponent, ref, computed, provide, reactive } from 'vue';
 // import schema from '../sample';
 import { openURL, QForm, QCard, QParallax,QImg, QCardSection } from 'quasar';
 import Block from "./Block.vue";
@@ -92,21 +88,22 @@ export default defineComponent({
   setup (props) {
     // const formSchema = reactive(schema);
     const currentPage = ref(0);
-    const page = computed(() => props.formSchema.pages[currentPage.value])
-    provide('formSchema', props.formSchema);
+    const reactiveFormSchema = reactive(props.formSchema)
+    const page = computed(() => reactiveFormSchema.pages[currentPage.value])
+    provide('formSchema', reactiveFormSchema);
     const wrapperStyle = computed(() => ({
-      maxWidth: props.formSchema.theme.card.maxWidth + 'px',
+      maxWidth: reactiveFormSchema.theme.card.maxWidth + 'px',
       width: '100vw'
     }));
     const pageStyle = computed(() => ({
-      backgroundColor: props.formSchema.theme.page.backgroundColor || "#fff",
-      backgroundImage: props.formSchema.theme.page.backgroundImage ? `url("${props.formSchema.theme.page.backgroundImage}")` : null,
+      backgroundColor: reactiveFormSchema.theme.page.backgroundColor || "#fff",
+      backgroundImage: reactiveFormSchema.theme.page.backgroundImage ? `url("${reactiveFormSchema.theme.page.backgroundImage}")` : null,
       backgroundSize: "cover",
       backgroundAttachment: "fixed"
     }))
     const cardStyle = computed(() =>({
-      backgroundColor: props.formSchema.theme.card.backgroundColor || "#fff",
-      backdropFilter: props.formSchema.theme.card.backdrop
+      backgroundColor: reactiveFormSchema.theme.card.backgroundColor || "#fff",
+      backdropFilter: reactiveFormSchema.theme.card.backdrop
     }))
     const openTypefully = () => openURL('https://typefully.io');
     return {
@@ -115,7 +112,8 @@ export default defineComponent({
       cardStyle,
       openTypefully,
       currentPage,
-      page
+      page,
+      reactiveFormSchema
     }
   }
 })

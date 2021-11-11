@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.7
+ * quasar-ui-tyformviewer v0.1.11
  * (c) 2021 dan@typefully.io
  * Released under the MIT License.
  */
@@ -76,21 +76,22 @@
     setup: function setup (props) {
       // const formSchema = reactive(schema);
       var currentPage = vue.ref(0);
-      var page = vue.computed(function () { return props.formSchema.pages[currentPage.value]; });
-      vue.provide('formSchema', props.formSchema);
+      var reactiveFormSchema = vue.reactive(props.formSchema);
+      var page = vue.computed(function () { return reactiveFormSchema.pages[currentPage.value]; });
+      vue.provide('formSchema', reactiveFormSchema);
       var wrapperStyle = vue.computed(function () { return ({
-        maxWidth: props.formSchema.theme.card.maxWidth + 'px',
+        maxWidth: reactiveFormSchema.theme.card.maxWidth + 'px',
         width: '100vw'
       }); });
       var pageStyle = vue.computed(function () { return ({
-        backgroundColor: props.formSchema.theme.page.backgroundColor || "#fff",
-        backgroundImage: props.formSchema.theme.page.backgroundImage ? ("url(\"" + (props.formSchema.theme.page.backgroundImage) + "\")") : null,
+        backgroundColor: reactiveFormSchema.theme.page.backgroundColor || "#fff",
+        backgroundImage: reactiveFormSchema.theme.page.backgroundImage ? ("url(\"" + (reactiveFormSchema.theme.page.backgroundImage) + "\")") : null,
         backgroundSize: "cover",
         backgroundAttachment: "fixed"
       }); });
       var cardStyle = vue.computed(function () { return ({
-        backgroundColor: props.formSchema.theme.card.backgroundColor || "#fff",
-        backdropFilter: props.formSchema.theme.card.backdrop
+        backgroundColor: reactiveFormSchema.theme.card.backgroundColor || "#fff",
+        backdropFilter: reactiveFormSchema.theme.card.backdrop
       }); });
       var openTypefully = function () { return quasar.openURL('https://typefully.io'); };
       return {
@@ -99,39 +100,32 @@
         cardStyle: cardStyle,
         openTypefully: openTypefully,
         currentPage: currentPage,
-        page: page
+        page: page,
+        reactiveFormSchema: reactiveFormSchema
       }
     }
   });
 
   var _hoisted_1$3 = {
     key: 0,
-    class: "text-h4"
-  };
-  var _hoisted_2$1 = {
-    key: 1,
-    class: "text-subtitle2"
-  };
-  var _hoisted_3 = {
-    key: 0,
     class: "absolute-bottom q-pa-sm text-white",
     style: {"background-color":"#00000088"}
   };
-  var _hoisted_4 = {
+  var _hoisted_2$1 = {
     key: 0,
     class: "text-h6"
   };
-  var _hoisted_5 = {
+  var _hoisted_3 = {
     key: 1,
     class: "text-subtitle2"
   };
-  var _hoisted_6 = {
+  var _hoisted_4 = {
     key: 0,
     class: "absolute-bottom"
   };
-  var _hoisted_7 = /*#__PURE__*/vue.createVNode("div", { class: "text-h6" }, "Our Changing Planet", -1);
-  var _hoisted_8 = /*#__PURE__*/vue.createVNode("div", { class: "text-subtitle2" }, "by John Doe", -1);
-  var _hoisted_9 = /*#__PURE__*/vue.createVNode("div", { class: "q-mb-xs" }, "Make your own form with", -1);
+  var _hoisted_5 = /*#__PURE__*/vue.createVNode("div", { class: "text-h6" }, "Our Changing Planet", -1);
+  var _hoisted_6 = /*#__PURE__*/vue.createVNode("div", { class: "text-subtitle2" }, "by John Doe", -1);
+  var _hoisted_7 = /*#__PURE__*/vue.createVNode("div", { class: "q-mb-xs" }, "Make your own form with", -1);
 
   function render$6(_ctx, _cache, $props, $setup, $data, $options) {
     var _component_q_parallax = vue.resolveComponent("q-parallax");
@@ -146,7 +140,7 @@
       style: [_ctx.pageStyle, {"padding-bottom":"60px"}]
     }, [
       vue.createVNode(_component_q_form, {
-        action: _ctx.formSchema.form.actionUrl,
+        action: _ctx.reactiveFormSchema.form.actionUrl,
         method: "post"
       }, {
         default: vue.withCtx(function () { return [
@@ -154,90 +148,81 @@
             class: "col",
             style: _ctx.wrapperStyle
           }, [
-            (_ctx.page.header)
-              ? (vue.openBlock(), vue.createBlock("h1", _hoisted_1$3, vue.toDisplayString(_ctx.page.header), 1))
-              : vue.createCommentVNode("", true),
-            (_ctx.page.subHeader)
-              ? (vue.openBlock(), vue.createBlock("p", _hoisted_2$1, vue.toDisplayString(_ctx.page.subHeader), 1))
-              : vue.createCommentVNode("", true),
-            (vue.openBlock(true), vue.createBlock(vue.Fragment, null, vue.renderList(_ctx.page.sections, function (section, sectionIdx) {
-              return (vue.openBlock(), vue.createBlock(_component_q_card, {
-                key: ''+sectionIdx,
-                flat: _ctx.formSchema.theme.card.flat,
-                square: _ctx.formSchema.theme.card.square,
-                bordered: _ctx.formSchema.theme.card.bordered,
-                style: _ctx.cardStyle,
-                class: "q-my-lg"
-              }, {
-                default: vue.withCtx(function () { return [
-                  (section.cover && section.cover.parallax)
-                    ? (vue.openBlock(), vue.createBlock(_component_q_parallax, {
-                        key: 0,
-                        src: section.cover.backgroundImage,
-                        height: section.cover.height || 180
+            vue.createVNode(_component_q_card, {
+              flat: _ctx.reactiveFormSchema.theme.card.flat,
+              square: _ctx.reactiveFormSchema.theme.card.square,
+              bordered: _ctx.reactiveFormSchema.theme.card.bordered,
+              style: _ctx.cardStyle,
+              class: "q-my-lg"
+            }, {
+              default: vue.withCtx(function () { return [
+                (_ctx.page.cover && _ctx.page.cover.parallax)
+                  ? (vue.openBlock(), vue.createBlock(_component_q_parallax, {
+                      key: 0,
+                      src: _ctx.page.cover.backgroundImage,
+                      height: _ctx.page.cover.height || 180
+                    }, {
+                      default: vue.withCtx(function () { return [
+                        (_ctx.page.cover.header || _ctx.page.cover.subHeader)
+                          ? (vue.openBlock(), vue.createBlock("div", _hoisted_1$3, [
+                              (_ctx.page.cover.header)
+                                ? (vue.openBlock(), vue.createBlock("div", _hoisted_2$1, vue.toDisplayString(_ctx.page.cover.header), 1))
+                                : vue.createCommentVNode("", true),
+                              (_ctx.page.cover.subHeader)
+                                ? (vue.openBlock(), vue.createBlock("div", _hoisted_3, vue.toDisplayString(_ctx.page.cover.subHeader), 1))
+                                : vue.createCommentVNode("", true)
+                            ]))
+                          : vue.createCommentVNode("", true)
+                      ]; }),
+                      _: 1
+                    }, 8, ["src", "height"]))
+                  : vue.createCommentVNode("", true),
+                (_ctx.page.cover && !_ctx.page.cover.parallax && _ctx.page.cover.backgroundImage)
+                  ? (vue.openBlock(), vue.createBlock(_component_q_img, {
+                      key: 1,
+                      height: _ctx.page.cover.height,
+                      src: _ctx.page.cover.backgroundImage
+                    }, {
+                      default: vue.withCtx(function () { return [
+                        (_ctx.page.cover.header || _ctx.page.cover.subHeader)
+                          ? (vue.openBlock(), vue.createBlock("div", _hoisted_4, [
+                              _hoisted_5,
+                              _hoisted_6
+                            ]))
+                          : vue.createCommentVNode("", true)
+                      ]; }),
+                      _: 1
+                    }, 8, ["height", "src"]))
+                  : vue.createCommentVNode("", true),
+                vue.createVNode(_component_q_card_section, null, {
+                  default: vue.withCtx(function () { return [
+                    (vue.openBlock(true), vue.createBlock(vue.Fragment, null, vue.renderList(_ctx.page.blocks, function (block, idx) {
+                      return (vue.openBlock(), vue.createBlock(_component_block, {
+                        key: block.name || block.type + idx,
+                        "block-schema": block
                       }, {
-                        default: vue.withCtx(function () { return [
-                          (section.cover.header || section.cover.subHeader)
-                            ? (vue.openBlock(), vue.createBlock("div", _hoisted_3, [
-                                (section.cover.header)
-                                  ? (vue.openBlock(), vue.createBlock("div", _hoisted_4, vue.toDisplayString(section.cover.header), 1))
-                                  : vue.createCommentVNode("", true),
-                                (section.cover.subHeader)
-                                  ? (vue.openBlock(), vue.createBlock("div", _hoisted_5, vue.toDisplayString(section.cover.subHeader), 1))
-                                  : vue.createCommentVNode("", true)
-                              ]))
-                            : vue.createCommentVNode("", true)
-                        ]; }),
-                        _: 2
-                      }, 1032, ["src", "height"]))
-                    : vue.createCommentVNode("", true),
-                  (section.cover && !section.cover.parallax && section.cover.backgroundImage)
-                    ? (vue.openBlock(), vue.createBlock(_component_q_img, {
-                        key: 1,
-                        height: section.cover.height,
-                        src: section.cover.backgroundImage
-                      }, {
-                        default: vue.withCtx(function () { return [
-                          (section.cover.header || section.cover.subHeader)
-                            ? (vue.openBlock(), vue.createBlock("div", _hoisted_6, [
-                                _hoisted_7,
-                                _hoisted_8
-                              ]))
-                            : vue.createCommentVNode("", true)
-                        ]; }),
-                        _: 2
-                      }, 1032, ["height", "src"]))
-                    : vue.createCommentVNode("", true),
-                  vue.createVNode(_component_q_card_section, null, {
-                    default: vue.withCtx(function () { return [
-                      (vue.openBlock(true), vue.createBlock(vue.Fragment, null, vue.renderList(section.blocks, function (block, idx) {
-                        return (vue.openBlock(), vue.createBlock(_component_block, {
-                          key: block.name || block.type + idx,
-                          "block-schema": block
-                        }, {
-                          beforeblock: vue.withCtx(function (ref) {
-                            var blockSchema = ref.blockSchema;
-                            var el = ref.el;
-                            var hover = ref.hover;
+                        beforeblock: vue.withCtx(function (ref) {
+                          var blockSchema = ref.blockSchema;
+                          var el = ref.el;
+                          var hover = ref.hover;
 
-                            return [
-                            vue.renderSlot(_ctx.$slots, "beforeblock", {
-                              blockSchema: blockSchema,
-                              el: el,
-                              hover: hover
-                            })
-                          ];
-                        }),
-                          _: 2
-                        }, 1032, ["block-schema"]))
-                      }), 128))
-                    ]; }),
-                    _: 2
-                  }, 1024)
-                ]; }),
-                _: 2
-              }, 1032, ["flat", "square", "bordered", "style"]))
-            }), 128))
+                          return [
+                          vue.renderSlot(_ctx.$slots, "beforeblock", {
+                            blockSchema: blockSchema,
+                            el: el,
+                            hover: hover
+                          })
+                        ];
+                      }),
+                        _: 2
+                      }, 1032, ["block-schema"]))
+                    }), 128))
+                  ]; }),
+                  _: 1
+                })
+              ]; }),
+              _: 1
+            }, 8, ["flat", "square", "bordered", "style"])
           ], 4)
         ]; }),
         _: 1
@@ -254,7 +239,7 @@
           return (_ctx.openTypefully && _ctx.openTypefully.apply(_ctx, args));
     })
       }, [
-        _hoisted_9,
+        _hoisted_7,
         vue.createVNode(_component_q_img, {
           src: "typefully-logo-black.svg",
           height: "16px",
@@ -268,7 +253,7 @@
   script$6.render = render$6;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.7";
+  var version$1 = "0.1.11";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";

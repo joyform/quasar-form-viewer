@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-tyformviewer",
-  "version": "0.1.8",
+  "version": "0.1.12",
   "author": "dan@typefully.io",
   "description": "Form Viewer generator based on JSON config for typefully.io",
   "license": "MIT",
