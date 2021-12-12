@@ -1,14 +1,15 @@
 <template>
   <div>
-    <label>{{label}}</label>
+    <label :style="labelStyle" class="ty-label ty-label-top">{{label}}</label>
       <q-option-group
         :name = "name"
         :type = "type"
-        :readonly = "!!behavior.readOnly"
-        :disable = "!!behavior.disabled"
+        :readonly = "behavior.readOnly"
+        :disable = "behavior.disabled"
         :left-label = "labelSide === 'left'"
         :inline = "inline"
-        v-model = "val"
+        v-model = "modelValueRef"
+        @update:model-value = "onUpdate"
         :options = "options"
       >
       </q-option-group>
@@ -51,21 +52,30 @@ export default {
       default: () => []
     },
     hint: String,
-    validations: {
-      type: Array,
-      default: () => []
-    },
     behavior: {
       type: Object, /* readOnly, clearable, disabled, displayed, counter */
       default: () => ({})
-    }
+    },
+    modelValue: [String, Array]
   },
-  setup (props) {
-    const val = ref(props.type === 'radio' ? null : []);
+  emits: ['update:modelValue'],
+  setup (props, {emit}) {
     const formSchema = inject('formSchema');
+    const modelValueRef = ref(props.modelValue)
+    if (modelValueRef.value === null && props.type!=='radio') {
+      modelValueRef.value = []
+    }
+    const labelStyle = computed(() => {
+      return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
+    })
+    const onUpdate = (evt) => {
+      emit('update:modelValue', evt)
+    }
     return {
       formSchema,
-      val
+      labelStyle,
+      modelValueRef,
+      onUpdate
     }
   }
 }

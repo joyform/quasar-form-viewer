@@ -1,29 +1,26 @@
 <template>
   <div>
-    <label :for="id" v-if="formSchema.theme.inputs.labelStyle==='top'">{{label}}</label>
+    <label :for="id" v-if="formSchema.theme.inputs.labelStyle==='top'" :style="labelStyle" class="ty-label ty-label-top">{{label}}</label>
     <q-select
-      :filled = "formSchema.theme.inputs.filled"
       :label = "formSchema.theme.inputs.labelStyle !=='top' ? label : undefined"
-      :rounded = "formSchema.theme.inputs.rounded"
-      :outlined = "formSchema.theme.inputs.outlined"
+      :outlined = "formSchema.theme.inputs.style==='full'"
       :borderless = "formSchema.theme.inputs.borderless"
-      :square = "formSchema.theme.inputs.square"
       :stack-label = "formSchema.theme.inputs.labelStyle==='stacked'"
       :dense = "formSchema.theme.inputs.dense"
-      :clearable = "formSchema.theme.inputs.clearable || behavior && behavior.clearable"
+      :clearable = "behavior.clearable"
       :hint = "hint"
-      :counter = "!!behavior.counter"
+      :counter = "behavior.counter"
       :placeholder = "placeholder"
       :for = "id"
-      :readonly = "!!behavior.readOnly"
-      :disable = "!!behavior.disabled"
-      v-model = "val"
+      :readonly = "behavior.readOnly"
+      :disable = "behavior.disabled"
+      v-model = "modelValueRef"
+      @update:model-value = "onUpdate"
       :options = "options"
-      :multiple = "!!behavior.multiple"
-      :use-chips = "!!behavior.multiple"
+      :multiple = "behavior.multiple"
+      :use-chips = "behavior.multiple"
       :name = "name"
-      transition-show="scale"
-      transition-hide="scale"
+      class="ty-select"
     >
     </q-select>
   </div>
@@ -48,10 +45,6 @@ export default {
     label: String,
     hint: String,
     placeholder: String,
-    validations: {
-      type: Array,
-      default: () => []
-    },
     behavior: {
       type: Object, /* readOnly, clearable, disabled, displayed, counter */
       default: () => ({})
@@ -60,17 +53,27 @@ export default {
       type: Array,
       default: () => []
     },
+    modelValue: [Array, String]
   },
-  setup (props) {
-    const val = ref(null);
+  emits: ['update:modelValue'],
+  setup (props, {emit}) {
     const formSchema = inject('formSchema');
+    const modelValueRef = ref(props.modelValue)
     const id = computed(() => {
       return props.type + '_' + props.name
     });
+    const labelStyle = computed(() => {
+      return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
+    });
+    const onUpdate = (evt) => {
+      emit('update:modelValue', evt)
+    }
     return {
       formSchema,
+      labelStyle,
       id,
-      val
+      modelValueRef,
+      onUpdate
     }
   }
 }

@@ -1,29 +1,33 @@
 <template>
   <div
+      v-if="behavior.displayed"
       class="ty-block"
       style="position:relative"
       ref="el"
       @mouseover="hover = true"
       @mouseleave="hover = false"
   >
-    <slot name="beforeblock" :blockSchema="blockSchema" :el="el" :hover="hover">
+    <slot name="beforeblock" :blockSchema="schema" :el="el" :hover="hover">
     </slot>
     <component
-        :is = "'ty-' + blockSchema.type"
-        v-bind="blockSchema"
+        :is = "'ty-' + schema.type"
+        v-bind="schema"
+        v-bind:behavior="behavior"
         class="q-my-md"
+        v-model="modelValueRef"
+        @update:model-value="onUpdate"
     />
   </div>
 </template>
 
 <script>
-import { defineAsyncComponent, ref } from 'vue';
+import { defineAsyncComponent, ref, reactive, computed } from 'vue';
 
 export default {
   name: 'Block',
   components: {
-    TyWizard: defineAsyncComponent(() => import('./blocks/Wizard.vue')),
-    TySection: defineAsyncComponent(() => import('./blocks/Section.vue')),
+    // TyWizard: defineAsyncComponent(() => import('./blocks/Wizard.vue')),
+    // TySection: defineAsyncComponent(() => import('./blocks/Section.vue')),
     TyText: defineAsyncComponent(() => import('./blocks/TyInput.vue')),
     TyPassword: defineAsyncComponent(() => import('./blocks/TyInput.vue')),
     TyTextarea: defineAsyncComponent(() => import('./blocks/TyInput.vue')),
@@ -37,17 +41,39 @@ export default {
     TyCheckbox: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
     TyRadio: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
     TyToggle: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
+    TyHtml: defineAsyncComponent(() => import('./blocks/TyHtml.vue')),
   },
   props: {
-    blockSchema: Object
+    blockSchema: Object,
+    modelValue: [String, Boolean, Number, Array, Object]
   },
-
-  setup() {
+  emits: ['update:modelValue'],
+  setup(props, {emit}) {
     const el = ref(null);
     const hover = ref(false);
+    const schema = reactive(props.blockSchema)
+    const modelValueRef = ref(props.modelValue)
+    const behavior = computed(() => {
+      return {
+        readOnly: schema.behavior.readOnly === 'on',
+        required: schema.behavior.required === 'on',
+        clearable: schema.behavior.clearable === 'on', //TODO - or inherit from theme?
+        disabled: schema.behavior.disabled === 'on',
+        displayed: schema.behavior.displayed === 'on',
+        counter: schema.behavior.counter === 'on',
+        multiple: !!schema.behavior.multiple
+      }
+    })
+    const onUpdate = (evt) => {
+      emit('update:modelValue', evt)
+    }
     return {
       el,
-      hover
+      hover,
+      behavior,
+      schema,
+      modelValueRef,
+      onUpdate
     }
   }
 }
