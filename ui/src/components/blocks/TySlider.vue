@@ -2,7 +2,7 @@
   <div>
     <label :style="labelStyle" class="ty-label ty-label-top">{{label}}</label>
       <component
-        :is="range ? 'q-range' : 'q-slider' "
+        :is="componentType"
         :name = "name"
         :readonly = "behavior.readOnly"
         :disable = "behavior.disabled"
@@ -13,13 +13,12 @@
         :label = "showThumbLabel !== 'off'"
         :label-always = "showThumbLabel === 'always' "
         :label-value = "thumbLabelPrefix + modelValueRef + thumbLabelSuffix"
-        :left-label-value = "thumbLabelPrefix + modelValueRef.min + thumbLabelSuffix"
-        :right-label-value = "thumbLabelPrefix + modelValueRef.max + thumbLabelSuffix"
+        :left-label-value = "range ? thumbLabelPrefix + modelValueRef.min + thumbLabelSuffix : ''"
+        :right-label-value = "range ? thumbLabelPrefix + modelValueRef.max + thumbLabelSuffix : ''"
         :snap = "snap"
         :markers = "markers"
         class="q-mt-lg"
         v-model = "modelValueRef"
-        @update:model-value = "onUpdate"
       >
       </component>
       <div class="text-caption q-ml-sm text-grey-8" v-if="!!hint">{{hint}}</div>
@@ -29,12 +28,12 @@
 
 <script>
 import {inject, computed, ref } from 'vue';
+import {QRange} from 'quasar'
+import {QSlider} from 'quasar'
 
 export default {
   name: 'TySlider',
   components: {
-    // QSlider: defineAsyncComponent(() => import('quasar').QSlider),
-    // QRange: defineAsyncComponent(() => import('quasar').QRange)
   },
   props: {
     type: {
@@ -86,29 +85,45 @@ export default {
     snap: Boolean,
     markers: Boolean,
     range: Boolean,
-    modelValue: [Number, Object]
+    modelValue: {
+      type: [Number, Object]
+    }
   },
   setup (props, {emit}) {
     const formSchema = inject('formSchema');
-    const modelValueRef = ref(props.modelValue)
-    if (modelValueRef.value === null) {
-      modelValueRef.value = props.defaultValue !== undefined ? props.defaultValue : (props.range ? {min:props.min, max:props.max} : 50)
-    }
+    const modelValueRef = computed({
+      get: () => {
+        if (props.modelValue === null || props.modelValue === undefined) {
+          return props.defaultValue !== undefined && props.defaultValue !== null ?
+              props.defaultValue :
+              (props.range ? {min:props.min || 0, max:props.max || 100} : 50)
+        }
+        return props.modelValue
+      },
+      set: val => {
+        emit('update:modelValue', val)
+      }
+    })
     const labelStyle = computed(() => {
       return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
     })
     const id = computed(() => {
       return props.type + '_' + props.name
     });
-    const onUpdate = (evt) => {
-      emit('update:modelValue', evt)
-    }
+
+    const componentType = computed(() => {
+      if (props.range) {
+        return QRange // 'q-range' //() => import('quasar').QRange
+      }
+      return QSlider // 'q-slider' //() => import('quasar').QSlider
+
+    })
     return {
+      componentType,
       formSchema,
       labelStyle,
       id,
       modelValueRef,
-      onUpdate
     }
   }
 }

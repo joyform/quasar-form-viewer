@@ -36,7 +36,7 @@
     "chalk": "^4.1.0",
     "fs-extra": "^8.1.0",
     "open": "^7.3.0",
-    "quasar": "^2.0.0-beta.12",
+    "quasar": "^2.4.2",
     "rimraf": "^3.0.0",
     "rollup": "^2.45.0",
     "uglify-js": "^3.13.3",

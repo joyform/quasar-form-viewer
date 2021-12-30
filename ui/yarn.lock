@@ -601,10 +601,10 @@
     "nanoid" "^3.1.23"
     "source-map-js" "^0.6.2"
 
-"quasar@^2.0.0-beta.12":
-  "integrity" "sha512-0h+HMytYpWkmsRldFzJlPlfSoUjxKoCZB8dpK4UTsFdOfN3OLOEhHxxqfViC1MRqU4NnnO4/6PcP9khJiy9esQ=="
-  "resolved" "https://registry.npmjs.org/quasar/-/quasar-2.0.0-beta.19.tgz"
-  "version" "2.0.0-beta.19"
+"quasar@^2.4.2":
+  "integrity" "sha512-5fnWKg8yc1cGWE7sTt5FxfOqCtdxcy52pmxvpVGNy4TFNG0pC0FBuGR9toY/P1p7VoI422e89M9Ab/wkXcrRkQ=="
+  "resolved" "https://registry.npmjs.org/quasar/-/quasar-2.4.2.tgz"
+  "version" "2.4.2"
 
 "regenerate-unicode-properties@^8.0.2":
   "integrity" "sha512-F9DjY1vKLo/tPePDycuH3dn9H1OTPIkVD9Kz4LODu+F2C75mgjAJ7x/gwy6ZcSNRAAkhNlJSOHRe8k3p+K9WhA=="

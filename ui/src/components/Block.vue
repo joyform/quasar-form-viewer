@@ -38,6 +38,7 @@ export default {
     TyUrl: defineAsyncComponent(() => import('./blocks/TyInput.vue')),
     TySelect: defineAsyncComponent(() => import('./blocks/TySelect.vue')),
     TySlider: defineAsyncComponent(() => import('./blocks/TySlider.vue')),
+    TyRating: defineAsyncComponent(() => import('./blocks/TyRating.vue')),
     TyCheckbox: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
     TyRadio: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
     TyToggle: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
