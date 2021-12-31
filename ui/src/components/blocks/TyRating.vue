@@ -1,5 +1,5 @@
 <template>
-  <div class="col">
+  <div class="col ty-rating">
     <label :style="labelStyle" class="ty-label ty-label-top" style="display: block">{{label}}</label>
     <q-rating
         :name = "name"
@@ -49,7 +49,7 @@ export default {
     shape: {
       type: String,
       validator(value) {
-        return ['heart', 'star', 'thumb', 'battery', 'dice', 'emoji', 'gem', 'bulb', 'lemon', 'moon', 'sun', 'hand-spock'].includes(value)
+        return ['heart', 'star', 'thumb', 'battery', 'dice', 'emoji', 'gem', 'bulb', 'lemon', 'moon', 'sun', 'hand-spock', 'numeric'].includes(value)
       }
     },
     max: {
@@ -149,6 +149,11 @@ export default {
           iconSelected: 'fas fa-hand-spock',
           noDimming: true
         },
+        numeric: {
+          icon: ['mdi-number-1-box-outline'],
+          iconSelected: ['mdi-number-1-box'],
+          noDimming: true
+        },
       }[props.shape || 'star']
     })
     return {
@@ -163,8 +168,3 @@ export default {
   }
 }
 </script>
-<style scoped >
-:deep(.q-rating .q-rating__icon-container) {
-  margin-right: 8px
-}
-</style>

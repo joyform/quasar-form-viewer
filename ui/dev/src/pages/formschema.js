@@ -98,11 +98,12 @@ const formSchema = {
         "counter": "off"
       }
     }, {
-      "type": "address",
-      "name": "address",
-      "label": "What is your address?",
+      "type": "date",
+      "name": "date",
+      "label": "Choose a date",
       "hint": "",
       "placeholder": "",
+      "range": true,
       "validations": {"format": "anything"},
       "behavior": {
         "readOnly": "off",
@@ -113,9 +114,9 @@ const formSchema = {
         "counter": "off"
       }
     }, {
-      "type": "date",
-      "name": "date",
-      "label": "Choose a date",
+      "type": "address",
+      "name": "address",
+      "label": "What is your address?",
       "hint": "",
       "placeholder": "",
       "validations": {"format": "anything"},

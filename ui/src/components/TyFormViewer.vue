@@ -18,6 +18,9 @@
     .ty-back-btn {
       color: {{reactiveFormSchema.theme.buttons.backTextColor || '#000000'}}
     }
+    .ty-rating .q-rating .q-rating__icon-container {
+      margin-right: 10px
+    }
   </component>
   <div :class="{fullscreen: !embedded, 'fit':embedded}" :style="pageStyle" style="z-index: 1"></div>
   <div class="ty-main-page fit relative-position absolute" ref="mainPage"  style="z-index:5; bottom:0;top:0;right:0;left:0;">

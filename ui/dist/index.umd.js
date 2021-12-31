@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.46
+ * quasar-ui-tyformviewer v0.1.47
  * (c) 2021 dan@typefully.io
  * Released under the MIT License.
  */
@@ -10,7 +10,7 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.TyFormViewer = factory(global.Vue, global.Quasar));
 }(this, (function (vue, quasar) { 'use strict';
 
-  var script$6 = {
+  var script$7 = {
     name: 'Block',
     components: {
       // TyWizard: defineAsyncComponent(() => import('./blocks/Wizard.vue')),
@@ -25,6 +25,7 @@
       TyUrl: vue.defineAsyncComponent(function () { return Promise.resolve().then(function () { return TyInput; }); }),
       TySelect: vue.defineAsyncComponent(function () { return Promise.resolve().then(function () { return TySelect; }); }),
       TySlider: vue.defineAsyncComponent(function () { return Promise.resolve().then(function () { return TySlider; }); }),
+      TyRating: vue.defineAsyncComponent(function () { return Promise.resolve().then(function () { return TyRating; }); }),
       TyCheckbox: vue.defineAsyncComponent(function () { return Promise.resolve().then(function () { return TyOptionGroup; }); }),
       TyRadio: vue.defineAsyncComponent(function () { return Promise.resolve().then(function () { return TyOptionGroup; }); }),
       TyToggle: vue.defineAsyncComponent(function () { return Promise.resolve().then(function () { return TyOptionGroup; }); }),
@@ -67,7 +68,7 @@
     }
   };
 
-  function render$6(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$7(_ctx, _cache, $props, $setup, $data, $options) {
     return ($setup.behavior.displayed)
       ? (vue.openBlock(), vue.createBlock("div", {
           key: 0,
@@ -95,12 +96,12 @@
       : vue.createCommentVNode("", true)
   }
 
-  script$6.render = render$6;
+  script$7.render = render$7;
 
-  var script$5 = vue.defineComponent({
+  var script$6 = vue.defineComponent({
     name: 'TyFormViewer',
     components: {
-      Block: script$6, QForm: quasar.QForm, QCard: quasar.QCard, QParallax: quasar.QParallax,QImg: quasar.QImg, QCardSection: quasar.QCardSection
+      Block: script$7, QForm: quasar.QForm, QCard: quasar.QCard, QParallax: quasar.QParallax,QImg: quasar.QImg, QCardSection: quasar.QCardSection
     },
     props: {
       formSchema: {
@@ -298,12 +299,12 @@
     }
   });
 
-  var _hoisted_1$2 = {
+  var _hoisted_1$3 = {
     class: "ty-main-page fit relative-position absolute",
     ref: "mainPage",
     style: {"z-index":"5","bottom":"0","top":"0","right":"0","left":"0"}
   };
-  var _hoisted_2 = {
+  var _hoisted_2$1 = {
     key: 0,
     class: "absolute-bottom q-pa-sm text-white",
     style: {"background-color":"#00000088"}
@@ -335,7 +336,7 @@
     class: "text-subtitle2"
   };
 
-  function render$5(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$6(_ctx, _cache, $props, $setup, $data, $options) {
     var _component_q_parallax = vue.resolveComponent("q-parallax");
     var _component_q_img = vue.resolveComponent("q-img");
     var _component_block = vue.resolveComponent("block");
@@ -349,7 +350,7 @@
     return (vue.openBlock(), vue.createBlock(vue.Fragment, null, [
       (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent("style"), null, {
         default: vue.withCtx(function () { return [
-          vue.createTextVNode(" .q-field--outlined .q-field__control { border-radius: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.cornersRadius) + "px; } .q-field--outlined .q-field__control { background-color: rgba(" + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill < 0 ? '0,0,0' : '255,255,255') + "," + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill/100*(_ctx.reactiveFormSchema.theme.inputs.fill<0?-1:1)) + "); } .min-height-100p { min-height: 100%; } .full-height-100vh { min-height:100vh; } .ty-submit-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.textColor || '#000000') + " } .ty-back-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.backTextColor || '#000000') + " } ", 1)
+          vue.createTextVNode(" .q-field--outlined .q-field__control { border-radius: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.cornersRadius) + "px; } .q-field--outlined .q-field__control { background-color: rgba(" + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill < 0 ? '0,0,0' : '255,255,255') + "," + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill/100*(_ctx.reactiveFormSchema.theme.inputs.fill<0?-1:1)) + "); } .min-height-100p { min-height: 100%; } .full-height-100vh { min-height:100vh; } .ty-submit-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.textColor || '#000000') + " } .ty-back-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.backTextColor || '#000000') + " } .ty-rating .q-rating .q-rating__icon-container { margin-right: 10px } ", 1)
         ]; }),
         _: 1
       })),
@@ -357,7 +358,7 @@
         class: {fullscreen: !_ctx.embedded, 'fit':_ctx.embedded},
         style: [_ctx.pageStyle, {"z-index":"1"}]
       }, null, 6),
-      vue.createVNode("div", _hoisted_1$2, [
+      vue.createVNode("div", _hoisted_1$3, [
         vue.createVNode(_component_q_form, {
           action: _ctx.reactiveFormSchema.form.actionUrl,
           method: "post",
@@ -401,7 +402,7 @@
                                   }, {
                                     default: vue.withCtx(function () { return [
                                       (page.header || page.subHeader)
-                                        ? (vue.openBlock(), vue.createBlock("div", _hoisted_2, [
+                                        ? (vue.openBlock(), vue.createBlock("div", _hoisted_2$1, [
                                             (page.header)
                                               ? (vue.openBlock(), vue.createBlock("div", _hoisted_3, vue.toDisplayString(page.header), 1))
                                               : vue.createCommentVNode("", true),
@@ -524,10 +525,10 @@
     ], 64))
   }
 
-  script$5.render = render$5;
+  script$6.render = render$6;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.46";
+  var version$1 = "0.1.47";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";
@@ -563,7 +564,7 @@
   	chalk: "^4.1.0",
   	"fs-extra": "^8.1.0",
   	open: "^7.3.0",
-  	quasar: "^2.0.0-beta.12",
+  	quasar: "^2.4.2",
   	rimraf: "^3.0.0",
   	rollup: "^2.45.0",
   	"uglify-js": "^3.13.3",
@@ -599,17 +600,17 @@
   var version = pkg.version;
 
   function install (app) {
-    app.component(script$5.name, script$5);
+    app.component(script$6.name, script$6);
   }
 
   var VuePlugin = /*#__PURE__*/Object.freeze({
     __proto__: null,
     version: version,
-    TyFormViewer: script$5,
+    TyFormViewer: script$6,
     install: install
   });
 
-  var script$4 = {
+  var script$5 = {
     name: 'TyInput',
     components: {
     },
@@ -667,7 +668,7 @@
     }
   };
 
-  function render$4(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$5(_ctx, _cache, $props, $setup, $data, $options) {
     var _component_q_input = vue.resolveComponent("q-input");
 
     return (vue.openBlock(), vue.createBlock("div", null, [
@@ -704,14 +705,14 @@
     ]))
   }
 
-  script$4.render = render$4;
+  script$5.render = render$5;
 
   var TyInput = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    'default': script$4
+    'default': script$5
   });
 
-  var script$3 = {
+  var script$4 = {
     name: 'TySelect',
     components: {
     },
@@ -761,7 +762,7 @@
     }
   };
 
-  function render$3(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$4(_ctx, _cache, $props, $setup, $data, $options) {
     var _component_q_select = vue.resolveComponent("q-select");
 
     return (vue.openBlock(), vue.createBlock("div", null, [
@@ -800,18 +801,16 @@
     ]))
   }
 
-  script$3.render = render$3;
+  script$4.render = render$4;
 
   var TySelect = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    'default': script$3
+    'default': script$4
   });
 
-  var script$2 = {
+  var script$3 = {
     name: 'TySlider',
     components: {
-      // QSlider: defineAsyncComponent(() => import('quasar').QSlider),
-      // QRange: defineAsyncComponent(() => import('quasar').QRange)
     },
     props: {
       type: {
@@ -863,47 +862,63 @@
       snap: Boolean,
       markers: Boolean,
       range: Boolean,
-      modelValue: [Number, Object]
+      modelValue: {
+        type: [Number, Object]
+      }
     },
-    setup: function setup (props, ref$1) {
-      var emit = ref$1.emit;
+    setup: function setup (props, ref) {
+      var emit = ref.emit;
 
       var formSchema = vue.inject('formSchema');
-      var modelValueRef = vue.ref(props.modelValue);
-      if (modelValueRef.value === null) {
-        modelValueRef.value = props.defaultValue !== undefined ? props.defaultValue : (props.range ? {min:props.min, max:props.max} : 50);
-      }
+      var modelValueRef = vue.computed({
+        get: function () {
+          if (props.modelValue === null || props.modelValue === undefined) {
+            return props.defaultValue !== undefined && props.defaultValue !== null ?
+                props.defaultValue :
+                (props.range ? {min:props.min || 0, max:props.max || 100} : 50)
+          }
+          return props.modelValue
+        },
+        set: function (val) {
+          emit('update:modelValue', val);
+        }
+      });
       var labelStyle = vue.computed(function () {
         return {fontSize: (((100 + formSchema.theme.inputs.labelSize)/100) + "em")}
       });
       var id = vue.computed(function () {
         return props.type + '_' + props.name
       });
-      var onUpdate = function (evt) {
-        emit('update:modelValue', evt);
-      };
+
+      var componentType = vue.computed(function () {
+        if (props.range) {
+          return quasar.QRange // 'q-range' //() => import('quasar').QRange
+        }
+        return quasar.QSlider // 'q-slider' //() => import('quasar').QSlider
+
+      });
       return {
+        componentType: componentType,
         formSchema: formSchema,
         labelStyle: labelStyle,
         id: id,
         modelValueRef: modelValueRef,
-        onUpdate: onUpdate
       }
     }
   };
 
-  var _hoisted_1$1 = {
+  var _hoisted_1$2 = {
     key: 0,
     class: "text-caption q-ml-sm text-grey-8"
   };
 
-  function render$2(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$3(_ctx, _cache, $props, $setup, $data, $options) {
     return (vue.openBlock(), vue.createBlock("div", null, [
       vue.createVNode("label", {
         style: $setup.labelStyle,
         class: "ty-label ty-label-top"
       }, vue.toDisplayString($props.label), 5),
-      (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent($props.range ? 'q-range' : 'q-slider' ), {
+      (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent($setup.componentType), {
         name: $props.name,
         readonly: $props.behavior.readOnly,
         disable: $props.behavior.disabled,
@@ -914,26 +929,205 @@
         label: $props.showThumbLabel !== 'off',
         "label-always": $props.showThumbLabel === 'always' ,
         "label-value": $props.thumbLabelPrefix + $setup.modelValueRef + $props.thumbLabelSuffix,
-        "left-label-value": $props.thumbLabelPrefix + $setup.modelValueRef.min + $props.thumbLabelSuffix,
-        "right-label-value": $props.thumbLabelPrefix + $setup.modelValueRef.max + $props.thumbLabelSuffix,
+        "left-label-value": $props.range ? $props.thumbLabelPrefix + $setup.modelValueRef.min + $props.thumbLabelSuffix : '',
+        "right-label-value": $props.range ? $props.thumbLabelPrefix + $setup.modelValueRef.max + $props.thumbLabelSuffix : '',
         snap: $props.snap,
         markers: $props.markers,
         class: "q-mt-lg",
         modelValue: $setup.modelValueRef,
-        "onUpdate:modelValue": [
-          _cache[1] || (_cache[1] = function ($event) { return ($setup.modelValueRef = $event); }),
-          $setup.onUpdate
-        ]
-      }, null, 8, ["name", "readonly", "disable", "min", "max", "step", "reverse", "label", "label-always", "label-value", "left-label-value", "right-label-value", "snap", "markers", "modelValue", "onUpdate:modelValue"])),
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) { return ($setup.modelValueRef = $event); })
+      }, null, 8, ["name", "readonly", "disable", "min", "max", "step", "reverse", "label", "label-always", "label-value", "left-label-value", "right-label-value", "snap", "markers", "modelValue"])),
       (!!$props.hint)
-        ? (vue.openBlock(), vue.createBlock("div", _hoisted_1$1, vue.toDisplayString($props.hint), 1))
+        ? (vue.openBlock(), vue.createBlock("div", _hoisted_1$2, vue.toDisplayString($props.hint), 1))
+        : vue.createCommentVNode("", true)
+    ]))
+  }
+
+  script$3.render = render$3;
+
+  var TySlider = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    'default': script$3
+  });
+
+  var script$2 = {
+    name: 'TyRating',
+    components: {
+    },
+    props: {
+      type: {
+        type: String, /* slider */
+        required: true
+      },
+      name: {
+        type: String,
+        required: true
+      },
+      label: String,
+      hint: String,
+      size: {
+        String: String
+      },
+      behavior: {
+        type: Object, /* readOnly, clearable, disabled, displayed, counter */
+        default: function () { return ({}); }
+      },
+      defaultValue: Number,
+      shape: {
+        type: String,
+        validator: function validator(value) {
+          return ['heart', 'star', 'thumb', 'battery', 'dice', 'emoji', 'gem', 'bulb', 'lemon', 'moon', 'sun', 'hand-spock'].includes(value)
+        }
+      },
+      max: {
+        type: Number,
+        validator: function validator(value) {
+          return value >= 2 & value <= 14
+        }
+      },
+      modelValue: {
+        type: Number
+      }
+    },
+    setup: function setup (props, ref) {
+      var emit = ref.emit;
+
+      var formSchema = vue.inject('formSchema');
+      var modelValueComputed = vue.computed({
+        get: function () {
+          if (props.modelValue === null || props.modelValue === undefined) {
+            return props.defaultValue !== undefined && props.defaultValue !== null ?
+                props.defaultValue :
+                0
+          }
+          return props.modelValue
+        },
+        set: function (val) {
+          emit('update:modelValue', val);
+        }
+      });
+      var labelStyle = vue.computed(function () {
+        return {fontSize: (((100 + formSchema.theme.inputs.labelSize)/100) + "em")}
+      });
+      var id = vue.computed(function () {
+        return props.type + '_' + props.name
+      });
+      var sizeComputed = vue.computed(function () {
+        return props.size || '2em'
+      });
+      var maxComputed = vue.computed(function () {
+        return props.max || 5
+      });
+      var iconProps = vue.computed(function () {
+        return {
+          heart: {
+            icon: 'far fa-heart',
+            iconSelected: 'fas fa-heart',
+            noDimming: true
+          },
+          star: {
+            icon: 'far fa-star',
+            iconSelected: 'fas fa-star',
+            noDimming: true
+          },
+          thumb: {
+            icon: 'far fa-thumbs-up',
+            iconSelected: 'fas fa-thumbs-up',
+            noDimming: true
+          },
+          battery: {
+            icon: ['fas fa-battery-empty', 'fas fa-battery-quarter', 'fas fa-battery-half', 'fas fa-battery-three-quarters', 'fas fa-battery-full'],
+            noDimming: false
+          },
+          dice: {
+            icon: ['fas fa-dice-one','fas fa-dice-two','fas fa-dice-three','fas fa-dice-four','fas fa-dice-five','fas fa-dice-six'],
+            noDimming: false
+          },
+          emoji: {
+            icon: ['far fa-sad-tear', 'far fa-frown-open', 'far fa-meh', 'far fa-grin-alt', 'far fa-grin-stars'],
+            iconSelected: ['fas fa-sad-tear', 'fas fa-frown-open', 'fas fa-meh', 'fas fa-grin-alt', 'fas fa-grin-stars'],
+            noDimming: true
+          },
+          gem: {
+            icon: 'far fa-gem',
+            iconSelected: 'fas fa-gem',
+            noDimming: false
+          },
+          bulb: {
+            icon: 'far fa-lightbulb',
+            iconSelected: 'fas fa-lightbulb',
+            noDimming: true
+          },
+          lemon: {
+            icon: 'far fa-lemon',
+            iconSelected: 'fas fa-lemon',
+            noDimming: true
+          },
+          moon: {
+            icon: 'far fa-moon',
+            iconSelected: 'fas fa-moon',
+            noDimming: true
+          },
+          sun: {
+            icon: 'far fa-sun',
+            iconSelected: 'fas fa-sun',
+            noDimming: true
+          },
+          'hand-spock': {
+            icon: 'far fa-hand-spock',
+            iconSelected: 'fas fa-hand-spock',
+            noDimming: true
+          },
+        }[props.shape || 'star']
+      });
+      return {
+        formSchema: formSchema,
+        labelStyle: labelStyle,
+        id: id,
+        modelValueComputed: modelValueComputed,
+        sizeComputed: sizeComputed,
+        maxComputed: maxComputed,
+        iconProps: iconProps
+      }
+    }
+  };
+
+  var _hoisted_1$1 = { class: "col ty-rating" };
+  var _hoisted_2 = {
+    key: 0,
+    class: "text-caption q-ml-sm text-grey-8"
+  };
+
+  function render$2(_ctx, _cache, $props, $setup, $data, $options) {
+    var _component_q_rating = vue.resolveComponent("q-rating");
+
+    return (vue.openBlock(), vue.createBlock("div", _hoisted_1$1, [
+      vue.createVNode("label", {
+        style: [$setup.labelStyle, {"display":"block"}],
+        class: "ty-label ty-label-top"
+      }, vue.toDisplayString($props.label), 5),
+      vue.createVNode(_component_q_rating, {
+        name: $props.name,
+        readonly: $props.behavior.readOnly,
+        disable: $props.behavior.disabled,
+        class: "q-mt-md full-width",
+        modelValue: $setup.modelValueComputed,
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) { return ($setup.modelValueComputed = $event); }),
+        size: $setup.sizeComputed,
+        icon: $setup.iconProps.icon,
+        "icon-selected": $setup.iconProps.iconSelected,
+        "no-dimming": $setup.iconProps.noDimming,
+        max: $setup.maxComputed
+      }, null, 8, ["name", "readonly", "disable", "modelValue", "size", "icon", "icon-selected", "no-dimming", "max"]),
+      (!!$props.hint)
+        ? (vue.openBlock(), vue.createBlock("div", _hoisted_2, vue.toDisplayString($props.hint), 1))
         : vue.createCommentVNode("", true)
     ]))
   }
 
   script$2.render = render$2;
 
-  var TySlider = /*#__PURE__*/Object.freeze({
+  var TyRating = /*#__PURE__*/Object.freeze({
     __proto__: null,
     'default': script$2
   });

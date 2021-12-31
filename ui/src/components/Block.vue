@@ -43,6 +43,7 @@ export default {
     TyRadio: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
     TyToggle: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
     TyHtml: defineAsyncComponent(() => import('./blocks/TyHtml.vue')),
+    TyDate: defineAsyncComponent(() => import('./blocks/TyDate.vue')),
   },
   props: {
     blockSchema: Object,

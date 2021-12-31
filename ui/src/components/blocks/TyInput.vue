@@ -16,10 +16,14 @@
       :readonly = "behavior.readOnly"
       :disable = "behavior.disabled"
       :type = "type"
+      :mask="mask"
+      :fill-mask="fillMask"
       v-model = "modelValueRef"
       class = "ty-input"
-      @update:model-value = "onUpdate"
     >
+      <template v-slot:append>
+        <slot name="append"></slot>
+      </template>
     </q-input>
   </div>
 
@@ -45,6 +49,7 @@ export default {
       type: String,
       required: true
     },
+    fillMask: Boolean,
     label: String,
     hint: String,
     placeholder: String,
@@ -52,13 +57,17 @@ export default {
       type: Object, /* readOnly, clearable, disabled, displayed, counter */
       default: () => ({})
     },
-    modelValue: String
+    modelValue: String,
+    mask: String
   },
   emits: ['update:modelValue'],
   setup (props, {emit}) {
     const formSchema = inject('formSchema');
     // const formData = inject('formData');
-    const modelValueRef = ref(props.modelValue)
+    const modelValueRef = computed({
+      get: () => props.modelValue,
+      set: (val) => {emit('update:modelValue', val)}
+    })
     // const value = ref(formData[props.name]);
     const labelStyle = computed(() => {
       return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
@@ -69,9 +78,9 @@ export default {
     const id = computed(() => {
       return props.type + '_' + props.name
     });
-    const onUpdate = (evt) => {
-      emit('update:modelValue', evt)
-    }
+    // const onUpdate = (evt) => {
+    //   emit('update:modelValue', evt)
+    // }
     return {
       formSchema,
       labelStyle,
@@ -79,7 +88,7 @@ export default {
       // value,
       modelValueRef,
       // valueUpdated,
-      onUpdate
+      // onUpdate
     }
   }
 }
