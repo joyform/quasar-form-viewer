@@ -44,6 +44,7 @@ export default {
     TyToggle: defineAsyncComponent(() => import('./blocks/TyOptionGroup.vue')),
     TyHtml: defineAsyncComponent(() => import('./blocks/TyHtml.vue')),
     TyDate: defineAsyncComponent(() => import('./blocks/TyDate.vue')),
+    TySignature: defineAsyncComponent(() => import('./blocks/TySignature.vue')),
   },
   props: {
     blockSchema: Object,

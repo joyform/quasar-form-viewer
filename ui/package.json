@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-tyformviewer",
-  "version": "0.1.48",
+  "version": "0.1.51",
   "author": "dan@typefully.io",
   "description": "Form Viewer generator based on JSON config for typefully.io",
   "license": "MIT",
@@ -22,8 +22,10 @@
     "url": ""
   },
   "dependencies": {
-    "@vue/compiler-sfc": "^3.1.4",
+    "@vue/compiler-sfc": "^3.2.26",
+    "merge-images": "^2.0.0",
     "rollup-plugin-vue": "^6.0.0",
+    "signature_pad": "^4.0.0",
     "sortablejs": "^1.10.2"
   },
   "bugs": "",

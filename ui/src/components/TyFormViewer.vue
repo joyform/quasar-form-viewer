@@ -6,6 +6,11 @@
     .q-field--outlined .q-field__control {
       background-color: rgba({{reactiveFormSchema.theme.inputs.fill < 0 ? '0,0,0' : '255,255,255'}},{{reactiveFormSchema.theme.inputs.fill/100*(reactiveFormSchema.theme.inputs.fill<0?-1:1)}});
     }
+    .ty-signature canvas {
+      border-radius: {{reactiveFormSchema.theme.inputs.cornersRadius}}px;
+      border: 1px solid #c2c2c2;
+      background-color: #fff;
+    }
     .min-height-100p {
       min-height: 100%;
     }
@@ -143,7 +148,7 @@ import { defineComponent, ref, computed, provide, reactive, watch } from 'vue';
 // import schema from '../sample';
 import { openURL, QForm, QCard, QParallax,QImg, QCardSection } from 'quasar';
 import Block from "./Block.vue";
-import { useQuasar } from 'quasar'
+// import { useQuasar } from 'quasar'
 
 export default defineComponent({
   name: 'TyFormViewer',

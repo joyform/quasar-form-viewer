@@ -4,7 +4,7 @@ const fs = require('fs')
 const fse = require('fs-extra')
 const rollup = require('rollup')
 const uglify = require('uglify-js')
-const buble = require('@rollup/plugin-buble')
+// const buble = require('@rollup/plugin-buble')
 const json = require('@rollup/plugin-json')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const replace = require('@rollup/plugin-replace')
@@ -27,9 +27,9 @@ const rollupPlugins = [
   }),
   vuePlugin(),
   json(),
-  buble({
-    objectAssign: 'Object.assign'
-  })
+  // buble({
+  //   objectAssign: 'Object.assign'
+  // })
 ]
 
 const builds = [
@@ -103,7 +103,8 @@ function pathResolve (_path) {
 function addAssets (builds, type, injectName) {
   const
     files = fs.readdirSync(pathResolve('../../ui/src/components/' + type)),
-    plugins = [ buble(bubleConfig) ],
+    // plugins = [ buble(bubleConfig) ],
+    plugins = [],
     outputDir = pathResolve(`../dist/${type}`)
 
     fse.mkdirp(outputDir)
