@@ -58,33 +58,35 @@
                   :horizontal="horizontal"
                   :class="coverWrapperClasses"
               >
-                <q-parallax
-                    v-if="showCover && page.cover && page.cover.parallax"
-                    :src="page.cover.backgroundImage"
-                    :height="coverHeight"
-                    :class="coverClasses"
-                    :style="coverStyle"
-                >
-                  <div
-                      class="absolute-bottom q-pa-sm text-white"
-                      style="background-color: #00000088"
-                      v-if="page.header || page.subHeader"
-                  >
-                    <div class="text-h6" v-if="page.header">{{ page.header }}</div>
-                    <div class="text-subtitle2" v-if="page.subHeader">{{ page.subHeader }}</div>
-                  </div>
-                </q-parallax>
+<!--                <q-parallax-->
+<!--                    v-if="showCover && page.cover && page.cover.parallax"-->
+<!--                    :src="page.cover.backgroundImage"-->
+<!--                    :height="coverHeight"-->
+<!--                    :class="coverClasses"-->
+<!--                    :style="coverStyle"-->
+<!--                >-->
+<!--                  <div-->
+<!--                      class="absolute-bottom q-pa-sm text-white"-->
+<!--                      style="background-color: #00000088"-->
+<!--                      v-if="page.header || page.subHeader"-->
+<!--                  >-->
+<!--                    <div class="text-h6" v-if="page.header">{{ page.header }}</div>-->
+<!--                    <div class="text-subtitle2" v-if="page.subHeader">{{ page.subHeader }}</div>-->
+<!--                  </div>-->
+<!--                </q-parallax>-->
                 <q-img
-                    v-if="showCover && page.cover && !page.cover.parallax && page.cover.backgroundImage"
+                    v-if="showCover && page.cover && page.cover.backgroundImage"
                     :height="coverHeight"
                     :src="page.cover.backgroundImage"
                     :class="coverClasses"
                     :style="coverStyle"
                     fit="cover"
                 >
-                  <div class="absolute-bottom" v-if="page.header || page.subHeader">
-                    <div class="text-h6">{{ page.header }}</div>
-                    <div class="text-subtitle2">{{ page.subHeader }}</div>
+                  <div class="absolute-bottom q-pa-sm text-white"
+                       style="background-color: #00000088"
+                       v-if="page.header || page.subHeader">
+                    <div class="text-h6" v-if="page.header">{{ page.header }}</div>
+                    <div class="text-subtitle2" v-if="page.subHeader">{{ page.subHeader }}</div>
                   </div>
                 </q-img>
                 <div
@@ -146,14 +148,14 @@
 <script>
 import { defineComponent, ref, computed, provide, reactive, watch } from 'vue';
 // import schema from '../sample';
-import { openURL, QForm, QCard, QParallax,QImg, QCardSection } from 'quasar';
+import { openURL, QForm, QCard, QImg, QCardSection } from 'quasar';
 import Block from "./Block.vue";
 // import { useQuasar } from 'quasar'
 
 export default defineComponent({
   name: 'TyFormViewer',
   components: {
-    Block, QForm, QCard, QParallax,QImg, QCardSection
+    Block, QForm, QCard, QImg, QCardSection
   },
   props: {
     formSchema: {
@@ -276,7 +278,7 @@ export default defineComponent({
       return Math.min(
           cardHeight,
           pageHeight,
-          coverHeight) - (borderWidth * (horizontal.value ? 2 : 1))
+          coverHeight) - (borderWidth * (horizontal.value ? 2 : 1)) + ''
     })
     const coverStyle = computed(() => {
       const style = {}

@@ -81,7 +81,7 @@ export default {
       signaturePad.value.clearSignature();
     }
     const onUpdate = () => {
-      const { data } = signaturePad.value.saveSignature();
+      const { data } = signaturePad.value.saveSignature('image/svg+xml');
       emit('update:modelValue', data)
     }
     return {

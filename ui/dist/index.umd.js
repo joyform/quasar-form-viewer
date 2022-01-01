@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.50
+ * quasar-ui-tyformviewer v0.1.51
  * (c) 2022 dan@typefully.io
  * Released under the MIT License.
  */
@@ -103,7 +103,7 @@
   var script$9 = vue.defineComponent({
     name: 'TyFormViewer',
     components: {
-      Block: script$a, QForm: quasar.QForm, QCard: quasar.QCard, QParallax: quasar.QParallax,QImg: quasar.QImg, QCardSection: quasar.QCardSection
+      Block: script$a, QForm: quasar.QForm, QCard: quasar.QCard, QImg: quasar.QImg, QCardSection: quasar.QCardSection
     },
     props: {
       formSchema: {
@@ -226,7 +226,7 @@
         return Math.min(
             cardHeight,
             pageHeight,
-            coverHeight) - (borderWidth * (horizontal.value ? 2 : 1))
+            coverHeight) - (borderWidth * (horizontal.value ? 2 : 1)) + ''
       });
       const coverStyle = vue.computed(() => {
         const style = {};
@@ -322,26 +322,19 @@
     class: "text-subtitle2"
   };
   const _hoisted_5$1 = {
-    key: 0,
-    class: "absolute-bottom"
-  };
-  const _hoisted_6 = { class: "text-h6" };
-  const _hoisted_7 = { class: "text-subtitle2" };
-  const _hoisted_8 = {
-    key: 2,
+    key: 1,
     class: "q-pa-md"
   };
-  const _hoisted_9 = {
+  const _hoisted_6 = {
     key: 0,
     class: "text-h6"
   };
-  const _hoisted_10 = {
+  const _hoisted_7 = {
     key: 1,
     class: "text-subtitle2"
   };
 
   function render$8(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_q_parallax = vue.resolveComponent("q-parallax");
     const _component_q_img = vue.resolveComponent("q-img");
     const _component_block = vue.resolveComponent("block");
     const _component_q_btn = vue.resolveComponent("q-btn");
@@ -396,13 +389,14 @@
                             class: vue.normalizeClass(_ctx.coverWrapperClasses)
                           }, {
                             default: vue.withCtx(() => [
-                              (_ctx.showCover && page.cover && page.cover.parallax)
-                                ? (vue.openBlock(), vue.createBlock(_component_q_parallax, {
+                              (_ctx.showCover && page.cover && page.cover.backgroundImage)
+                                ? (vue.openBlock(), vue.createBlock(_component_q_img, {
                                     key: 0,
-                                    src: page.cover.backgroundImage,
                                     height: _ctx.coverHeight,
+                                    src: page.cover.backgroundImage,
                                     class: vue.normalizeClass(_ctx.coverClasses),
-                                    style: vue.normalizeStyle(_ctx.coverStyle)
+                                    style: vue.normalizeStyle(_ctx.coverStyle),
+                                    fit: "cover"
                                   }, {
                                     default: vue.withCtx(() => [
                                       (page.header || page.subHeader)
@@ -417,35 +411,15 @@
                                         : vue.createCommentVNode("", true)
                                     ]),
                                     _: 2
-                                  }, 1032, ["src", "height", "class", "style"]))
-                                : vue.createCommentVNode("", true),
-                              (_ctx.showCover && page.cover && !page.cover.parallax && page.cover.backgroundImage)
-                                ? (vue.openBlock(), vue.createBlock(_component_q_img, {
-                                    key: 1,
-                                    height: _ctx.coverHeight,
-                                    src: page.cover.backgroundImage,
-                                    class: vue.normalizeClass(_ctx.coverClasses),
-                                    style: vue.normalizeStyle(_ctx.coverStyle),
-                                    fit: "cover"
-                                  }, {
-                                    default: vue.withCtx(() => [
-                                      (page.header || page.subHeader)
-                                        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_5$1, [
-                                            vue.createElementVNode("div", _hoisted_6, vue.toDisplayString(page.header), 1),
-                                            vue.createElementVNode("div", _hoisted_7, vue.toDisplayString(page.subHeader), 1)
-                                          ]))
-                                        : vue.createCommentVNode("", true)
-                                    ]),
-                                    _: 2
                                   }, 1032, ["height", "src", "class", "style"]))
                                 : vue.createCommentVNode("", true),
                               (!_ctx.showCover && (page.header || page.subHeader))
-                                ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, [
+                                ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_5$1, [
                                     (page.header)
-                                      ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_9, vue.toDisplayString(page.header), 1))
+                                      ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_6, vue.toDisplayString(page.header), 1))
                                       : vue.createCommentVNode("", true),
                                     (page.subHeader)
-                                      ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_10, vue.toDisplayString(page.subHeader), 1))
+                                      ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_7, vue.toDisplayString(page.subHeader), 1))
                                       : vue.createCommentVNode("", true)
                                   ]))
                                 : vue.createCommentVNode("", true),
@@ -526,7 +500,7 @@
   script$9.render = render$8;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.50";
+  var version$1 = "0.1.51";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";
@@ -2353,7 +2327,7 @@
         signaturePad.value.clearSignature();
       };
       const onUpdate = () => {
-        const { data } = signaturePad.value.saveSignature();
+        const { data } = signaturePad.value.saveSignature('image/svg+xml');
         emit('update:modelValue', data);
       };
       return {

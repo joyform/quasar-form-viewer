@@ -14,7 +14,10 @@ const formSchema = {
     },
     "card": {
       "border": {"width": 1, "color": "#707070"},
-      "cover": {"position": "none"},
+      "cover": {
+        "position": "top",
+        "height": 190
+      },
       "shadow": 2,
       "maxWidth": 700,
       "cornersRadius": 11,
