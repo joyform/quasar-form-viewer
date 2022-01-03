@@ -65,7 +65,6 @@ export default {
       behavior: props.behavior,
       fillMask: true
     }))
-    const formSchema = inject('formSchema');
     const pickerModelValue = computed({
       get: () => {
         return props.modelValue
@@ -87,7 +86,6 @@ export default {
     })
     return {
       inputModel,
-      formSchema,
       inputModelValue,
       pickerModelValue
     }

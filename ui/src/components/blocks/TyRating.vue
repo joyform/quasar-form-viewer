@@ -78,7 +78,7 @@ export default {
       }
     })
     const labelStyle = computed(() => {
-      return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
+      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     })
     const id = computed(() => {
       return props.type + '_' + props.name
@@ -157,7 +157,6 @@ export default {
       }[props.shape || 'star']
     })
     return {
-      formSchema,
       labelStyle,
       id,
       modelValueComputed,

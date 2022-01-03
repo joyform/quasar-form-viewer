@@ -53,7 +53,7 @@ export default {
       type: Array,
       default: () => []
     },
-    modelValue: [Array, String]
+    modelValue: [Array, Object]
   },
   emits: ['update:modelValue'],
   setup (props, {emit}) {
@@ -63,9 +63,10 @@ export default {
       return props.type + '_' + props.name
     });
     const labelStyle = computed(() => {
-      return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
+      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     });
     const onUpdate = (evt) => {
+      console.log('selected select item', JSON.stringify(evt))
       emit('update:modelValue', evt)
     }
     return {

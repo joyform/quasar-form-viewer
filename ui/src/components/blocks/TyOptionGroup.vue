@@ -66,13 +66,12 @@ export default {
       modelValueRef.value = []
     }
     const labelStyle = computed(() => {
-      return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
+      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     })
     const onUpdate = (evt) => {
       emit('update:modelValue', evt)
     }
     return {
-      formSchema,
       labelStyle,
       modelValueRef,
       onUpdate

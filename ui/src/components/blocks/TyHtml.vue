@@ -26,13 +26,11 @@ export default {
     },
   },
   setup (props) {
-    const formSchema = inject('formSchema');
     const refHtml = ref(props.html)
     const id = computed(() => {
       return props.type + '_' + props.name
     });
     return {
-      formSchema,
       id,
       refHtml
     }

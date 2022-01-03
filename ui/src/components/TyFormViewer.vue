@@ -58,22 +58,6 @@
                   :horizontal="horizontal"
                   :class="coverWrapperClasses"
               >
-<!--                <q-parallax-->
-<!--                    v-if="showCover && page.cover && page.cover.parallax"-->
-<!--                    :src="page.cover.backgroundImage"-->
-<!--                    :height="coverHeight"-->
-<!--                    :class="coverClasses"-->
-<!--                    :style="coverStyle"-->
-<!--                >-->
-<!--                  <div-->
-<!--                      class="absolute-bottom q-pa-sm text-white"-->
-<!--                      style="background-color: #00000088"-->
-<!--                      v-if="page.header || page.subHeader"-->
-<!--                  >-->
-<!--                    <div class="text-h6" v-if="page.header">{{ page.header }}</div>-->
-<!--                    <div class="text-subtitle2" v-if="page.subHeader">{{ page.subHeader }}</div>-->
-<!--                  </div>-->
-<!--                </q-parallax>-->
                 <q-img
                     v-if="showCover && page.cover && page.cover.backgroundImage"
                     :height="coverHeight"
@@ -173,12 +157,12 @@ export default defineComponent({
     const formComp = ref(null)
     const currentPage = ref(0);
     const mainPage = ref(null);
-    const reactiveFormSchema = reactive(props.formSchema)
+    const reactiveFormSchema = computed(() => props.formSchema)
     watch(
         // maintain formData fields to match the schema
         () => reactiveFormSchema,
         () => {
-          reactiveFormSchema.pages.forEach(p => {
+          reactiveFormSchema.value.pages.forEach(p => {
             p.blocks.forEach(b => {
               //todo: filter out non-input fields
               if (reactiveFormData[b.name] === undefined) {
@@ -199,56 +183,56 @@ export default defineComponent({
     //   height: reactiveFormSchema.theme.card.maxHeight ? 'calc(100vh - 80px)' : undefined
     // }));
     const pageStyle = computed(() => {
-      if (reactiveFormSchema.theme.page.backgroundType === 'gradient') {
-        const grad = reactiveFormSchema.theme.page.backgroundGradient
+      if (reactiveFormSchema.value.theme.page.backgroundType === 'gradient') {
+        const grad = reactiveFormSchema.value.theme.page.backgroundGradient
         if (grad.type==='linear') {
           return {background: `linear-gradient(${grad.direction}deg, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
         }
         return {background: `radial-gradient(circle at center, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
       }
       const style = {
-        backgroundColor: reactiveFormSchema.theme.page.backgroundColor || "#fff",
+        backgroundColor: reactiveFormSchema.value.theme.page.backgroundColor || "#fff",
       }
-      if(reactiveFormSchema.theme.page.backgroundType === 'image') {
+      if(reactiveFormSchema.value.theme.page.backgroundType === 'image') {
         Object.assign(style, {
-          backgroundImage: reactiveFormSchema.theme.page.backgroundImage ? `url("${reactiveFormSchema.theme.page.backgroundImage}")` : null,
+          backgroundImage: reactiveFormSchema.value.theme.page.backgroundImage ? `url("${reactiveFormSchema.value.theme.page.backgroundImage}")` : null,
           backgroundSize: "cover",
         })
       }
       return style
     })
     const horizontal = computed(() =>
-        (reactiveFormSchema.theme.card.cover.position === ('left') || reactiveFormSchema.theme.card.cover.position === ('right')) &&
-        mainPage.value && mainPage.value.clientWidth >= (reactiveFormSchema.theme.card.revertToVerticalIfWidthBelow || 600 )
+        (reactiveFormSchema.value.theme.card.cover.position === ('left') || reactiveFormSchema.value.theme.card.cover.position === ('right')) &&
+        mainPage.value && mainPage.value.clientWidth >= (reactiveFormSchema.value.theme.card.revertToVerticalIfWidthBelow || 600 )
     )
     const showCover = computed(() =>
-        reactiveFormSchema.theme.card.cover.position !== 'none'
+        reactiveFormSchema.value.theme.card.cover.position && reactiveFormSchema.value.theme.card.cover.position !== 'none'
     )
     const cardStyle = computed(() =>({
-      backgroundColor: reactiveFormSchema.theme.card.backgroundColor || "#fff",
-      backdropFilter: reactiveFormSchema.theme.card.backdrop,
+      backgroundColor: reactiveFormSchema.value.theme.card.backgroundColor || "#fff",
+      backdropFilter: reactiveFormSchema.value.theme.card.backdrop,
       width: "100%",
-      maxWidth: reactiveFormSchema.theme.card.maxWidth + 'px',
+      maxWidth: reactiveFormSchema.value.theme.card.maxWidth + 'px',
       // height:  mainPage.value ? mainPage.value.clientHeight + 'px' : undefined,
-      maxHeight: reactiveFormSchema.theme.card.maxHeight ? reactiveFormSchema.theme.card.maxHeight + 'px' : undefined,
-      borderRadius: reactiveFormSchema.theme.card.cornersRadius + 'px',
-      border: reactiveFormSchema.theme.card.border ? `${reactiveFormSchema.theme.card.border.width}px solid ${reactiveFormSchema.theme.card.border.color}` : 0,
+      maxHeight: horizontal.value && reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight + 'px' : undefined,
+      borderRadius: reactiveFormSchema.value.theme.card.cornersRadius + 'px',
+      border: reactiveFormSchema.value.theme.card.border ? `${reactiveFormSchema.value.theme.card.border.width}px solid ${reactiveFormSchema.value.theme.card.border.color}` : 0,
       overflow: 'hidden'
     }))
     const cardClasses = computed(() => {
       const classes = []
-      if (reactiveFormSchema.theme.card.shadow === 0) {
+      if (reactiveFormSchema.value.theme.card.shadow === 0) {
         classes.push('no-shadow')
       } else {
-        classes.push('shadow-' + reactiveFormSchema.theme.card.shadow)
+        classes.push('shadow-' + reactiveFormSchema.value.theme.card.shadow)
       }
       return classes
     })
 
     const coverClasses = computed(() => {
       const classes = []
-      if (reactiveFormSchema.theme.card.cover.widthCols) {
-        classes.push('col-' + reactiveFormSchema.theme.card.cover.widthCols)
+      if (horizontal.value && reactiveFormSchema.value.theme.card.cover.widthCols) {
+        classes.push('col-' + reactiveFormSchema.value.theme.card.cover.widthCols)
       }
       return classes
     })
@@ -256,7 +240,7 @@ export default defineComponent({
       const classes = []
       if (horizontal.value) {
         classes.push('row')
-        if (reactiveFormSchema.theme.card.cover.position === 'right') {
+        if (reactiveFormSchema.value.theme.card.cover.position === 'right') {
           classes.push('reverse')
         }
       }
@@ -265,27 +249,30 @@ export default defineComponent({
     const formClasses = computed(() => {
       //in horizontal view, if the cover has col-* class, the form section also has to have one (12 - cover)
       const classes = []
-      if (reactiveFormSchema.theme.card.cover.widthCols) {
-        classes.push('col-' + (12 - reactiveFormSchema.theme.card.cover.widthCols))
+      if (reactiveFormSchema.value.theme.card.cover.widthCols) {
+        classes.push('col-' + (12 - reactiveFormSchema.value.theme.card.cover.widthCols))
       }
       return classes
     })
     const coverHeight = computed(() => {
-      const borderWidth = reactiveFormSchema.theme.card.border ? reactiveFormSchema.theme.card.border.width : 0
-      const cardHeight = reactiveFormSchema.theme.card.maxHeight ? reactiveFormSchema.theme.card.maxHeight : 9999
+      const borderWidth = reactiveFormSchema.value.theme.card.border ? reactiveFormSchema.value.theme.card.border.width : 0
+      const cardHeight = horizontal.value && reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight : 9999
       const pageHeight = mainPage.value ? mainPage.value.clientHeight : 9999
-      const coverHeight = horizontal.value ? 9999 : (reactiveFormSchema.theme.card.cover.height ? reactiveFormSchema.theme.card.cover.height : 180)
-      return Math.min(
+      const coverHeight = horizontal.value ? 9999 : (reactiveFormSchema.value.theme.card.cover.maxHeight ? reactiveFormSchema.value.theme.card.cover.maxHeight : 180)
+      console.log('computed coverHeight [cardHeight, pageHeight, coverHeight]', cardHeight, pageHeight, coverHeight)
+      const maxHeight = Math.min(
           cardHeight,
           pageHeight,
-          coverHeight) - (borderWidth * (horizontal.value ? 2 : 1)) + ''
+          coverHeight) - (borderWidth * (horizontal.value ? 2 : 1))
+      const minHeight = horizontal.value && reactiveFormSchema.value.theme.card.minHeight ? reactiveFormSchema.value.theme.card.minHeight : 0
+      return Math.max(minHeight, maxHeight) + 'px'
     })
     const coverStyle = computed(() => {
       const style = {}
-      const rd = reactiveFormSchema.theme.card.cornersRadius
+      const rd = reactiveFormSchema.value.theme.card.cornersRadius
       if (horizontal.value) {
-        if (!reactiveFormSchema.theme.card.cover.widthCols && reactiveFormSchema.theme.card.width) {
-          style.width = reactiveFormSchema.theme.card.cover.width + 'px'
+        if (!reactiveFormSchema.value.theme.card.cover.widthCols && reactiveFormSchema.value.theme.card.width) {
+          style.width = reactiveFormSchema.value.theme.card.cover.width + 'px'
         }
       }
       if (rd > 0) {
@@ -295,20 +282,20 @@ export default defineComponent({
     })
     const buttonStyle = computed(() => {
       return {
-        borderRadius: reactiveFormSchema.theme.buttons.cornersRadius + 'px',
-        backgroundColor: reactiveFormSchema.theme.buttons.backgroundColor,
-        border: reactiveFormSchema.theme.buttons.border ? `${reactiveFormSchema.theme.buttons.border.width}px solid ${reactiveFormSchema.theme.buttons.border.color}` : undefined
+        borderRadius: reactiveFormSchema.value.theme.buttons.cornersRadius + 'px',
+        backgroundColor: reactiveFormSchema.value.theme.buttons.backgroundColor,
+        border: reactiveFormSchema.value.theme.buttons.border ? `${reactiveFormSchema.value.theme.buttons.border.width}px solid ${reactiveFormSchema.value.theme.buttons.border.color}` : undefined
       }
     })
     const buttonClicked = () => {
-      if (reactiveFormSchema.pages.length - 1 > currentPage.value) {
+      if (reactiveFormSchema.value.pages.length - 1 > currentPage.value) {
         //next
         //todo: validate()
         currentPage.value += 1
       } else {
         //last page
         //todo: validate()
-        fetch(reactiveFormSchema.form.actionUrl,
+        fetch(reactiveFormSchema.value.form.actionUrl,
         {
           method: 'POST',
           headers: {

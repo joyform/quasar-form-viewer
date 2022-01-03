@@ -62,7 +62,7 @@ export default {
   setup (props, {emit}) {
     const formSchema = inject('formSchema');
     const labelStyle = computed(() => {
-      return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
+      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     })
     const id = computed(() => {
       return props.type + '_' + props.name
@@ -90,7 +90,6 @@ export default {
       clear,
       onUpdate,
       signaturePad,
-      formSchema,
       labelStyle,
       id,
     }

@@ -13,13 +13,16 @@ const formSchema = {
       "backgroundType": "gradient"
     },
     "card": {
-      "border": {"width": 1, "color": "#707070"},
+      "border": {"width": 0, "color": "#707070"},
       "cover": {
         "position": "top",
-        "height": 190
+        "maxHeight": 190, /*only used when cover.position="top"*/
+        "widthCols": 5 /*only used when cover.position="left|right"*/
       },
       "shadow": 2,
-      "maxWidth": 700,
+      "maxWidth": 800,
+      "maxHeight": 600,
+      "minHeight": 400,
       "cornersRadius": 11,
       "backgroundColor": "#e8f7ff"
     },
@@ -50,11 +53,44 @@ const formSchema = {
     "name": "page1",
     "cover": {
       "backgroundColor": "#ffffff",
-      "backgroundImage": "https://cdn.quasar.dev/img/parallax2.jpg",
-      "parallax": false,
-      "position": "top",
-      "width": 300,
-      "height": 300,
+      "backgroundImage": "https://via.placeholder.com/700x280.png?text=one+two+three+four+five+six+seven+eight+nine+ten",
+      "header": "page1",
+      "subHeader": ""
+    },
+    "backgroundColor": "#ffffff99",
+    "blocks": [{
+      "type": "html",
+      "name": "html",
+      "label": "",
+      "html": "<h4>Hello</h4>",
+      "validations": {"format": "anything"},
+      "behavior": {"displayed": "on"}
+    }, {
+      "type": "slider",
+      "name": "slider",
+      "label": "Slide it",
+      "hint": "",
+      "range": false,
+      "placeholder": "",
+      "validations": {"format": "anything"},
+      "behavior": {
+        "readOnly": "off",
+        "required": "off",
+        "clearable": "on",
+        "disabled": "off",
+        "displayed": "on",
+        "counter": "off"
+      }
+    }]
+  }, {
+    "type": "page",
+    "header": "",
+    "subHeader": "",
+    "buttonLabel": "Submit",
+    "name": "page1",
+    "cover": {
+      "backgroundColor": "#ffffff",
+      "backgroundImage": "https://via.placeholder.com/700x280.png?text=one+two+three+four+five+six+seven+eight+nine+ten",
       "header": "page1",
       "subHeader": ""
     },
@@ -307,7 +343,7 @@ const formSchema = {
         "disabled": "off",
         "displayed": "on",
         "counter": "off",
-        "multiple": false
+        "multiple": true
       }
     }, {
       "type": "toggle",
@@ -329,12 +365,6 @@ const formSchema = {
         "counter": "off"
       }
     }]
-  }, {
-    "name": "page_UhLH",
-    "header": "__vue_devtool_undefined__",
-    "subHeader": "__vue_devtool_undefined__",
-    "cover": {},
-    "blocks": []
   }]
 }
 

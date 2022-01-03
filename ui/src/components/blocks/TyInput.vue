@@ -70,7 +70,7 @@ export default {
     })
     // const value = ref(formData[props.name]);
     const labelStyle = computed(() => {
-      return {fontSize: `${(100 + formSchema.theme.inputs.labelSize)/100}em`}
+      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     })
     // const valueUpdated = (val) => {
     //   formData[props.name] = val
