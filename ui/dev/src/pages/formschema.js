@@ -24,11 +24,12 @@ const formSchema = {
       "maxHeight": 600,
       "minHeight": 400,
       "cornersRadius": 11,
-      "backgroundColor": "#e8f7ff"
+      "backgroundColor": "#e8f7ff",
+      "position": "center"
     },
     "inputs": {
       "style": "full",
-      "labelStyle": "stacked",
+      "labelStyle": "top",
       "labelSize": 4,
       "cornersRadius": 8,
       "fill": 100,

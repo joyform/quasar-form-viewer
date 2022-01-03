@@ -45,82 +45,86 @@
             v-for="(page, pageIdx) in reactiveFormSchema.pages"
             :key="pageIdx"
             :name="pageIdx"
-            style="/*wrapperStyle*/"
-            class="q-pa-none bg-transparent fit flex flex-center"
-            :class="{'min-height-100p': embedded, 'full-height-100vh':!embedded}"
+            :style="wrapperStyle"
+            class="q-px-none bg-transparent fit flex "
+            :class="tabPanelClasses"
         >
-            <q-card
-                :style="cardStyle"
-                :class="cardClasses"
+          <q-card
+              :style="cardStyle"
+              :class="cardClasses"
+          >
+            <component
+                :is="horizontal ? 'q-card-section' : 'div'"
+                :horizontal="horizontal"
+                :class="coverWrapperClasses"
             >
-              <component
-                  :is="horizontal ? 'q-card-section' : 'div'"
-                  :horizontal="horizontal"
-                  :class="coverWrapperClasses"
+              <q-img
+                  v-if="showCover && page.cover && page.cover.backgroundImage"
+                  :height="coverHeight"
+                  :src="page.cover.backgroundImage"
+                  :class="coverClasses"
+                  :style="coverStyle"
+                  fit="cover"
               >
-                <q-img
-                    v-if="showCover && page.cover && page.cover.backgroundImage"
-                    :height="coverHeight"
-                    :src="page.cover.backgroundImage"
-                    :class="coverClasses"
-                    :style="coverStyle"
-                    fit="cover"
-                >
-                  <div class="absolute-bottom q-pa-sm text-white"
-                       style="background-color: #00000088"
-                       v-if="page.header || page.subHeader">
-                    <div class="text-h6" v-if="page.header">{{ page.header }}</div>
-                    <div class="text-subtitle2" v-if="page.subHeader">{{ page.subHeader }}</div>
-                  </div>
-                </q-img>
-                <div
-                    class="q-pa-md"
-                    v-if="!showCover && (page.header || page.subHeader)"
-                >
+                <div class="absolute-bottom q-pa-sm text-white"
+                     style="background-color: #00000088"
+                     v-if="page.header || page.subHeader">
                   <div class="text-h6" v-if="page.header">{{ page.header }}</div>
                   <div class="text-subtitle2" v-if="page.subHeader">{{ page.subHeader }}</div>
                 </div>
-                <q-card-section :class="formClasses" class="q-py-sm">
-                  <component :is="horizontal?'q-scroll-area':'div'" :class="{'q-pr-md':horizontal}"
-                             style="height: 100%;"
+              </q-img>
+              <div
+                  class="q-pa-md"
+                  v-if="!showCover && (page.header || page.subHeader)"
+              >
+                <div class="text-h6" v-if="page.header">{{ page.header }}</div>
+                <div class="text-subtitle2" v-if="page.subHeader">{{ page.subHeader }}</div>
+              </div>
+              <q-card-section :class="formClasses" class="q-py-sm">
+                <component :is="horizontal?'q-scroll-area':'div'" :class="{'q-pr-md':horizontal}"
+                           style="height: 100%;"
+                >
+                  <block
+                      v-for = "(block, idx) in page.blocks"
+                      :key = "block.name || block.type + idx"
+                      :block-schema = "block"
+                      v-model="reactiveFormData[block.name]"
+                      @update:model-value="onUpdate(block.name, $event)"
                   >
-                    <block
-                        v-for = "(block, idx) in page.blocks"
-                        :key = "block.name || block.type + idx"
-                        :block-schema = "block"
-                        v-model="reactiveFormData[block.name]"
-                        @update:model-value="onUpdate(block.name, $event)"
-                    >
-                      <template v-slot:beforeblock="{blockSchema, el, hover}">
-                        <slot name="beforeblock" :blockSchema="blockSchema" :el="el" :hover="hover"></slot>
-                      </template>
-                    </block>
-                    <q-btn
-                        :label="page.buttonLabel"
-                        unelevated
-                        :class="`shadow-${reactiveFormSchema.theme.buttons.shadow} q-px-${['xs', 'sm', 'md', 'lg', 'xl'][reactiveFormSchema.theme.buttons.padding - 1]}`"
-                        no-caps
-                        :size="['sm', 'md', 'lg', 'xl'][reactiveFormSchema.theme.buttons.size - 1]"
-                        :icon="page.buttonIcon"
-                        :style="buttonStyle"
-                        @click="buttonClicked"
-                        class="ty-submit-btn"
-                    >
-                    </q-btn>
-                    <q-btn
-                        label="Back"
-                        flat
-                        no-caps
-                        class="q-ml-xl ty-back-btn"
-                        v-if="currentPage > 0"
-                        :size="['sm', 'md', 'lg', 'xl'][reactiveFormSchema.theme.buttons.size - 1]"
-                        @click="currentPage -= 1"
-                    >
-                    </q-btn>
-                  </component>
-                </q-card-section>
-              </component>
-            </q-card>
+                    <template v-slot:beforeblock="{blockSchema, el, hover}">
+                      <slot name="beforeblock" :blockSchema="blockSchema" :el="el" :hover="hover"></slot>
+                    </template>
+                  </block>
+                  <q-btn
+                      :label="page.buttonLabel"
+                      unelevated
+                      :class="`shadow-${reactiveFormSchema.theme.buttons.shadow} q-px-${['xs', 'sm', 'md', 'lg', 'xl'][reactiveFormSchema.theme.buttons.padding - 1]}`"
+                      no-caps
+                      :size="['sm', 'md', 'lg', 'xl'][reactiveFormSchema.theme.buttons.size - 1]"
+                      :icon="page.buttonIcon"
+                      :style="buttonStyle"
+                      @click="buttonClicked"
+                      class="ty-submit-btn"
+                  >
+                  </q-btn>
+                  <q-btn
+                      label="Back"
+                      flat
+                      no-caps
+                      class="q-ml-xl ty-back-btn"
+                      v-if="currentPage > 0"
+                      :size="['sm', 'md', 'lg', 'xl'][reactiveFormSchema.theme.buttons.size - 1]"
+                      @click="currentPage -= 1"
+                  >
+                  </q-btn>
+                </component>
+              </q-card-section>
+            </component>
+          </q-card>
+          <div
+              v-if="!embedded"
+              class="q-py-lg row"
+          >&nbsp;</div>
         </q-tab-panel>
       </q-tab-panels>
 
@@ -134,7 +138,7 @@ import { defineComponent, ref, computed, provide, reactive, watch } from 'vue';
 // import schema from '../sample';
 import { openURL, QForm, QCard, QImg, QCardSection } from 'quasar';
 import Block from "./Block.vue";
-// import { useQuasar } from 'quasar'
+import { useQuasar } from 'quasar'
 
 export default defineComponent({
   name: 'TyFormViewer',
@@ -150,9 +154,11 @@ export default defineComponent({
       type: Object,
       default: () => ({})
     },
-    embedded: Boolean
+    embedded: Boolean,
+    mobileView: Boolean
   },
   setup (props) {
+    const $q = useQuasar()
     const reactiveFormData = reactive(props.formData)
     const formComp = ref(null)
     const currentPage = ref(0);
@@ -173,15 +179,21 @@ export default defineComponent({
         },
         {immediate:true}
     )
-    // const page = computed(() => reactiveFormSchema.pages[currentPage.value])
     provide('formSchema', reactiveFormSchema);
-    // provide('formData', reactiveFormData);
-    // const wrapperStyle = computed(() => ({
-    //   maxWidth: reactiveFormSchema.theme.card.maxWidth + 'px',
-    //   width: '100vw',
-    //   maxHeight: reactiveFormSchema.theme.card.maxHeight ? reactiveFormSchema.theme.card.maxHeight + 'px' : undefined,
-    //   height: reactiveFormSchema.theme.card.maxHeight ? 'calc(100vh - 80px)' : undefined
-    // }));
+    const mobile = computed(() => {
+      return $q.platform.is.mobile || props.mobileView
+    })
+    const wrapperStyle = computed(() => {
+      const style = {}
+      if (reactiveFormSchema.value.theme.card.position === 'left') {
+        style.justifyContent = 'flex-start'
+      } else if (reactiveFormSchema.value.theme.card.position === 'right') {
+        style.justifyContent = 'flex-end'
+      } else /*(reactiveFormSchema.value.theme.card.position === 'center')*/ {
+        style.justifyContent = 'center'
+      }
+      return style
+    })
     const pageStyle = computed(() => {
       if (reactiveFormSchema.value.theme.page.backgroundType === 'gradient') {
         const grad = reactiveFormSchema.value.theme.page.backgroundGradient
@@ -208,6 +220,9 @@ export default defineComponent({
     const showCover = computed(() =>
         reactiveFormSchema.value.theme.card.cover.position && reactiveFormSchema.value.theme.card.cover.position !== 'none'
     )
+    const cardRadius = computed(() => {
+      return mobile.value ? 0 : reactiveFormSchema.value.theme.card.cornersRadius
+    })
     const cardStyle = computed(() =>({
       backgroundColor: reactiveFormSchema.value.theme.card.backgroundColor || "#fff",
       backdropFilter: reactiveFormSchema.value.theme.card.backdrop,
@@ -215,7 +230,7 @@ export default defineComponent({
       maxWidth: reactiveFormSchema.value.theme.card.maxWidth + 'px',
       // height:  mainPage.value ? mainPage.value.clientHeight + 'px' : undefined,
       maxHeight: horizontal.value && reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight + 'px' : undefined,
-      borderRadius: reactiveFormSchema.value.theme.card.cornersRadius + 'px',
+      borderRadius: cardRadius.value + 'px',
       border: reactiveFormSchema.value.theme.card.border ? `${reactiveFormSchema.value.theme.card.border.width}px solid ${reactiveFormSchema.value.theme.card.border.color}` : 0,
       overflow: 'hidden'
     }))
@@ -226,9 +241,28 @@ export default defineComponent({
       } else {
         classes.push('shadow-' + reactiveFormSchema.value.theme.card.shadow)
       }
+      if (!props.embedded && !mobile) {
+        classes.push('q-my-lg')
+      }
+      if (!horizontal.value) {
+        classes.push('q-pb-md')
+      }
       return classes
     })
-
+    const tabPanelClasses = computed(() => {
+      const classes = []
+      if (props.embedded) {
+        classes.push('min-height-100p')
+      } else {
+        classes.push('full-height-100vh')
+      }
+      if (mobile.value) {
+        classes.push('q-py-none')
+      } else if (horizontal.value) { //&& !mobile
+        classes.push('flex-center')
+      }
+      return classes
+    })
     const coverClasses = computed(() => {
       const classes = []
       if (horizontal.value && reactiveFormSchema.value.theme.card.cover.widthCols) {
@@ -269,13 +303,13 @@ export default defineComponent({
     })
     const coverStyle = computed(() => {
       const style = {}
-      const rd = reactiveFormSchema.value.theme.card.cornersRadius
+      // const rd = reactiveFormSchema.value.theme.card.cornersRadius
       if (horizontal.value) {
         if (!reactiveFormSchema.value.theme.card.cover.widthCols && reactiveFormSchema.value.theme.card.width) {
           style.width = reactiveFormSchema.value.theme.card.cover.width + 'px'
         }
       }
-      if (rd > 0) {
+      if (cardRadius.value > 0) {
         style.borderRadius = `0`
       }
       return style
@@ -317,10 +351,12 @@ export default defineComponent({
       console.log(`${blockName} = ${evt} [${typeof evt}] | ${JSON.stringify(evt)}`)
     }
     return {
-      // wrapperStyle,
+      mobile,
+      wrapperStyle,
       pageStyle,
       cardStyle,
       cardClasses,
+      tabPanelClasses,
       openTypefully,
       currentPage,
       // page,

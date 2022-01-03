@@ -66,7 +66,6 @@ export default {
       return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     });
     const onUpdate = (evt) => {
-      console.log('selected select item', JSON.stringify(evt))
       emit('update:modelValue', evt)
     }
     return {

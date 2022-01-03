@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.58
+ * quasar-ui-tyformviewer v0.1.59
  * (c) 2022 dan@typefully.io
  * Released under the MIT License.
  */
@@ -72,7 +72,7 @@
     return ($setup.behavior.displayed)
       ? (vue.openBlock(), vue.createElementBlock("div", {
           key: 0,
-          class: "ty-block",
+          class: "ty-block q-mt-lg",
           style: {"position":"relative"},
           ref: "el",
           onMouseover: _cache[1] || (_cache[1] = $event => ($setup.hover = true)),
@@ -98,8 +98,6 @@
 
   script$a.render = render$9;
 
-  // import { useQuasar } from 'quasar'
-
   var script$9 = vue.defineComponent({
     name: 'TyFormViewer',
     components: {
@@ -114,9 +112,11 @@
         type: Object,
         default: () => ({})
       },
-      embedded: Boolean
+      embedded: Boolean,
+      mobileView: Boolean
     },
     setup (props) {
+      const $q = quasar.useQuasar();
       const reactiveFormData = vue.reactive(props.formData);
       const formComp = vue.ref(null);
       const currentPage = vue.ref(0);
@@ -137,15 +137,21 @@
           },
           {immediate:true}
       );
-      // const page = computed(() => reactiveFormSchema.pages[currentPage.value])
       vue.provide('formSchema', reactiveFormSchema);
-      // provide('formData', reactiveFormData);
-      // const wrapperStyle = computed(() => ({
-      //   maxWidth: reactiveFormSchema.theme.card.maxWidth + 'px',
-      //   width: '100vw',
-      //   maxHeight: reactiveFormSchema.theme.card.maxHeight ? reactiveFormSchema.theme.card.maxHeight + 'px' : undefined,
-      //   height: reactiveFormSchema.theme.card.maxHeight ? 'calc(100vh - 80px)' : undefined
-      // }));
+      const mobile = vue.computed(() => {
+        return $q.platform.is.mobile || props.mobileView
+      });
+      const wrapperStyle = vue.computed(() => {
+        const style = {};
+        if (reactiveFormSchema.value.theme.card.position === 'left') {
+          style.justifyContent = 'flex-start';
+        } else if (reactiveFormSchema.value.theme.card.position === 'right') {
+          style.justifyContent = 'flex-end';
+        } else /*(reactiveFormSchema.value.theme.card.position === 'center')*/ {
+          style.justifyContent = 'center';
+        }
+        return style
+      });
       const pageStyle = vue.computed(() => {
         if (reactiveFormSchema.value.theme.page.backgroundType === 'gradient') {
           const grad = reactiveFormSchema.value.theme.page.backgroundGradient;
@@ -172,14 +178,17 @@
       const showCover = vue.computed(() =>
           reactiveFormSchema.value.theme.card.cover.position && reactiveFormSchema.value.theme.card.cover.position !== 'none'
       );
+      const cardRadius = vue.computed(() => {
+        return mobile.value ? 0 : reactiveFormSchema.value.theme.card.cornersRadius
+      });
       const cardStyle = vue.computed(() =>({
         backgroundColor: reactiveFormSchema.value.theme.card.backgroundColor || "#fff",
         backdropFilter: reactiveFormSchema.value.theme.card.backdrop,
         width: "100%",
         maxWidth: reactiveFormSchema.value.theme.card.maxWidth + 'px',
         // height:  mainPage.value ? mainPage.value.clientHeight + 'px' : undefined,
-        maxHeight: reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight + 'px' : undefined,
-        borderRadius: reactiveFormSchema.value.theme.card.cornersRadius + 'px',
+        maxHeight: horizontal.value && reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight + 'px' : undefined,
+        borderRadius: cardRadius.value + 'px',
         border: reactiveFormSchema.value.theme.card.border ? `${reactiveFormSchema.value.theme.card.border.width}px solid ${reactiveFormSchema.value.theme.card.border.color}` : 0,
         overflow: 'hidden'
       }));
@@ -190,9 +199,28 @@
         } else {
           classes.push('shadow-' + reactiveFormSchema.value.theme.card.shadow);
         }
+        if (!props.embedded && !mobile) {
+          classes.push('q-my-lg');
+        }
+        if (!horizontal.value) {
+          classes.push('q-pb-md');
+        }
         return classes
       });
-
+      const tabPanelClasses = vue.computed(() => {
+        const classes = [];
+        if (props.embedded) {
+          classes.push('min-height-100p');
+        } else {
+          classes.push('full-height-100vh');
+        }
+        if (mobile.value) {
+          classes.push('q-py-none');
+        } else if (horizontal.value) { //&& !mobile
+          classes.push('flex-center');
+        }
+        return classes
+      });
       const coverClasses = vue.computed(() => {
         const classes = [];
         if (horizontal.value && reactiveFormSchema.value.theme.card.cover.widthCols) {
@@ -233,13 +261,13 @@
       });
       const coverStyle = vue.computed(() => {
         const style = {};
-        const rd = reactiveFormSchema.value.theme.card.cornersRadius;
+        // const rd = reactiveFormSchema.value.theme.card.cornersRadius
         if (horizontal.value) {
           if (!reactiveFormSchema.value.theme.card.cover.widthCols && reactiveFormSchema.value.theme.card.width) {
             style.width = reactiveFormSchema.value.theme.card.cover.width + 'px';
           }
         }
-        if (rd > 0) {
+        if (cardRadius.value > 0) {
           style.borderRadius = `0`;
         }
         return style
@@ -281,10 +309,12 @@
         console.log(`${blockName} = ${evt} [${typeof evt}] | ${JSON.stringify(evt)}`);
       };
       return {
-        // wrapperStyle,
+        mobile,
+        wrapperStyle,
         pageStyle,
         cardStyle,
         cardClasses,
+        tabPanelClasses,
         openTypefully,
         currentPage,
         // page,
@@ -336,6 +366,10 @@
     key: 1,
     class: "text-subtitle2"
   };
+  const _hoisted_8 = {
+    key: 0,
+    class: "q-py-lg row"
+  };
 
   function render$8(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_q_img = vue.resolveComponent("q-img");
@@ -378,8 +412,8 @@
                   return (vue.openBlock(), vue.createBlock(_component_q_tab_panel, {
                     key: pageIdx,
                     name: pageIdx,
-                    style: {},
-                    class: vue.normalizeClass(["q-pa-none bg-transparent fit flex flex-center", {'min-height-100p': _ctx.embedded, 'full-height-100vh':!_ctx.embedded}])
+                    style: vue.normalizeStyle(_ctx.wrapperStyle),
+                    class: vue.normalizeClass(["q-px-none bg-transparent fit flex", _ctx.tabPanelClasses])
                   }, {
                     default: vue.withCtx(() => [
                       vue.createVNode(_component_q_card, {
@@ -484,10 +518,13 @@
                           }, 1032, ["horizontal", "class"]))
                         ]),
                         _: 2
-                      }, 1032, ["style", "class"])
+                      }, 1032, ["style", "class"]),
+                      (!_ctx.embedded)
+                        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8, " "))
+                        : vue.createCommentVNode("", true)
                     ]),
                     _: 2
-                  }, 1032, ["name", "class"]))
+                  }, 1032, ["name", "style", "class"]))
                 }), 128))
               ]),
               _: 3
@@ -503,7 +540,7 @@
   script$9.render = render$8;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.58";
+  var version$1 = "0.1.59";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";
@@ -734,7 +771,6 @@
         return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
       });
       const onUpdate = (evt) => {
-        console.log('selected select item', JSON.stringify(evt));
         emit('update:modelValue', evt);
       };
       return {

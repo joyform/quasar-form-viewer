@@ -1,7 +1,7 @@
 <template>
   <div
       v-if="behavior.displayed"
-      class="ty-block"
+      class="ty-block q-mt-lg"
       style="position:relative"
       ref="el"
       @mouseover="hover = true"
