@@ -2,15 +2,17 @@ const formSchema = {
   "form": {},
   "theme": {
     "page": {
+      "backgroundColor": "#1e2e1c",
+      "backgroundType": "gradient",
       "backgroundGradient": {
+        "position1": 0,
+        "direction": 7,
+        "type": "linear",
         "color1": "#091E3A",
         "color2": "#2F80ED",
-        "type": "linear",
-        "position1": 0,
-        "position2": 100,
-        "direction": 7
+        "position2": 100
       },
-      "backgroundType": "gradient"
+      "backgroundImage": "https://imagedelivery.net/bAvmm2B6r9as3tUUrr0Q1g/fe16c69b-fa3e-4f04-d238-d3c464c49300/full"
     },
     "card": {
       "border": {"width": 0, "color": "#707070"},

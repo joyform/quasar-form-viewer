@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.59
+ * quasar-ui-tyformviewer v0.1.61
  * (c) 2022 dan@typefully.io
  * Released under the MIT License.
  */
@@ -156,9 +156,9 @@
         if (reactiveFormSchema.value.theme.page.backgroundType === 'gradient') {
           const grad = reactiveFormSchema.value.theme.page.backgroundGradient;
           if (grad.type==='linear') {
-            return {background: `linear-gradient(${grad.direction}deg, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
+            return {backgroundImage: `linear-gradient(${grad.direction}deg, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
           }
-          return {background: `radial-gradient(circle at center, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
+          return {backgroundImage: `radial-gradient(circle at center, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
         }
         const style = {
           backgroundColor: reactiveFormSchema.value.theme.page.backgroundColor || "#fff",
@@ -251,7 +251,6 @@
         const cardHeight = horizontal.value && reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight : 9999;
         const pageHeight = mainPage.value ? mainPage.value.clientHeight : 9999;
         const coverHeight = horizontal.value ? 9999 : (reactiveFormSchema.value.theme.card.cover.maxHeight ? reactiveFormSchema.value.theme.card.cover.maxHeight : 180);
-        console.log('computed coverHeight [cardHeight, pageHeight, coverHeight]', cardHeight, pageHeight, coverHeight);
         const maxHeight = Math.min(
             cardHeight,
             pageHeight,
@@ -540,7 +539,7 @@
   script$9.render = render$8;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.59";
+  var version$1 = "0.1.61";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";

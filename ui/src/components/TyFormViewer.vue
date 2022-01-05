@@ -198,9 +198,9 @@ export default defineComponent({
       if (reactiveFormSchema.value.theme.page.backgroundType === 'gradient') {
         const grad = reactiveFormSchema.value.theme.page.backgroundGradient
         if (grad.type==='linear') {
-          return {background: `linear-gradient(${grad.direction}deg, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
+          return {backgroundImage: `linear-gradient(${grad.direction}deg, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
         }
-        return {background: `radial-gradient(circle at center, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
+        return {backgroundImage: `radial-gradient(circle at center, ${grad.color1} ${grad.position1}%, ${grad.color2} ${grad.position2}%)`}
       }
       const style = {
         backgroundColor: reactiveFormSchema.value.theme.page.backgroundColor || "#fff",
@@ -293,7 +293,6 @@ export default defineComponent({
       const cardHeight = horizontal.value && reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight : 9999
       const pageHeight = mainPage.value ? mainPage.value.clientHeight : 9999
       const coverHeight = horizontal.value ? 9999 : (reactiveFormSchema.value.theme.card.cover.maxHeight ? reactiveFormSchema.value.theme.card.cover.maxHeight : 180)
-      console.log('computed coverHeight [cardHeight, pageHeight, coverHeight]', cardHeight, pageHeight, coverHeight)
       const maxHeight = Math.min(
           cardHeight,
           pageHeight,
