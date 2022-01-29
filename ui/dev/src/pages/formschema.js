@@ -105,6 +105,32 @@ const formSchema = {
       "html": "<h4>Hello</h4>",
       "validations": {"format": "anything"},
       "behavior": {"displayed": "on"}
+    },{
+      "type": "email",
+      "name": "email",
+      "label": "What is your eMail?",
+      "hint": "We hate spammers too, we will not spam you",
+      "placeholder": "john.doe@gmail.com",
+      "validations": {"format": "email"},
+      "behavior": {
+        "readOnly": "off",
+        "required": "on",
+        "clearable": "on",
+        "disabled": "off",
+        "displayed": "on",
+        "counter": "off"
+      }
+    },{
+      "type": "title",
+      "name": "title1",
+      "label": "",
+      "titles": [
+        {"text":"Hello, how are you today?", "size":"h2", "align":"center"},
+        {"text":"check it out", "size":"h5", "align":"left", "padding": "lg"},
+        {"text":"this is\nmultiline", "size":"subtitle2", "align":"left"}
+      ],
+      "validations": {"format": "anything"},
+      "behavior": {"displayed": "on"}
     }, {
       "type": "slider",
       "name": "slider",
