@@ -320,7 +320,7 @@ export default defineComponent({
         border: reactiveFormSchema.value.theme.buttons.border ? `${reactiveFormSchema.value.theme.buttons.border.width}px solid ${reactiveFormSchema.value.theme.buttons.border.color}` : undefined
       }
     })
-    const buttonClicked = () => {
+    const buttonClicked = async () => {
       if (reactiveFormSchema.value.pages.length - 1 > currentPage.value) {
         //next
         //todo: validate()
@@ -328,7 +328,7 @@ export default defineComponent({
       } else {
         //last page
         //todo: validate()
-        fetch(reactiveFormSchema.value.form.actionUrl,
+        const res = await fetch(reactiveFormSchema.value.form.actionUrl,
         {
           method: 'POST',
           headers: {
@@ -336,12 +336,17 @@ export default defineComponent({
           },
           body: JSON.stringify(reactiveFormData),
           mode: 'cors'
-        }).then(res => {
-          return res.json()
-        }).then(json => {
-          console.log('response', json)
         })
-
+        const json = await res.json()
+        console.log('response', json)
+        $q.notify({
+          progress: true,
+          type: 'positive',
+          position: 'center',
+          multiLine: true,
+          icon: 'thumb_up',
+          message: 'The form has been submitted successfully'
+        })
         //todo: move to thankyou page, show validation errors
       }
     }

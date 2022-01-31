@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.61
+ * quasar-ui-tyformviewer v0.1.63
  * (c) 2022 dan@typefully.io
  * Released under the MIT License.
  */
@@ -10,7 +10,7 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.TyFormViewer = factory(global.Vue, global.Quasar));
 }(this, (function (vue, quasar) { 'use strict';
 
-  var script$a = {
+  var script$b = {
     name: 'Block',
     components: {
       // TyWizard: defineAsyncComponent(() => import('./blocks/Wizard.vue')),
@@ -30,6 +30,7 @@
       TyRadio: vue.defineAsyncComponent(() => Promise.resolve().then(function () { return TyOptionGroup; })),
       TyToggle: vue.defineAsyncComponent(() => Promise.resolve().then(function () { return TyOptionGroup; })),
       TyHtml: vue.defineAsyncComponent(() => Promise.resolve().then(function () { return TyHtml; })),
+      TyTitle: vue.defineAsyncComponent(() => Promise.resolve().then(function () { return TyTitle; })),
       TyDate: vue.defineAsyncComponent(() => Promise.resolve().then(function () { return TyDate; })),
       TySignature: vue.defineAsyncComponent(() => Promise.resolve().then(function () { return TySignature; })),
     },
@@ -68,7 +69,7 @@
     }
   };
 
-  function render$9(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$a(_ctx, _cache, $props, $setup, $data, $options) {
     return ($setup.behavior.displayed)
       ? (vue.openBlock(), vue.createElementBlock("div", {
           key: 0,
@@ -96,12 +97,12 @@
       : vue.createCommentVNode("", true)
   }
 
-  script$a.render = render$9;
+  script$b.render = render$a;
 
-  var script$9 = vue.defineComponent({
+  var script$a = vue.defineComponent({
     name: 'TyFormViewer',
     components: {
-      Block: script$a, QForm: quasar.QForm, QCard: quasar.QCard, QImg: quasar.QImg, QCardSection: quasar.QCardSection
+      Block: script$b, QForm: quasar.QForm, QCard: quasar.QCard, QImg: quasar.QImg, QCardSection: quasar.QCardSection
     },
     props: {
       formSchema: {
@@ -278,7 +279,7 @@
           border: reactiveFormSchema.value.theme.buttons.border ? `${reactiveFormSchema.value.theme.buttons.border.width}px solid ${reactiveFormSchema.value.theme.buttons.border.color}` : undefined
         }
       });
-      const buttonClicked = () => {
+      const buttonClicked = async () => {
         if (reactiveFormSchema.value.pages.length - 1 > currentPage.value) {
           //next
           //todo: validate()
@@ -286,7 +287,7 @@
         } else {
           //last page
           //todo: validate()
-          fetch(reactiveFormSchema.value.form.actionUrl,
+          const res = await fetch(reactiveFormSchema.value.form.actionUrl,
           {
             method: 'POST',
             headers: {
@@ -294,12 +295,17 @@
             },
             body: JSON.stringify(reactiveFormData),
             mode: 'cors'
-          }).then(res => {
-            return res.json()
-          }).then(json => {
-            console.log('response', json);
           });
-
+          const json = await res.json();
+          console.log('response', json);
+          $q.notify({
+            progress: true,
+            type: 'positive',
+            position: 'center',
+            multiLine: true,
+            icon: 'thumb_up',
+            message: 'The form has been submitted successfully'
+          });
           //todo: move to thankyou page, show validation errors
         }
       };
@@ -335,7 +341,7 @@
     }
   });
 
-  const _hoisted_1$8 = {
+  const _hoisted_1$9 = {
     class: "ty-main-page fit relative-position absolute",
     ref: "mainPage",
     style: {"z-index":"5","bottom":"0","top":"0","right":"0","left":"0"}
@@ -370,7 +376,7 @@
     class: "q-py-lg row"
   };
 
-  function render$8(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$9(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_q_img = vue.resolveComponent("q-img");
     const _component_block = vue.resolveComponent("block");
     const _component_q_btn = vue.resolveComponent("q-btn");
@@ -391,7 +397,7 @@
         class: vue.normalizeClass({fullscreen: !_ctx.embedded, 'fit':_ctx.embedded}),
         style: vue.normalizeStyle([_ctx.pageStyle, {"z-index":"1"}])
       }, null, 6),
-      vue.createElementVNode("div", _hoisted_1$8, [
+      vue.createElementVNode("div", _hoisted_1$9, [
         vue.createVNode(_component_q_form, {
           action: _ctx.reactiveFormSchema.form.actionUrl,
           method: "post",
@@ -536,10 +542,10 @@
     ], 64))
   }
 
-  script$9.render = render$8;
+  script$a.render = render$9;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.61";
+  var version$1 = "0.1.63";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";
@@ -613,17 +619,17 @@
   const { version } = pkg;
 
   function install (app) {
-    app.component(script$9.name, script$9);
+    app.component(script$a.name, script$a);
   }
 
   var VuePlugin = /*#__PURE__*/Object.freeze({
     __proto__: null,
     version: version,
-    TyFormViewer: script$9,
+    TyFormViewer: script$a,
     install: install
   });
 
-  var script$8 = {
+  var script$9 = {
     name: 'TyInput',
     components: {
     },
@@ -684,9 +690,9 @@
     }
   };
 
-  const _hoisted_1$7 = ["for"];
+  const _hoisted_1$8 = ["for"];
 
-  function render$7(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$8(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_q_input = vue.resolveComponent("q-input");
 
     return (vue.openBlock(), vue.createElementBlock("div", null, [
@@ -696,7 +702,7 @@
             for: $setup.id,
             style: vue.normalizeStyle($setup.labelStyle),
             class: "ty-label ty-label-top"
-          }, vue.toDisplayString($props.label), 13, _hoisted_1$7))
+          }, vue.toDisplayString($props.label), 13, _hoisted_1$8))
         : vue.createCommentVNode("", true),
       vue.createVNode(_component_q_input, {
         label: $setup.formSchema.theme.inputs.labelStyle !=='top' ? $props.label : undefined,
@@ -727,14 +733,14 @@
     ]))
   }
 
-  script$8.render = render$7;
+  script$9.render = render$8;
 
   var TyInput = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    'default': script$8
+    'default': script$9
   });
 
-  var script$7 = {
+  var script$8 = {
     name: 'TySelect',
     components: {
     },
@@ -782,9 +788,9 @@
     }
   };
 
-  const _hoisted_1$6 = ["for"];
+  const _hoisted_1$7 = ["for"];
 
-  function render$6(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$7(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_q_select = vue.resolveComponent("q-select");
 
     return (vue.openBlock(), vue.createElementBlock("div", null, [
@@ -794,7 +800,7 @@
             for: $setup.id,
             style: vue.normalizeStyle($setup.labelStyle),
             class: "ty-label ty-label-top"
-          }, vue.toDisplayString($props.label), 13, _hoisted_1$6))
+          }, vue.toDisplayString($props.label), 13, _hoisted_1$7))
         : vue.createCommentVNode("", true),
       vue.createVNode(_component_q_select, {
         label: $setup.formSchema.theme.inputs.labelStyle !=='top' ? $props.label : undefined,
@@ -823,14 +829,14 @@
     ]))
   }
 
-  script$7.render = render$6;
+  script$8.render = render$7;
 
   var TySelect = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    'default': script$7
+    'default': script$8
   });
 
-  var script$6 = {
+  var script$7 = {
     name: 'TySlider',
     components: {
     },
@@ -928,12 +934,12 @@
     }
   };
 
-  const _hoisted_1$5 = {
+  const _hoisted_1$6 = {
     key: 0,
     class: "text-caption q-ml-sm text-grey-8"
   };
 
-  function render$5(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$6(_ctx, _cache, $props, $setup, $data, $options) {
     return (vue.openBlock(), vue.createElementBlock("div", null, [
       vue.createElementVNode("label", {
         style: vue.normalizeStyle($setup.labelStyle),
@@ -959,19 +965,19 @@
         "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => (($setup.modelValueRef) = $event))
       }, null, 8, ["name", "readonly", "disable", "min", "max", "step", "reverse", "label", "label-always", "label-value", "left-label-value", "right-label-value", "snap", "markers", "modelValue"])),
       (!!$props.hint)
-        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$5, vue.toDisplayString($props.hint), 1))
+        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$6, vue.toDisplayString($props.hint), 1))
         : vue.createCommentVNode("", true)
     ]))
   }
 
-  script$6.render = render$5;
+  script$7.render = render$6;
 
   var TySlider = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    'default': script$6
+    'default': script$7
   });
 
-  var script$5 = {
+  var script$6 = {
     name: 'TyRating',
     components: {
     },
@@ -1115,16 +1121,16 @@
     }
   };
 
-  const _hoisted_1$4 = { class: "col ty-rating" };
+  const _hoisted_1$5 = { class: "col ty-rating" };
   const _hoisted_2$1 = {
     key: 0,
     class: "text-caption q-ml-sm text-grey-8"
   };
 
-  function render$4(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$5(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_q_rating = vue.resolveComponent("q-rating");
 
-    return (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$4, [
+    return (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$5, [
       vue.createElementVNode("label", {
         style: vue.normalizeStyle([$setup.labelStyle, {"display":"block"}]),
         class: "ty-label ty-label-top"
@@ -1148,14 +1154,14 @@
     ]))
   }
 
-  script$5.render = render$4;
+  script$6.render = render$5;
 
   var TyRating = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    'default': script$5
+    'default': script$6
   });
 
-  var script$4 = {
+  var script$5 = {
     name: 'TyOptionGroup',
     components: {
     },
@@ -1212,12 +1218,12 @@
     }
   };
 
-  const _hoisted_1$3 = {
+  const _hoisted_1$4 = {
     key: 0,
     class: "text-caption q-ml-sm text-grey-8"
   };
 
-  function render$3(_ctx, _cache, $props, $setup, $data, $options) {
+  function render$4(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_q_option_group = vue.resolveComponent("q-option-group");
 
     return (vue.openBlock(), vue.createElementBlock("div", null, [
@@ -1240,19 +1246,19 @@
         options: $props.options
       }, null, 8, ["name", "type", "readonly", "disable", "left-label", "inline", "modelValue", "onUpdate:modelValue", "options"]),
       (!!$props.hint)
-        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$3, vue.toDisplayString($props.hint), 1))
+        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$4, vue.toDisplayString($props.hint), 1))
         : vue.createCommentVNode("", true)
     ]))
   }
 
-  script$4.render = render$3;
+  script$5.render = render$4;
 
   var TyOptionGroup = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    'default': script$4
+    'default': script$5
   });
 
-  var script$3 = {
+  var script$4 = {
     name: 'TyHtml',
     components: {
     },
@@ -1283,15 +1289,90 @@
     }
   };
 
+  const _hoisted_1$3 = ["innerHTML"];
+
+  function render$3(_ctx, _cache, $props, $setup, $data, $options) {
+    return (vue.openBlock(), vue.createElementBlock("div", { innerHTML: $setup.refHtml }, null, 8, _hoisted_1$3))
+  }
+
+  script$4.render = render$3;
+
+  var TyHtml = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    'default': script$4
+  });
+
+  var script$3 = {
+    name: 'TyTitle',
+    components: {
+    },
+    props: {
+      type: {
+        type: String,
+        required: true
+      },
+      name: {
+        type: String,
+        required: true
+      },
+      titles: {
+        type: Array,
+        default: () => ([])
+      },
+      behavior: {
+        type: Object, /* readOnly, clearable, disabled, displayed, counter */
+        default: () => ({})
+      },
+    },
+    setup (props) {
+      const id = vue.computed(() => {
+        return props.type + '_' + props.name
+      });
+      const escape = (text) => {
+        function replaceMultiple(text, characters){
+          for (const [i, each] of characters.entries()) {
+            const previousChar = Object.keys(each);
+            const newChar = Object.values(each);
+
+            text = text.replaceAll(previousChar, newChar);
+          }
+
+          return text
+        }
+        const characters = [
+          {'&': '&amp'},
+          {'<': '&lt'},
+          {'>': '&gt'},
+          {'"': '&quot'},
+          {'\'': '&#39'},
+          {'\n': '<br>'}
+        ];
+        return replaceMultiple(text, characters)
+      };
+      return {
+        id,
+        escape
+      }
+    }
+  };
+
   const _hoisted_1$2 = ["innerHTML"];
 
   function render$2(_ctx, _cache, $props, $setup, $data, $options) {
-    return (vue.openBlock(), vue.createElementBlock("div", { innerHTML: $setup.refHtml }, null, 8, _hoisted_1$2))
+    return (vue.openBlock(), vue.createElementBlock("div", null, [
+      (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList($props.titles, (title, idx) => {
+        return (vue.openBlock(), vue.createElementBlock("p", {
+          key: title.size+'_'+idx,
+          class: vue.normalizeClass(['text-'+title.size||'h3', 'q-py-'+title.padding||'md', 'text-'+title.align||'left']),
+          innerHTML: $setup.escape(title.text)
+        }, null, 10, _hoisted_1$2))
+      }), 128))
+    ]))
   }
 
   script$3.render = render$2;
 
-  var TyHtml = /*#__PURE__*/Object.freeze({
+  var TyTitle = /*#__PURE__*/Object.freeze({
     __proto__: null,
     'default': script$3
   });
@@ -1299,7 +1380,7 @@
   var script$2 = {
     name: 'TyDate',
     components: {
-      TyInput: script$8
+      TyInput: script$9
     },
     props: {
       type: {
