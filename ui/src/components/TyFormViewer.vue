@@ -103,6 +103,7 @@
                       :size="['sm', 'md', 'lg', 'xl'][reactiveFormSchema.theme.buttons.size - 1]"
                       :icon="page.buttonIcon"
                       :style="buttonStyle"
+                      :loading="buttonLoading"
                       @click="buttonClicked"
                       class="ty-submit-btn"
                   >
@@ -163,6 +164,7 @@ export default defineComponent({
     const formComp = ref(null)
     const currentPage = ref(0);
     const mainPage = ref(null);
+    const buttonLoading = ref(false)
     const reactiveFormSchema = computed(() => props.formSchema)
     watch(
         // maintain formData fields to match the schema
@@ -328,6 +330,7 @@ export default defineComponent({
       } else {
         //last page
         //todo: validate()
+        buttonLoading.value = true
         const res = await fetch(reactiveFormSchema.value.form.actionUrl,
         {
           method: 'POST',
@@ -338,6 +341,7 @@ export default defineComponent({
           mode: 'cors'
         })
         const json = await res.json()
+        buttonLoading.value = false
         console.log('response', json)
         $q.notify({
           progress: true,
@@ -374,6 +378,7 @@ export default defineComponent({
       coverHeight,
       coverWrapperClasses,
       buttonStyle,
+      buttonLoading,
       buttonClicked,
       formComp,
       reactiveFormData,
