@@ -6,6 +6,7 @@
       :outlined = "formSchema.theme.inputs.style==='full'"
       :borderless = "formSchema.theme.inputs.borderless"
       :stack-label = "formSchema.theme.inputs.labelStyle==='stacked'"
+      :input-style = "inputStyle"
       :dense = "formSchema.theme.inputs.dense"
       :clearable = "behavior.clearable"
       :hint = "hint"
@@ -72,21 +73,19 @@ export default {
     const labelStyle = computed(() => {
       return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     })
-    // const valueUpdated = (val) => {
-    //   formData[props.name] = val
-    // }
+    const inputStyle = computed(() => {
+      return {color: formSchema.value.theme.inputs.textColor ? formSchema.value.theme.inputs.textColor : undefined}
+    })
     const id = computed(() => {
       return props.type + '_' + props.name
     });
-    // const onUpdate = (evt) => {
-    //   emit('update:modelValue', evt)
-    // }
     return {
       formSchema,
       labelStyle,
       id,
       // value,
       modelValueRef,
+      inputStyle,
       // valueUpdated,
       // onUpdate
     }

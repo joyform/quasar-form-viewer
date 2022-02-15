@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="ty-select">
     <label :for="id" v-if="formSchema.theme.inputs.labelStyle==='top'" :style="labelStyle" class="ty-label ty-label-top">{{label}}</label>
     <q-select
       :label = "formSchema.theme.inputs.labelStyle !=='top' ? label : undefined"
       :outlined = "formSchema.theme.inputs.style==='full'"
       :borderless = "formSchema.theme.inputs.borderless"
       :stack-label = "formSchema.theme.inputs.labelStyle==='stacked'"
+      :input-style = "inputStyle"
       :dense = "formSchema.theme.inputs.dense"
       :clearable = "behavior.clearable"
       :hint = "hint"
@@ -65,6 +66,9 @@ export default {
     const labelStyle = computed(() => {
       return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     });
+    const inputStyle = computed(() => {
+      return {color: formSchema.value.theme.inputs.textColor ? formSchema.value.theme.inputs.textColor : undefined}
+    })
     const onUpdate = (evt) => {
       emit('update:modelValue', evt)
     }
@@ -72,6 +76,7 @@ export default {
       formSchema,
       labelStyle,
       id,
+      inputStyle,
       modelValueRef,
       onUpdate
     }

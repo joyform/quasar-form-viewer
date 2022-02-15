@@ -32,6 +32,7 @@ const formSchema = {
     "inputs": {
       "style": "full",
       "labelStyle": "top",
+      "textColor": "#ff0000",
       "labelSize": 4,
       "cornersRadius": 8,
       "fill": 100,
@@ -373,6 +374,26 @@ const formSchema = {
         "displayed": "on",
         "counter": "off",
         "multiple": true
+      }
+    }, {
+      "type": "select",
+      "name": "select",
+      "label": "Please choose",
+      "hint": "",
+      "placeholder": "",
+      "validations": {"format": "anything"},
+      "options": [{"label": "Option 1", "value": "option1"}, {
+        "label": "Option 2",
+        "value": "option2"
+      }, {"label": "Option 3", "value": "option3"}],
+      "behavior": {
+        "readOnly": "off",
+        "required": "off",
+        "clearable": "on",
+        "disabled": "off",
+        "displayed": "on",
+        "counter": "off",
+        "multiple": false
       }
     }, {
       "type": "toggle",
