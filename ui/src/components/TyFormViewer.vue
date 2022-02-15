@@ -156,7 +156,8 @@ export default defineComponent({
       default: () => ({})
     },
     embedded: Boolean,
-    mobileView: Boolean
+    mobileView: Boolean,
+    demo: Boolean
   },
   setup (props) {
     const $q = useQuasar()
@@ -234,7 +235,8 @@ export default defineComponent({
       maxHeight: horizontal.value && reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight + 'px' : undefined,
       borderRadius: cardRadius.value + 'px',
       border: reactiveFormSchema.value.theme.card.border ? `${reactiveFormSchema.value.theme.card.border.width}px solid ${reactiveFormSchema.value.theme.card.border.color}` : 0,
-      overflow: 'hidden'
+      overflow: 'hidden',
+      alignSelf: 'center'
     }))
     const cardClasses = computed(() => {
       const classes = []
@@ -331,25 +333,33 @@ export default defineComponent({
         //last page
         //todo: validate()
         buttonLoading.value = true
-        const res = await fetch(reactiveFormSchema.value.form.actionUrl,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(reactiveFormData),
-          mode: 'cors'
-        })
-        const json = await res.json()
+        if (props.demo) {
+          function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+          }
+          await delay(1000);
+        } else {
+          const res = await fetch(reactiveFormSchema.value.form.actionUrl,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reactiveFormData),
+                mode: 'cors'
+              })
+          const json = await res.json()
+          console.log('response', json)
+        }
         buttonLoading.value = false
-        console.log('response', json)
+        const message = props.demo ? 'This is a preview. Form was not really submitted. But it was successful' : 'The form has been submitted successfully'
         $q.notify({
           progress: true,
           type: 'positive',
           position: 'center',
           multiLine: true,
           icon: 'thumb_up',
-          message: 'The form has been submitted successfully'
+          message
         })
         //todo: move to thankyou page, show validation errors
       }

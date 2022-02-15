@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.63
+ * quasar-ui-tyformviewer v0.1.66
  * (c) 2022 dan@typefully.io
  * Released under the MIT License.
  */
@@ -114,7 +114,8 @@
         default: () => ({})
       },
       embedded: Boolean,
-      mobileView: Boolean
+      mobileView: Boolean,
+      demo: Boolean
     },
     setup (props) {
       const $q = quasar.useQuasar();
@@ -122,6 +123,7 @@
       const formComp = vue.ref(null);
       const currentPage = vue.ref(0);
       const mainPage = vue.ref(null);
+      const buttonLoading = vue.ref(false);
       const reactiveFormSchema = vue.computed(() => props.formSchema);
       vue.watch(
           // maintain formData fields to match the schema
@@ -191,7 +193,8 @@
         maxHeight: horizontal.value && reactiveFormSchema.value.theme.card.maxHeight ? reactiveFormSchema.value.theme.card.maxHeight + 'px' : undefined,
         borderRadius: cardRadius.value + 'px',
         border: reactiveFormSchema.value.theme.card.border ? `${reactiveFormSchema.value.theme.card.border.width}px solid ${reactiveFormSchema.value.theme.card.border.color}` : 0,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        alignSelf: 'center'
       }));
       const cardClasses = vue.computed(() => {
         const classes = [];
@@ -287,24 +290,34 @@
         } else {
           //last page
           //todo: validate()
-          const res = await fetch(reactiveFormSchema.value.form.actionUrl,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(reactiveFormData),
-            mode: 'cors'
-          });
-          const json = await res.json();
-          console.log('response', json);
+          buttonLoading.value = true;
+          if (props.demo) {
+            function delay(ms) {
+              return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            await delay(1000);
+          } else {
+            const res = await fetch(reactiveFormSchema.value.form.actionUrl,
+                {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(reactiveFormData),
+                  mode: 'cors'
+                });
+            const json = await res.json();
+            console.log('response', json);
+          }
+          buttonLoading.value = false;
+          const message = props.demo ? 'This is a preview. Form was not really submitted. But it was successful' : 'The form has been submitted successfully';
           $q.notify({
             progress: true,
             type: 'positive',
             position: 'center',
             multiLine: true,
             icon: 'thumb_up',
-            message: 'The form has been submitted successfully'
+            message
           });
           //todo: move to thankyou page, show validation errors
         }
@@ -333,6 +346,7 @@
         coverHeight,
         coverWrapperClasses,
         buttonStyle,
+        buttonLoading,
         buttonClicked,
         formComp,
         reactiveFormData,
@@ -499,8 +513,9 @@
                                         size: ['sm', 'md', 'lg', 'xl'][_ctx.reactiveFormSchema.theme.buttons.size - 1],
                                         icon: page.buttonIcon,
                                         style: vue.normalizeStyle(_ctx.buttonStyle),
+                                        loading: _ctx.buttonLoading,
                                         onClick: _ctx.buttonClicked
-                                      }, null, 8, ["label", "class", "size", "icon", "style", "onClick"]),
+                                      }, null, 8, ["label", "class", "size", "icon", "style", "loading", "onClick"]),
                                       (_ctx.currentPage > 0)
                                         ? (vue.openBlock(), vue.createBlock(_component_q_btn, {
                                             key: 0,
@@ -545,7 +560,7 @@
   script$a.render = render$9;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.63";
+  var version$1 = "0.1.66";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";
