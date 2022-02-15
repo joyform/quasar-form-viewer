@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.66
+ * quasar-ui-tyformviewer v0.1.68
  * (c) 2022 dan@typefully.io
  * Released under the MIT License.
  */
@@ -360,7 +360,7 @@
     ref: "mainPage",
     style: {"z-index":"5","bottom":"0","top":"0","right":"0","left":"0"}
   };
-  const _hoisted_2$2 = {
+  const _hoisted_2$3 = {
     key: 0,
     class: "absolute-bottom q-pa-sm text-white",
     style: {"background-color":"#00000088"}
@@ -403,7 +403,10 @@
     return (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
       (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent("style"), null, {
         default: vue.withCtx(() => [
-          vue.createTextVNode(" .q-field--outlined .q-field__control { border-radius: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.cornersRadius) + "px; } .q-field--outlined .q-field__control { background-color: rgba(" + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill < 0 ? '0,0,0' : '255,255,255') + "," + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill/100*(_ctx.reactiveFormSchema.theme.inputs.fill<0?-1:1)) + "); } .ty-signature canvas { border-radius: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.cornersRadius) + "px; border: 1px solid #c2c2c2; background-color: #fff; } .min-height-100p { min-height: 100%; } .full-height-100vh { min-height:100vh; } .ty-submit-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.textColor || '#000000') + " } .ty-back-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.backTextColor || '#000000') + " } .ty-rating .q-rating .q-rating__icon-container { margin-right: 10px } ", 1)
+          vue.createTextVNode(" .q-field--outlined .q-field__control { border-radius: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.cornersRadius) + "px; } .q-field--outlined .q-field__control { background-color: rgba(" + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill < 0 ? '0,0,0' : '255,255,255') + "," + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill/100*(_ctx.reactiveFormSchema.theme.inputs.fill<0?-1:1)) + "); } .ty-signature canvas { border-radius: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.cornersRadius) + "px; border: 1px solid #c2c2c2; background-color: #fff; } " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.textColor ?
+        `.ty-select .q-field__inner .q-field__native {
+        color: ${_ctx.reactiveFormSchema.theme.inputs.textColor};
+      }` : '') + " .ty-select .q-field__inner .q-field__native { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.textColor) + "; } .min-height-100p { min-height: 100%; } .full-height-100vh { min-height:100vh; } .ty-submit-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.textColor || '#000000') + " } .ty-back-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.backTextColor || '#000000') + " } .ty-rating .q-rating .q-rating__icon-container { margin-right: 10px } ", 1)
         ]),
         _: 1
       })),
@@ -456,7 +459,7 @@
                                   }, {
                                     default: vue.withCtx(() => [
                                       (page.header || page.subHeader)
-                                        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$2, [
+                                        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$3, [
                                             (page.header)
                                               ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$1, vue.toDisplayString(page.header), 1))
                                               : vue.createCommentVNode("", true),
@@ -560,7 +563,7 @@
   script$a.render = render$9;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.66";
+  var version$1 = "0.1.68";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";
@@ -684,21 +687,19 @@
       const labelStyle = vue.computed(() => {
         return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
       });
-      // const valueUpdated = (val) => {
-      //   formData[props.name] = val
-      // }
+      const inputStyle = vue.computed(() => {
+        return {color: formSchema.value.theme.inputs.textColor ? formSchema.value.theme.inputs.textColor : undefined}
+      });
       const id = vue.computed(() => {
         return props.type + '_' + props.name
       });
-      // const onUpdate = (evt) => {
-      //   emit('update:modelValue', evt)
-      // }
       return {
         formSchema,
         labelStyle,
         id,
         // value,
         modelValueRef,
+        inputStyle,
         // valueUpdated,
         // onUpdate
       }
@@ -724,6 +725,8 @@
         outlined: $setup.formSchema.theme.inputs.style==='full',
         borderless: $setup.formSchema.theme.inputs.borderless,
         "stack-label": $setup.formSchema.theme.inputs.labelStyle==='stacked',
+        "input-style": $setup.inputStyle,
+        dark: $setup.formSchema.theme.inputs.darkMode,
         dense: $setup.formSchema.theme.inputs.dense,
         clearable: $props.behavior.clearable,
         hint: $props.hint,
@@ -744,7 +747,7 @@
           vue.renderSlot(_ctx.$slots, "append")
         ]),
         _: 3
-      }, 8, ["label", "outlined", "borderless", "stack-label", "dense", "clearable", "hint", "counter", "placeholder", "for", "name", "readonly", "disable", "type", "mask", "fill-mask", "modelValue"])
+      }, 8, ["label", "outlined", "borderless", "stack-label", "input-style", "dark", "dense", "clearable", "hint", "counter", "placeholder", "for", "name", "readonly", "disable", "type", "mask", "fill-mask", "modelValue"])
     ]))
   }
 
@@ -790,6 +793,9 @@
       const labelStyle = vue.computed(() => {
         return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
       });
+      const inputStyle = vue.computed(() => {
+        return {color: formSchema.value.theme.inputs.textColor ? formSchema.value.theme.inputs.textColor : undefined}
+      });
       const onUpdate = (evt) => {
         emit('update:modelValue', evt);
       };
@@ -797,32 +803,36 @@
         formSchema,
         labelStyle,
         id,
+        inputStyle,
         modelValueRef,
         onUpdate
       }
     }
   };
 
-  const _hoisted_1$7 = ["for"];
+  const _hoisted_1$7 = { class: "ty-select" };
+  const _hoisted_2$2 = ["for"];
 
   function render$7(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_q_select = vue.resolveComponent("q-select");
 
-    return (vue.openBlock(), vue.createElementBlock("div", null, [
+    return (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$7, [
       ($setup.formSchema.theme.inputs.labelStyle==='top')
         ? (vue.openBlock(), vue.createElementBlock("label", {
             key: 0,
             for: $setup.id,
             style: vue.normalizeStyle($setup.labelStyle),
             class: "ty-label ty-label-top"
-          }, vue.toDisplayString($props.label), 13, _hoisted_1$7))
+          }, vue.toDisplayString($props.label), 13, _hoisted_2$2))
         : vue.createCommentVNode("", true),
       vue.createVNode(_component_q_select, {
         label: $setup.formSchema.theme.inputs.labelStyle !=='top' ? $props.label : undefined,
         outlined: $setup.formSchema.theme.inputs.style==='full',
         borderless: $setup.formSchema.theme.inputs.borderless,
         "stack-label": $setup.formSchema.theme.inputs.labelStyle==='stacked',
+        "input-style": $setup.inputStyle,
         dense: $setup.formSchema.theme.inputs.dense,
+        dark: $setup.formSchema.theme.inputs.darkMode,
         clearable: $props.behavior.clearable,
         hint: $props.hint,
         counter: $props.behavior.counter,
@@ -840,7 +850,7 @@
         "use-chips": $props.behavior.multiple,
         name: $props.name,
         class: "ty-select"
-      }, null, 8, ["label", "outlined", "borderless", "stack-label", "dense", "clearable", "hint", "counter", "placeholder", "for", "readonly", "disable", "modelValue", "onUpdate:modelValue", "options", "multiple", "use-chips", "name"])
+      }, null, 8, ["label", "outlined", "borderless", "stack-label", "input-style", "dense", "dark", "clearable", "hint", "counter", "placeholder", "for", "readonly", "disable", "modelValue", "onUpdate:modelValue", "options", "multiple", "use-chips", "name"])
     ]))
   }
 

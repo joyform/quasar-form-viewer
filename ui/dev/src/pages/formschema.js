@@ -32,11 +32,11 @@ const formSchema = {
     "inputs": {
       "style": "full",
       "labelStyle": "top",
-      "textColor": "#ff0000",
       "labelSize": 4,
       "cornersRadius": 8,
-      "fill": 100,
-      "dense": false
+      "fill": -90,
+      "dense": false,
+      "darkMode": true
     },
     "buttons": {
       "border": {"color": "#303030", "width": 1},

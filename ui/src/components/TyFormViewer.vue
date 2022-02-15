@@ -11,6 +11,11 @@
       border: 1px solid #c2c2c2;
       background-color: #fff;
     }
+    {{reactiveFormSchema.theme.inputs.textColor ?
+      `.ty-select .q-field__inner .q-field__native {
+        color: ${reactiveFormSchema.theme.inputs.textColor};
+      }` : ''
+    }}
     .ty-select .q-field__inner .q-field__native {
       color: {{reactiveFormSchema.theme.inputs.textColor}};
     }

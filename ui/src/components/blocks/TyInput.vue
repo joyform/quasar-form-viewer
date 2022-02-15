@@ -7,6 +7,7 @@
       :borderless = "formSchema.theme.inputs.borderless"
       :stack-label = "formSchema.theme.inputs.labelStyle==='stacked'"
       :input-style = "inputStyle"
+      :dark = "formSchema.theme.inputs.darkMode"
       :dense = "formSchema.theme.inputs.dense"
       :clearable = "behavior.clearable"
       :hint = "hint"
