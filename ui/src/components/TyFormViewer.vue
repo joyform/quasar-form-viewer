@@ -16,6 +16,10 @@
         color: ${reactiveFormSchema.theme.inputs.textColor};
       }` : ''
     }}
+    .ty-label {
+      font-size: {{(100 + reactiveFormSchema.theme.inputs.labelSize)/100}}em;
+      color: {{reactiveFormSchema.theme.inputs.labelTextColor || '#000'}};
+    }
     .ty-select .q-field__inner .q-field__native {
       color: {{reactiveFormSchema.theme.inputs.textColor}};
     }

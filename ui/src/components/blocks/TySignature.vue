@@ -1,6 +1,6 @@
 <template>
   <div class="ty-signature">
-    <label :style="labelStyle" class="ty-label ty-label-top">{{label}}</label>
+    <label class="ty-label ty-label-top">{{label}}</label>
     <div class="text-caption q-ml-sm text-grey-8" v-if="!!hint">{{hint}}</div>
     <vue-signature
         ref="signaturePad"
@@ -61,9 +61,6 @@ export default {
   },
   setup (props, {emit}) {
     const formSchema = inject('formSchema');
-    const labelStyle = computed(() => {
-      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
-    })
     const id = computed(() => {
       return props.type + '_' + props.name
     });
@@ -90,7 +87,6 @@ export default {
       clear,
       onUpdate,
       signaturePad,
-      labelStyle,
       id,
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="col ty-rating">
-    <label :style="labelStyle" class="ty-label ty-label-top" style="display: block">{{label}}</label>
+    <label class="ty-label ty-label-top" style="display: block">{{label}}</label>
     <q-rating
         :name = "name"
         :readonly = "behavior.readOnly"
@@ -76,9 +76,6 @@ export default {
       set: val => {
         emit('update:modelValue', val)
       }
-    })
-    const labelStyle = computed(() => {
-      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
     })
     const id = computed(() => {
       return props.type + '_' + props.name
@@ -157,7 +154,6 @@ export default {
       }[props.shape || 'star']
     })
     return {
-      labelStyle,
       id,
       modelValueComputed,
       sizeComputed,

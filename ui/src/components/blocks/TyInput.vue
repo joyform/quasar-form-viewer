@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :for="id" v-if="formSchema.theme.inputs.labelStyle==='top'" :style="labelStyle" class="ty-label ty-label-top">{{label}}</label>
+    <label :for="id" v-if="formSchema.theme.inputs.labelStyle==='top'" class="ty-label ty-label-top">{{label}}</label>
     <q-input
       :label = "formSchema.theme.inputs.labelStyle !=='top' ? label : undefined"
       :outlined = "formSchema.theme.inputs.style==='full'"
@@ -71,9 +71,6 @@ export default {
       set: (val) => {emit('update:modelValue', val)}
     })
     // const value = ref(formData[props.name]);
-    const labelStyle = computed(() => {
-      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
-    })
     const inputStyle = computed(() => {
       return {color: formSchema.value.theme.inputs.textColor ? formSchema.value.theme.inputs.textColor : undefined}
     })
@@ -82,7 +79,6 @@ export default {
     });
     return {
       formSchema,
-      labelStyle,
       id,
       // value,
       modelValueRef,

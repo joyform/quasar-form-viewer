@@ -33,6 +33,7 @@ const formSchema = {
       "style": "full",
       "labelStyle": "top",
       "labelSize": 4,
+      "labelTextColor": "#ff0000",
       "cornersRadius": 8,
       "fill": -90,
       "dense": false,

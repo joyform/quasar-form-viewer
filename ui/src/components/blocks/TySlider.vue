@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :style="labelStyle" class="ty-label ty-label-top">{{label}}</label>
+    <label class="ty-label ty-label-top">{{label}}</label>
       <component
         :is="componentType"
         :name = "name"
@@ -104,10 +104,6 @@ export default {
         emit('update:modelValue', val)
       }
     })
-    const labelStyle = computed(() => {
-
-      return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
-    })
     const id = computed(() => {
       return props.type + '_' + props.name
     });
@@ -122,7 +118,6 @@ export default {
     return {
       componentType,
       formSchema,
-      labelStyle,
       id,
       modelValueRef,
     }
