@@ -10,7 +10,7 @@
       :inline = "inline"
       v-model = "modelValueRef"
       @update:model-value = "onUpdate"
-      :options = "options"
+      :options = "optionList"
     >
     </q-option-group>
     <div class="text-caption q-ml-sm text-grey-8" v-if="!!hint">{{hint}}</div>
@@ -64,11 +64,15 @@ export default {
     if (modelValueRef.value === null && props.type!=='radio') {
       modelValueRef.value = []
     }
+    const optionList = computed(() => {
+      return props.options.map(o => ({label:o.label, value:o.value || o.label}))
+    })
     const onUpdate = (evt) => {
       emit('update:modelValue', evt)
     }
     return {
       modelValueRef,
+      optionList,
       onUpdate
     }
   }

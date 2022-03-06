@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.68
+ * quasar-ui-tyformviewer v0.1.71
  * (c) 2022 dan@typefully.io
  * Released under the MIT License.
  */
@@ -360,12 +360,12 @@
     ref: "mainPage",
     style: {"z-index":"5","bottom":"0","top":"0","right":"0","left":"0"}
   };
-  const _hoisted_2$3 = {
+  const _hoisted_2$5 = {
     key: 0,
     class: "absolute-bottom q-pa-sm text-white",
     style: {"background-color":"#00000088"}
   };
-  const _hoisted_3$1 = {
+  const _hoisted_3$2 = {
     key: 0,
     class: "text-h6"
   };
@@ -377,7 +377,7 @@
     key: 1,
     class: "q-pa-md"
   };
-  const _hoisted_6 = {
+  const _hoisted_6$1 = {
     key: 0,
     class: "text-h6"
   };
@@ -406,7 +406,7 @@
           vue.createTextVNode(" .q-field--outlined .q-field__control { border-radius: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.cornersRadius) + "px; } .q-field--outlined .q-field__control { background-color: rgba(" + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill < 0 ? '0,0,0' : '255,255,255') + "," + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.fill/100*(_ctx.reactiveFormSchema.theme.inputs.fill<0?-1:1)) + "); } .ty-signature canvas { border-radius: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.cornersRadius) + "px; border: 1px solid #c2c2c2; background-color: #fff; } " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.textColor ?
         `.ty-select .q-field__inner .q-field__native {
         color: ${_ctx.reactiveFormSchema.theme.inputs.textColor};
-      }` : '') + " .ty-select .q-field__inner .q-field__native { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.textColor) + "; } .min-height-100p { min-height: 100%; } .full-height-100vh { min-height:100vh; } .ty-submit-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.textColor || '#000000') + " } .ty-back-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.backTextColor || '#000000') + " } .ty-rating .q-rating .q-rating__icon-container { margin-right: 10px } ", 1)
+      }` : '') + " .ty-label { font-size: " + vue.toDisplayString((100 + _ctx.reactiveFormSchema.theme.inputs.labelSize)/100) + "em; color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.labelTextColor || '#000') + "; } .ty-select .q-field__inner .q-field__native { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.inputs.textColor) + "; } .min-height-100p { min-height: 100%; } .full-height-100vh { min-height:100vh; } .ty-submit-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.textColor || '#000000') + " } .ty-back-btn { color: " + vue.toDisplayString(_ctx.reactiveFormSchema.theme.buttons.backTextColor || '#000000') + " } .ty-rating .q-rating .q-rating__icon-container { margin-right: 10px } ", 1)
         ]),
         _: 1
       })),
@@ -459,9 +459,9 @@
                                   }, {
                                     default: vue.withCtx(() => [
                                       (page.header || page.subHeader)
-                                        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$3, [
+                                        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$5, [
                                             (page.header)
-                                              ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$1, vue.toDisplayString(page.header), 1))
+                                              ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$2, vue.toDisplayString(page.header), 1))
                                               : vue.createCommentVNode("", true),
                                             (page.subHeader)
                                               ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_4$1, vue.toDisplayString(page.subHeader), 1))
@@ -475,7 +475,7 @@
                               (!_ctx.showCover && (page.header || page.subHeader))
                                 ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_5$1, [
                                     (page.header)
-                                      ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_6, vue.toDisplayString(page.header), 1))
+                                      ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_6$1, vue.toDisplayString(page.header), 1))
                                       : vue.createCommentVNode("", true),
                                     (page.subHeader)
                                       ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_7, vue.toDisplayString(page.subHeader), 1))
@@ -563,7 +563,7 @@
   script$a.render = render$9;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.68";
+  var version$1 = "0.1.71";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";
@@ -684,9 +684,6 @@
         set: (val) => {emit('update:modelValue', val);}
       });
       // const value = ref(formData[props.name]);
-      const labelStyle = vue.computed(() => {
-        return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
-      });
       const inputStyle = vue.computed(() => {
         return {color: formSchema.value.theme.inputs.textColor ? formSchema.value.theme.inputs.textColor : undefined}
       });
@@ -695,7 +692,6 @@
       });
       return {
         formSchema,
-        labelStyle,
         id,
         // value,
         modelValueRef,
@@ -716,9 +712,8 @@
         ? (vue.openBlock(), vue.createElementBlock("label", {
             key: 0,
             for: $setup.id,
-            style: vue.normalizeStyle($setup.labelStyle),
             class: "ty-label ty-label-top"
-          }, vue.toDisplayString($props.label), 13, _hoisted_1$8))
+          }, vue.toDisplayString($props.label), 9, _hoisted_1$8))
         : vue.createCommentVNode("", true),
       vue.createVNode(_component_q_input, {
         label: $setup.formSchema.theme.inputs.labelStyle !=='top' ? $props.label : undefined,
@@ -790,9 +785,6 @@
       const id = vue.computed(() => {
         return props.type + '_' + props.name
       });
-      const labelStyle = vue.computed(() => {
-        return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
-      });
       const inputStyle = vue.computed(() => {
         return {color: formSchema.value.theme.inputs.textColor ? formSchema.value.theme.inputs.textColor : undefined}
       });
@@ -801,7 +793,6 @@
       };
       return {
         formSchema,
-        labelStyle,
         id,
         inputStyle,
         modelValueRef,
@@ -811,7 +802,7 @@
   };
 
   const _hoisted_1$7 = { class: "ty-select" };
-  const _hoisted_2$2 = ["for"];
+  const _hoisted_2$4 = ["for"];
 
   function render$7(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_q_select = vue.resolveComponent("q-select");
@@ -821,9 +812,8 @@
         ? (vue.openBlock(), vue.createElementBlock("label", {
             key: 0,
             for: $setup.id,
-            style: vue.normalizeStyle($setup.labelStyle),
             class: "ty-label ty-label-top"
-          }, vue.toDisplayString($props.label), 13, _hoisted_2$2))
+          }, vue.toDisplayString($props.label), 9, _hoisted_2$4))
         : vue.createCommentVNode("", true),
       vue.createVNode(_component_q_select, {
         label: $setup.formSchema.theme.inputs.labelStyle !=='top' ? $props.label : undefined,
@@ -934,10 +924,6 @@
           emit('update:modelValue', val);
         }
       });
-      const labelStyle = vue.computed(() => {
-
-        return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
-      });
       const id = vue.computed(() => {
         return props.type + '_' + props.name
       });
@@ -952,24 +938,21 @@
       return {
         componentType,
         formSchema,
-        labelStyle,
         id,
         modelValueRef,
       }
     }
   };
 
-  const _hoisted_1$6 = {
+  const _hoisted_1$6 = { class: "ty-label ty-label-top" };
+  const _hoisted_2$3 = {
     key: 0,
     class: "text-caption q-ml-sm text-grey-8"
   };
 
   function render$6(_ctx, _cache, $props, $setup, $data, $options) {
     return (vue.openBlock(), vue.createElementBlock("div", null, [
-      vue.createElementVNode("label", {
-        style: vue.normalizeStyle($setup.labelStyle),
-        class: "ty-label ty-label-top"
-      }, vue.toDisplayString($props.label), 5),
+      vue.createElementVNode("label", _hoisted_1$6, vue.toDisplayString($props.label), 1),
       (vue.openBlock(), vue.createBlock(vue.resolveDynamicComponent($setup.componentType), {
         name: $props.name,
         readonly: $props.behavior.readOnly,
@@ -990,7 +973,7 @@
         "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => (($setup.modelValueRef) = $event))
       }, null, 8, ["name", "readonly", "disable", "min", "max", "step", "reverse", "label", "label-always", "label-value", "left-label-value", "right-label-value", "snap", "markers", "modelValue"])),
       (!!$props.hint)
-        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$6, vue.toDisplayString($props.hint), 1))
+        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$3, vue.toDisplayString($props.hint), 1))
         : vue.createCommentVNode("", true)
     ]))
   }
@@ -1042,7 +1025,7 @@
       }
     },
     setup (props, {emit}) {
-      const formSchema = vue.inject('formSchema');
+      vue.inject('formSchema');
       const modelValueComputed = vue.computed({
         get: () => {
           if (props.modelValue === null || props.modelValue === undefined) {
@@ -1055,9 +1038,6 @@
         set: val => {
           emit('update:modelValue', val);
         }
-      });
-      const labelStyle = vue.computed(() => {
-        return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
       });
       const id = vue.computed(() => {
         return props.type + '_' + props.name
@@ -1136,7 +1116,6 @@
         }[props.shape || 'star']
       });
       return {
-        labelStyle,
         id,
         modelValueComputed,
         sizeComputed,
@@ -1147,7 +1126,11 @@
   };
 
   const _hoisted_1$5 = { class: "col ty-rating" };
-  const _hoisted_2$1 = {
+  const _hoisted_2$2 = {
+    class: "ty-label ty-label-top",
+    style: {"display":"block"}
+  };
+  const _hoisted_3$1 = {
     key: 0,
     class: "text-caption q-ml-sm text-grey-8"
   };
@@ -1156,10 +1139,7 @@
     const _component_q_rating = vue.resolveComponent("q-rating");
 
     return (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$5, [
-      vue.createElementVNode("label", {
-        style: vue.normalizeStyle([$setup.labelStyle, {"display":"block"}]),
-        class: "ty-label ty-label-top"
-      }, vue.toDisplayString($props.label), 5),
+      vue.createElementVNode("label", _hoisted_2$2, vue.toDisplayString($props.label), 1),
       vue.createVNode(_component_q_rating, {
         name: $props.name,
         readonly: $props.behavior.readOnly,
@@ -1174,7 +1154,7 @@
         max: $setup.maxComputed
       }, null, 8, ["name", "readonly", "disable", "modelValue", "size", "icon", "icon-selected", "no-dimming", "max"]),
       (!!$props.hint)
-        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$1, vue.toDisplayString($props.hint), 1))
+        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$1, vue.toDisplayString($props.hint), 1))
         : vue.createCommentVNode("", true)
     ]))
   }
@@ -1224,26 +1204,26 @@
     },
     emits: ['update:modelValue'],
     setup (props, {emit}) {
-      const formSchema = vue.inject('formSchema');
       const modelValueRef = vue.ref(props.modelValue);
       if (modelValueRef.value === null && props.type!=='radio') {
         modelValueRef.value = [];
       }
-      const labelStyle = vue.computed(() => {
-        return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
+      const optionList = vue.computed(() => {
+        return props.options.map(o => ({label:o.label, value:o.value || o.label}))
       });
       const onUpdate = (evt) => {
         emit('update:modelValue', evt);
       };
       return {
-        labelStyle,
         modelValueRef,
+        optionList,
         onUpdate
       }
     }
   };
 
-  const _hoisted_1$4 = {
+  const _hoisted_1$4 = { class: "ty-label ty-label-top" };
+  const _hoisted_2$1 = {
     key: 0,
     class: "text-caption q-ml-sm text-grey-8"
   };
@@ -1252,10 +1232,7 @@
     const _component_q_option_group = vue.resolveComponent("q-option-group");
 
     return (vue.openBlock(), vue.createElementBlock("div", null, [
-      vue.createElementVNode("label", {
-        style: vue.normalizeStyle($setup.labelStyle),
-        class: "ty-label ty-label-top"
-      }, vue.toDisplayString($props.label), 5),
+      vue.createElementVNode("label", _hoisted_1$4, vue.toDisplayString($props.label), 1),
       vue.createVNode(_component_q_option_group, {
         name: $props.name,
         type: $props.type,
@@ -1268,10 +1245,10 @@
           _cache[0] || (_cache[0] = $event => (($setup.modelValueRef) = $event)),
           $setup.onUpdate
         ],
-        options: $props.options
+        options: $setup.optionList
       }, null, 8, ["name", "type", "readonly", "disable", "left-label", "inline", "modelValue", "onUpdate:modelValue", "options"]),
       (!!$props.hint)
-        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$4, vue.toDisplayString($props.hint), 1))
+        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$1, vue.toDisplayString($props.hint), 1))
         : vue.createCommentVNode("", true)
     ]))
   }
@@ -1388,9 +1365,10 @@
       (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList($props.titles, (title, idx) => {
         return (vue.openBlock(), vue.createElementBlock("p", {
           key: title.size+'_'+idx,
-          class: vue.normalizeClass(['text-'+title.size||'h3', 'q-py-'+title.padding||'md', 'text-'+title.align||'left']),
+          class: vue.normalizeClass(['text-'+title.size||'h3', 'q-py-'+(title.padding||'md'), 'text-'+title.align||'left']),
+          style: vue.normalizeStyle({color:(title.color || '#000000')}),
           innerHTML: $setup.escape(title.text)
-        }, null, 10, _hoisted_1$2))
+        }, null, 14, _hoisted_1$2))
       }), 128))
     ]))
   }
@@ -2446,10 +2424,7 @@
       }
     },
     setup (props, {emit}) {
-      const formSchema = vue.inject('formSchema');
-      const labelStyle = vue.computed(() => {
-        return {fontSize: `${(100 + formSchema.value.theme.inputs.labelSize)/100}em`}
-      });
+      vue.inject('formSchema');
       const id = vue.computed(() => {
         return props.type + '_' + props.name
       });
@@ -2476,39 +2451,36 @@
         clear,
         onUpdate,
         signaturePad,
-        labelStyle,
         id,
       }
     }
   };
 
   const _hoisted_1 = { class: "ty-signature" };
-  const _hoisted_2 = {
+  const _hoisted_2 = { class: "ty-label ty-label-top" };
+  const _hoisted_3 = {
     key: 0,
     class: "text-caption q-ml-sm text-grey-8"
   };
-  const _hoisted_3 = { class: "buttons-wrapper q-mt-sm" };
-  const _hoisted_4 = /*#__PURE__*/vue.createTextVNode("Undo");
-  const _hoisted_5 = /*#__PURE__*/vue.createTextVNode("Clear");
+  const _hoisted_4 = { class: "buttons-wrapper q-mt-sm" };
+  const _hoisted_5 = /*#__PURE__*/vue.createTextVNode("Undo");
+  const _hoisted_6 = /*#__PURE__*/vue.createTextVNode("Clear");
 
   function render(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_vue_signature = vue.resolveComponent("vue-signature");
     const _component_q_btn = vue.resolveComponent("q-btn");
 
     return (vue.openBlock(), vue.createElementBlock("div", _hoisted_1, [
-      vue.createElementVNode("label", {
-        style: vue.normalizeStyle($setup.labelStyle),
-        class: "ty-label ty-label-top"
-      }, vue.toDisplayString($props.label), 5),
+      vue.createElementVNode("label", _hoisted_2, vue.toDisplayString($props.label), 1),
       (!!$props.hint)
-        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2, vue.toDisplayString($props.hint), 1))
+        ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3, vue.toDisplayString($props.hint), 1))
         : vue.createCommentVNode("", true),
       vue.createVNode(_component_vue_signature, {
         ref: "signaturePad",
         options: { onUpdate: $setup.onUpdate },
         height: "250px"
       }, null, 8, ["options"]),
-      vue.createElementVNode("div", _hoisted_3, [
+      vue.createElementVNode("div", _hoisted_4, [
         vue.createVNode(_component_q_btn, {
           unelevated: "",
           color: "grey-4",
@@ -2517,7 +2489,7 @@
           onClick: $setup.undo
         }, {
           default: vue.withCtx(() => [
-            _hoisted_4
+            _hoisted_5
           ]),
           _: 1
         }, 8, ["onClick"]),
@@ -2529,7 +2501,7 @@
           onClick: $setup.clear
         }, {
           default: vue.withCtx(() => [
-            _hoisted_5
+            _hoisted_6
           ]),
           _: 1
         }, 8, ["onClick"])

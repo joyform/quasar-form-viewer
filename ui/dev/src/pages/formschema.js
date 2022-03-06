@@ -127,7 +127,7 @@ const formSchema = {
       "name": "title1",
       "label": "",
       "titles": [
-        {"text":"Hello, how are you today?", "size":"h2", "align":"center"},
+        {"text":"Hello, how are you today?", "size":"h2", "align":"center", "color":"red"},
         {"text":"check it out", "size":"h5", "align":"left", "padding": "lg"},
         {"text":"this is\nmultiline", "size":"subtitle2", "align":"left"}
       ],

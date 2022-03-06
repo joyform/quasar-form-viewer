@@ -3,7 +3,8 @@
     <p
         v-for="(title, idx) in titles"
         :key="title.size+'_'+idx"
-        :class="['text-'+title.size||'h3', 'q-py-'+title.padding||'md', 'text-'+title.align||'left']"
+        :class="['text-'+title.size||'h3', 'q-py-'+(title.padding||'md'), 'text-'+title.align||'left']"
+        :style="{color:(title.color || '#000000')}"
         v-html="escape(title.text)"
     ></p>
   </div>
