@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-tyformviewer",
-  "version": "0.1.72",
+  "version": "0.1.75",
   "author": "dan@typefully.io",
   "description": "Form Viewer generator based on JSON config for typefully.io",
   "license": "MIT",
@@ -8,12 +8,12 @@
   "main": "dist/index.common.js",
   "scripts": {
     "deploy": "npm run build && npm version patch && npm publish && cd ../app-extension && npm version patch && npm publish",
-    "dev": "cd dev && yarn dev && cd ..",
-    "dev:umd": "yarn build && node build/script.open-umd.js",
-    "dev:ssr": "cd dev && yarn 'dev:ssr' && cd ..",
-    "dev:ios": "cd dev && yarn 'dev:ios' && cd ..",
-    "dev:android": "cd dev && yarn 'dev:android' && cd ..",
-    "dev:electron": "cd dev && yarn 'dev:electron' && cd ..",
+    "dev": "cd dev && npm run dev && cd ..",
+    "dev:umd": "npm run build && node build/script.open-umd.js",
+    "dev:ssr": "cd dev && npm run 'dev:ssr' && cd ..",
+    "dev:ios": "cd dev && npm run 'dev:ios' && cd ..",
+    "dev:android": "cd dev && npm run 'dev:android' && cd ..",
+    "dev:electron": "cd dev && npm run 'dev:electron' && cd ..",
     "build": "node build/index.js",
     "build:js": "node build/script.javascript.js"
   },

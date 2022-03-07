@@ -37,7 +37,8 @@ const formSchema = {
       "cornersRadius": 8,
       "fill": -90,
       "dense": false,
-      "darkMode": true
+      "darkMode": true,
+      "activeColor": "#00ff00"
     },
     "buttons": {
       "border": {"color": "#303030", "width": 1},

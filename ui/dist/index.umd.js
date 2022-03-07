@@ -1,5 +1,5 @@
 /*!
- * quasar-ui-tyformviewer v0.1.71
+ * quasar-ui-tyformviewer v0.1.74
  * (c) 2022 dan@typefully.io
  * Released under the MIT License.
  */
@@ -138,7 +138,7 @@
               });
             });
           },
-          {immediate:true}
+          {immediate:true, deep:true}
       );
       vue.provide('formSchema', reactiveFormSchema);
       const mobile = vue.computed(() => {
@@ -282,6 +282,19 @@
           border: reactiveFormSchema.value.theme.buttons.border ? `${reactiveFormSchema.value.theme.buttons.border.width}px solid ${reactiveFormSchema.value.theme.buttons.border.color}` : undefined
         }
       });
+      const activeColor = vue.computed(() => {
+        return reactiveFormSchema.value.theme.inputs.activeColor || '#1976d2'
+      });
+      vue.watch(
+        () => [activeColor.value, mainPage.value],
+        ([newActiveColor]) => {
+          if (!mainPage.value) {
+            return
+          }
+          quasar.setCssVar('primary', newActiveColor, mainPage.value);
+        },
+        {immediate:true}
+      );
       const buttonClicked = async () => {
         if (reactiveFormSchema.value.pages.length - 1 > currentPage.value) {
           //next
@@ -563,7 +576,7 @@
   script$a.render = render$9;
 
   var name = "quasar-ui-tyformviewer";
-  var version$1 = "0.1.71";
+  var version$1 = "0.1.74";
   var author = "dan@typefully.io";
   var description = "Form Viewer generator based on JSON config for typefully.io";
   var license = "MIT";
@@ -571,12 +584,12 @@
   var main = "dist/index.common.js";
   var scripts = {
   	deploy: "npm run build && npm version patch && npm publish && cd ../app-extension && npm version patch && npm publish",
-  	dev: "cd dev && yarn dev && cd ..",
-  	"dev:umd": "yarn build && node build/script.open-umd.js",
-  	"dev:ssr": "cd dev && yarn 'dev:ssr' && cd ..",
-  	"dev:ios": "cd dev && yarn 'dev:ios' && cd ..",
-  	"dev:android": "cd dev && yarn 'dev:android' && cd ..",
-  	"dev:electron": "cd dev && yarn 'dev:electron' && cd ..",
+  	dev: "cd dev && npm run dev && cd ..",
+  	"dev:umd": "npm run build && node build/script.open-umd.js",
+  	"dev:ssr": "cd dev && npm run 'dev:ssr' && cd ..",
+  	"dev:ios": "cd dev && npm run 'dev:ios' && cd ..",
+  	"dev:android": "cd dev && npm run 'dev:android' && cd ..",
+  	"dev:electron": "cd dev && npm run 'dev:electron' && cd ..",
   	build: "node build/index.js",
   	"build:js": "node build/script.javascript.js"
   };
@@ -991,7 +1004,7 @@
     },
     props: {
       type: {
-        type: String, /* slider */
+        type: String, /* rating */
         required: true
       },
       name: {
@@ -1109,8 +1122,8 @@
             noDimming: true
           },
           numeric: {
-            icon: ['mdi-number-1-box-outline'],
-            iconSelected: ['mdi-number-1-box'],
+            icon: ['mdi-numeric-1-box-outline'],
+            iconSelected: ['mdi-numeric-1-box'],
             noDimming: true
           },
         }[props.shape || 'star']

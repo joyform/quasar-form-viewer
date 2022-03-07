@@ -1,6 +1,6 @@
 {
   "name": "quasar-app-extension-tyformviewer",
-  "version": "0.1.72",
+  "version": "0.1.75",
   "description": "A Quasar App Extension",
   "author": "dan@typefully.io",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "bugs": "",
   "homepage": "",
   "dependencies": {
-    "quasar-ui-tyformviewer": "^0.1.71"
+    "quasar-ui-tyformviewer": "^0.1.74"
   },
   "engines": {
     "node": ">= 8.9.0",

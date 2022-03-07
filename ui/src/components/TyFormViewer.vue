@@ -40,7 +40,7 @@
     }
   </component>
   <div :class="{fullscreen: !embedded, 'fit':embedded}" :style="pageStyle" style="z-index: 1"></div>
-  <div class="ty-main-page fit relative-position absolute" ref="mainPage"  style="z-index:5; bottom:0;top:0;right:0;left:0;">
+  <div class="ty-main-page fit relative-position absolute" ref="mainPage" style="z-index:5; bottom:0;top:0;right:0;left:0;">
     <q-form
       :action="reactiveFormSchema.form.actionUrl"
       method="post"
@@ -151,7 +151,7 @@ import { defineComponent, ref, computed, provide, reactive, watch } from 'vue';
 // import schema from '../sample';
 import { openURL, QForm, QCard, QImg, QCardSection } from 'quasar';
 import Block from "./Block.vue";
-import { useQuasar } from 'quasar'
+import { useQuasar, setCssVar } from 'quasar'
 
 export default defineComponent({
   name: 'TyFormViewer',
@@ -192,7 +192,7 @@ export default defineComponent({
             })
           })
         },
-        {immediate:true}
+        {immediate:true, deep:true}
     )
     provide('formSchema', reactiveFormSchema);
     const mobile = computed(() => {
@@ -336,6 +336,19 @@ export default defineComponent({
         border: reactiveFormSchema.value.theme.buttons.border ? `${reactiveFormSchema.value.theme.buttons.border.width}px solid ${reactiveFormSchema.value.theme.buttons.border.color}` : undefined
       }
     })
+    const activeColor = computed(() => {
+      return reactiveFormSchema.value.theme.inputs.activeColor || '#1976d2'
+    })
+    watch(
+      () => [activeColor.value, mainPage.value],
+      ([newActiveColor]) => {
+        if (!mainPage.value) {
+          return
+        }
+        setCssVar('primary', newActiveColor, mainPage.value)
+      },
+      {immediate:true}
+    )
     const buttonClicked = async () => {
       if (reactiveFormSchema.value.pages.length - 1 > currentPage.value) {
         //next

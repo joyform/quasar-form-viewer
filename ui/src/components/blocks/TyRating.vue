@@ -29,7 +29,7 @@ export default {
   },
   props: {
     type: {
-      type: String, /* slider */
+      type: String, /* rating */
       required: true
     },
     name: {
@@ -147,8 +147,8 @@ export default {
           noDimming: true
         },
         numeric: {
-          icon: ['mdi-number-1-box-outline'],
-          iconSelected: ['mdi-number-1-box'],
+          icon: ['mdi-numeric-1-box-outline'],
+          iconSelected: ['mdi-numeric-1-box'],
           noDimming: true
         },
       }[props.shape || 'star']
