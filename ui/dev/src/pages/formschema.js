@@ -27,7 +27,8 @@ const formSchema = {
       "minHeight": 400,
       "cornersRadius": 11,
       "backgroundColor": "#e8f7ff",
-      "position": "center"
+      "position": "center",
+      "dark": false,
     },
     "inputs": {
       "style": "full",
@@ -35,7 +36,7 @@ const formSchema = {
       "labelSize": 4,
       "labelTextColor": "#ff0000",
       "cornersRadius": 8,
-      "fill": -90,
+      "fill": 90,
       "dense": false,
       "darkMode": true,
       "activeColor": "#00ff00"
@@ -75,7 +76,7 @@ const formSchema = {
       "type": "slider",
       "name": "slider",
       "label": "Slide it",
-      "hint": "",
+      "hint": "This is hint",
       "range": false,
       "placeholder": "",
       "validations": {"format": "anything"},
@@ -248,7 +249,7 @@ const formSchema = {
       "type": "signature",
       "name": "signature",
       "label": "Please sign",
-      "hint": "",
+      "hint": "You need to sign so we know who you are",
       "placeholder": "",
       "validations": {"format": "anything"},
       "behavior": {
@@ -361,7 +362,7 @@ const formSchema = {
       "type": "select",
       "name": "select",
       "label": "Please choose",
-      "hint": "",
+      "hint": "this is hint",
       "placeholder": "",
       "validations": {"format": "anything"},
       "options": [{"label": "Option 1", "value": "option1"}, {

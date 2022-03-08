@@ -10,7 +10,6 @@
       :dark = "formSchema.theme.inputs.darkMode"
       :dense = "formSchema.theme.inputs.dense"
       :clearable = "behavior.clearable"
-      :hint = "hint"
       :counter = "behavior.counter"
       :placeholder = "placeholder"
       :for = "id"
@@ -22,9 +21,13 @@
       :fill-mask="fillMask"
       v-model = "modelValueRef"
       class = "ty-input"
+      bottom-slots
     >
       <template v-slot:append>
         <slot name="append"></slot>
+      </template>
+      <template v-slot:hint>
+        <div :class="formSchema.theme.card.dark ?'text-white':'text-black'">{{hint}}</div>
       </template>
     </q-input>
   </div>

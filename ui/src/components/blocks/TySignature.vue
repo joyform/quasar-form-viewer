@@ -1,7 +1,7 @@
 <template>
   <div class="ty-signature">
     <label class="ty-label ty-label-top">{{label}}</label>
-    <div class="text-caption q-ml-sm text-grey-8" v-if="!!hint">{{hint}}</div>
+    <div :class="formSchema.theme.card.dark ?'text-white':'text-black'" class="text-caption q-ml-sm" v-if="!!hint">{{hint}}</div>
     <vue-signature
         ref="signaturePad"
         :options="{ onUpdate }"
@@ -88,6 +88,7 @@ export default {
       onUpdate,
       signaturePad,
       id,
+      formSchema
     }
   }
 }

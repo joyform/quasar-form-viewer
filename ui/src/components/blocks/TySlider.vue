@@ -19,9 +19,10 @@
         :markers = "markers"
         class="q-mt-lg"
         v-model = "modelValueRef"
+        :dark="formSchema.theme.card.dark"
       >
       </component>
-      <div class="text-caption q-ml-sm text-grey-8" v-if="!!hint">{{hint}}</div>
+      <div :class="formSchema.theme.card.dark ?'text-white':'text-black'" class="text-caption q-ml-sm" v-if="!!hint">{{hint}}</div>
   </div>
 
 </template>

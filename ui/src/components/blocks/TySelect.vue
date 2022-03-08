@@ -10,7 +10,6 @@
       :dense = "formSchema.theme.inputs.dense"
       :dark = "formSchema.theme.inputs.darkMode"
       :clearable = "behavior.clearable"
-      :hint = "hint"
       :counter = "behavior.counter"
       :placeholder = "placeholder"
       :for = "id"
@@ -23,7 +22,11 @@
       :use-chips = "behavior.multiple"
       :name = "name"
       class="ty-select"
+      bottom-slots
     >
+      <template v-slot:hint>
+        <div :class="formSchema.theme.card.dark ?'text-white':'text-black'">{{hint}}</div>
+      </template>
     </q-select>
   </div>
 

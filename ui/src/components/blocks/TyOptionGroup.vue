@@ -1,19 +1,22 @@
 <template>
   <div>
     <label class="ty-label ty-label-top">{{label}}</label>
-    <q-option-group
-      :name = "name"
-      :type = "type"
-      :readonly = "behavior.readOnly"
-      :disable = "behavior.disabled"
-      :left-label = "labelSide === 'left'"
-      :inline = "inline"
-      v-model = "modelValueRef"
-      @update:model-value = "onUpdate"
-      :options = "optionList"
-    >
-    </q-option-group>
-    <div class="text-caption q-ml-sm text-grey-8" v-if="!!hint">{{hint}}</div>
+    <div :class="formSchema.theme.card.dark ?'text-white':'text-black'">
+      <q-option-group
+          :name = "name"
+          :type = "type"
+          :readonly = "behavior.readOnly"
+          :disable = "behavior.disabled"
+          :left-label = "labelSide === 'left'"
+          :inline = "inline"
+          v-model = "modelValueRef"
+          @update:model-value = "onUpdate"
+          :options = "optionList"
+          :dark = "formSchema.theme.card.dark"
+      >
+      </q-option-group>
+      <div class="text-caption q-ml-sm" v-if="!!hint">{{hint}}</div>
+    </div>
 <!--    </q-field>-->
   </div>
 
@@ -60,6 +63,7 @@ export default {
   },
   emits: ['update:modelValue'],
   setup (props, {emit}) {
+    const formSchema = inject('formSchema');
     const modelValueRef = ref(props.modelValue)
     if (modelValueRef.value === null && props.type!=='radio') {
       modelValueRef.value = []
@@ -73,7 +77,8 @@ export default {
     return {
       modelValueRef,
       optionList,
-      onUpdate
+      onUpdate,
+      formSchema
     }
   }
 }
