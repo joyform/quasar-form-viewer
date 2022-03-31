@@ -22,7 +22,7 @@
         :dark="formSchema.theme.card.dark"
       >
       </component>
-      <div :class="formSchema.theme.card.dark ?'text-white':'text-black'" class="text-caption q-ml-sm" v-if="!!hint">{{hint}}</div>
+      <div :class="formSchema.theme.card.dark ?'text-white':'text-black'" class="ty-hint text-caption q-ml-sm" v-if="!!hint">{{hint}}</div>
   </div>
 
 </template>

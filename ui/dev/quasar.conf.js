@@ -50,6 +50,7 @@ module.exports = function (ctx) {
 
         chain.resolve.alias.merge({
           ui: path.resolve(__dirname, `../src/index.${ext}.js`)
+          // '@vue/composition-api/dist/vue-composition-api.mjs': 'vue'
         })
 
         chain.plugin('define-ui')

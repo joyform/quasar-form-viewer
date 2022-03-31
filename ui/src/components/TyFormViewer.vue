@@ -38,6 +38,9 @@
     .ty-rating .q-rating .q-rating__icon-container {
       margin-right: 10px
     }
+    .ty-hint {
+      font-size: 0.85rem
+    }
   </component>
   <div :class="{fullscreen: !embedded, 'fit':embedded}" :style="pageStyle" style="z-index: 1"></div>
   <div class="ty-main-page fit relative-position absolute" ref="mainPage" style="z-index:5; bottom:0;top:0;right:0;left:0;">
@@ -152,6 +155,7 @@ import { defineComponent, ref, computed, provide, reactive, watch } from 'vue';
 import { openURL, QForm, QCard, QImg, QCardSection } from 'quasar';
 import Block from "./Block.vue";
 import { useQuasar, setCssVar } from 'quasar'
+import { buildValidationRules } from '../utils/utils'
 
 export default defineComponent({
   name: 'TyFormViewer',
@@ -179,6 +183,7 @@ export default defineComponent({
     const mainPage = ref(null);
     const buttonLoading = ref(false)
     const reactiveFormSchema = computed(() => props.formSchema)
+    const reactiveValidationRules = ref(null)
     watch(
         // maintain formData fields to match the schema
         () => reactiveFormSchema,
@@ -191,6 +196,7 @@ export default defineComponent({
               }
             })
           })
+          reactiveValidationRules.value = buildValidationRules(reactiveFormData, reactiveFormSchema)
         },
         {immediate:true, deep:true}
     )

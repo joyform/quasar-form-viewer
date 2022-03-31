@@ -25,7 +25,7 @@
       bottom-slots
     >
       <template v-slot:hint>
-        <div :class="formSchema.theme.card.dark ?'text-white':'text-black'">{{hint}}</div>
+        <div class="ty-hint" :class="formSchema.theme.card.dark ?'text-white':'text-black'">{{hint}}</div>
       </template>
     </q-select>
   </div>

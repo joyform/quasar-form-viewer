@@ -1,0 +1,649 @@
+import { required, email, url, minLength, maxLength, minValue, maxValue } from '@vuelidate/validators'
+
+export function buildValidationRules(formData, formSchema) {
+  const rules = {}
+  formSchema.pages.forEach(page => {
+      page.blocks.forEach(block => {
+        if (block.name) {
+          rules[block.name] = makeRules (block.validations, block.behavior)
+        }
+      })
+  })
+  return rules
+}
+
+const makeRules = (validations, behavior) => {
+  const rules = {}
+  if (validations) {
+    if (validations.format) {
+      switch (validations.format) {
+        case 'email':
+          rules.email = email
+          break
+        case 'url':
+          rules.url = url
+          break
+      }
+    }
+    if (validations.minLength) {
+      rules.minLength = minLength(validations.minLength)
+    }
+    if (validations.maxLength) {
+      rules.maxLength = maxLength(validations.maxLength)
+    }
+    if (validations.min) {
+      rules.minValue = minValue(validations.min)
+    }
+    if (validations.max) {
+      rules.maxValue = maxValue(validations.max)
+    }
+  }
+  if (behavior) {
+    if (behavior.required === 'on') {
+      rules.required = required
+    }
+  }
+  return rules
+}
+
+
+/*
+
+
+const formData = {
+  "html": null,
+  "slider": null,
+  "email": null,
+  "title1": null,
+  "rating": null,
+  "date": null,
+  "address": null,
+  "tel": null,
+  "password": null,
+  "signature": null,
+  "text": null,
+  "textarea": null,
+  "url": null,
+  "number": null,
+  "checkbox": null,
+  "radio": null,
+  "select": null,
+  "toggle": null
+}
+
+
+
+
+const formSchema = {
+    "form": {},
+    "theme": {
+      "page": {
+        "backgroundColor": "#1e2e1c",
+        "backgroundType": "gradient",
+        "backgroundGradient": {
+          "position1": 0,
+          "direction": 7,
+          "type": "linear",
+          "color1": "#091E3A",
+          "color2": "#2F80ED",
+          "position2": 100
+        },
+        "backgroundImage": "https://imagedelivery.net/bAvmm2B6r9as3tUUrr0Q1g/fe16c69b-fa3e-4f04-d238-d3c464c49300/full"
+      },
+      "card": {
+        "border": {
+          "width": 0,
+          "color": "#707070"
+        },
+        "cover": {
+          "position": "top",
+          "maxHeight": 190,
+          "widthCols": 5
+        },
+        "shadow": 2,
+        "maxWidth": 800,
+        "maxHeight": 600,
+        "minHeight": 400,
+        "cornersRadius": 11,
+        "backgroundColor": "#e8f7ff",
+        "position": "center",
+        "dark": false
+      },
+      "inputs": {
+        "style": "full",
+        "labelStyle": "top",
+        "labelSize": 4,
+        "labelTextColor": "#ff0000",
+        "cornersRadius": 8,
+        "fill": 90,
+        "dense": false,
+        "darkMode": true,
+        "activeColor": "#00ff00"
+      },
+      "buttons": {
+        "border": {
+          "color": "#303030",
+          "width": 1
+        },
+        "size": 3,
+        "padding": 3,
+        "shadow": 2,
+        "backgroundColor": "#0051c9",
+        "cornersRadius": 7,
+        "textColor": "#ffffff",
+        "backTextColor": "#141c3d"
+      }
+    },
+    "pages": [
+      {
+        "type": "page",
+        "header": "",
+        "subHeader": "",
+        "buttonLabel": "Submit",
+        "name": "page1",
+        "cover": {
+          "backgroundColor": "#ffffff",
+          "backgroundImage": "https://via.placeholder.com/700x280.png?text=one+two+three+four+five+six+seven+eight+nine+ten",
+          "header": "page1",
+          "subHeader": ""
+        },
+        "backgroundColor": "#ffffff99",
+        "blocks": [
+          {
+            "type": "html",
+            "name": "html",
+            "label": "",
+            "html": "<h4>Hello</h4>",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "displayed": "on"
+            }
+          },
+          {
+            "type": "slider",
+            "name": "slider",
+            "label": "Slide it",
+            "hint": "This is hint",
+            "range": false,
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          }
+        ]
+      },
+      {
+        "type": "page",
+        "header": "",
+        "subHeader": "",
+        "buttonLabel": "Submit",
+        "name": "page1",
+        "cover": {
+          "backgroundColor": "#ffffff",
+          "backgroundImage": "https://via.placeholder.com/700x280.png?text=one+two+three+four+five+six+seven+eight+nine+ten",
+          "header": "page1",
+          "subHeader": ""
+        },
+        "backgroundColor": "#ffffff99",
+        "blocks": [
+          {
+            "type": "html",
+            "name": "html",
+            "label": "",
+            "html": "<h4>Hello</h4>",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "displayed": "on"
+            }
+          },
+          {
+            "type": "email",
+            "name": "email",
+            "label": "What is your eMail?",
+            "hint": "We hate spammers too, we will not spam you",
+            "placeholder": "john.doe@gmail.com",
+            "validations": {
+              "format": "email"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "on",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "title",
+            "name": "title1",
+            "label": "",
+            "titles": [
+              {
+                "text": "Hello, how are you today?",
+                "size": "h2",
+                "align": "center",
+                "color": "red"
+              },
+              {
+                "text": "check it out",
+                "size": "h5",
+                "align": "left",
+                "padding": "lg"
+              },
+              {
+                "text": "this is\nmultiline",
+                "size": "subtitle2",
+                "align": "left"
+              }
+            ],
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "displayed": "on"
+            }
+          },
+          {
+            "type": "slider",
+            "name": "slider",
+            "label": "Slide it",
+            "hint": "",
+            "range": false,
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "rating",
+            "name": "rating",
+            "label": "Please rate us",
+            "hint": "",
+            "shape": "gem",
+            "max": 5,
+            "size": "3em",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "date",
+            "name": "date",
+            "label": "Choose a date",
+            "hint": "",
+            "placeholder": "",
+            "range": true,
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "address",
+            "name": "address",
+            "label": "What is your address?",
+            "hint": "",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "email",
+            "name": "email",
+            "label": "What is your eMail?",
+            "hint": "We hate spammers too, we will not spam you",
+            "placeholder": "john.doe@gmail.com",
+            "validations": {
+              "format": "email"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "on",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "tel",
+            "name": "tel",
+            "label": "What is your phone number?",
+            "hint": "",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "password",
+            "name": "password",
+            "label": "Choose a password",
+            "hint": "Minimum 8 characters",
+            "placeholder": "",
+            "validations": {
+              "format": "anything",
+              "minLength": 8
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "on",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "on"
+            }
+          },
+          {
+            "type": "signature",
+            "name": "signature",
+            "label": "Please sign",
+            "hint": "You need to sign so we know who you are",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "text",
+            "name": "text",
+            "label": "Enter some text",
+            "hint": "",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "textarea",
+            "name": "textarea",
+            "label": "Tell us more",
+            "hint": "Maximum 1000 characters",
+            "placeholder": "",
+            "validations": {
+              "format": "anything",
+              "maxLength": 1000
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "on"
+            }
+          },
+          {
+            "type": "url",
+            "name": "url",
+            "label": "What is your website address?",
+            "hint": "",
+            "placeholder": "https://...",
+            "validations": {
+              "format": "url"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "number",
+            "name": "number",
+            "label": "Enter a number",
+            "hint": "",
+            "placeholder": "",
+            "validations": {
+              "format": "number"
+            },
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "checkbox",
+            "name": "checkbox",
+            "label": "Please choose some",
+            "hint": "",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "options": [
+              {
+                "label": "Option 1",
+                "value": "option1"
+              },
+              {
+                "label": "Option 2",
+                "value": "option2"
+              },
+              {
+                "label": "Option 3",
+                "value": "option3"
+              }
+            ],
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "radio",
+            "name": "radio",
+            "label": "Please choose one",
+            "hint": "",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "options": [
+              {
+                "label": "Option 1",
+                "value": "option1"
+              },
+              {
+                "label": "Option 2",
+                "value": "option2"
+              },
+              {
+                "label": "Option 3",
+                "value": "option3"
+              }
+            ],
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          },
+          {
+            "type": "select",
+            "name": "select",
+            "label": "Please choose",
+            "hint": "this is hint",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "options": [
+              {
+                "label": "Option 1",
+                "value": "option1"
+              },
+              {
+                "label": "Option 2",
+                "value": "option2"
+              },
+              {
+                "label": "Option 3",
+                "value": "option3"
+              }
+            ],
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off",
+              "multiple": true
+            }
+          },
+          {
+            "type": "select",
+            "name": "select",
+            "label": "Please choose",
+            "hint": "",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "options": [
+              {
+                "label": "Option 1",
+                "value": "option1"
+              },
+              {
+                "label": "Option 2",
+                "value": "option2"
+              },
+              {
+                "label": "Option 3",
+                "value": "option3"
+              }
+            ],
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "on",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off",
+              "multiple": false
+            }
+          },
+          {
+            "type": "toggle",
+            "name": "toggle",
+            "label": "Please choose some",
+            "hint": "",
+            "placeholder": "",
+            "validations": {
+              "format": "anything"
+            },
+            "options": [
+              {
+                "label": "Option 1",
+                "value": "option1"
+              },
+              {
+                "label": "Option 2",
+                "value": "option2"
+              },
+              {
+                "label": "Option 3",
+                "value": "option3"
+              }
+            ],
+            "behavior": {
+              "readOnly": "off",
+              "required": "off",
+              "clearable": "off",
+              "disabled": "off",
+              "displayed": "on",
+              "counter": "off"
+            }
+          }
+        ]
+      }
+    ]
+}
+*/
+

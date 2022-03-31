@@ -15,7 +15,7 @@
           :dark = "formSchema.theme.card.dark"
       >
       </q-option-group>
-      <div class="text-caption q-ml-sm" v-if="!!hint">{{hint}}</div>
+      <div class="text-caption q-ml-sm ty-hint" v-if="!!hint">{{hint}}</div>
     </div>
 <!--    </q-field>-->
   </div>
