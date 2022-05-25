@@ -43,7 +43,7 @@
     }
   </component>
   <div :class="{fullscreen: !embedded, 'fit':embedded}" :style="pageStyle" style="z-index: 1"></div>
-  <div class="ty-main-page fit relative-position absolute" ref="mainPage" style="z-index:5; bottom:0;top:0;right:0;left:0;">
+  <div class="ty-main-page fit relative-position" ref="mainPage" style="z-index:5; bottom:0;top:0;right:0;left:0;">
     <q-form
       :action="reactiveFormSchema.form.actionUrl"
       method="post"
